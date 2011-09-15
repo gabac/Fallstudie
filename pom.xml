@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ch.hsz-t</groupId>
+	<artifactId>mdp</artifactId>
+	<packaging>jar</packaging>
+
+	<name>MDP :: Maven Fallstudie</name>
+	<description><![CDATA[Maven Fallstudie]]></description>
+	<version>1.0.0</version>
+
+	<scm>
+		<connection>scm:git:git://github.com/gabac/Fallstudie</connection>
+		<url>scm:git:git://github.com/gabac/Fallstudie</url>
+	</scm>
+
+	<organization>
+		<name>HSZ-T</name>
+		<url>http://www.hsz-t.ch</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>gabac</id>
+			<name>Cyril Gabathuler</name>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>fabian</id>
+			<name>Fabian Vogler</name>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>raphirm</id>
+			<name>Raphael Marques</name>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>rogerbollmann</id>
+			<name>Roger Bollmann</name>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
+</project>
