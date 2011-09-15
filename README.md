@@ -16,6 +16,7 @@
 
 3.  Ready to start hacking
 
-4. Everyone who read this file, please entre you name below:
-   Roger.... =)…
-   Raphael... idiot
+4.  Everyone who read this file, please entre you name below:
+    - Roger.... =)…
+    - Raphael... idiot
+    - Fabian… huh?
