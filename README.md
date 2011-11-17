@@ -11,14 +11,10 @@
 2.  Run Maven installation
 
     ```
-    $ mvn install
+    $ mvn eclipse:eclipse
+
+3. Download Tomcat 7
     ```
 
-3.  Ready to start hacking
+4.  Ready to start hacking
 
-4.  Everyone who read this file, please entre you name below:
-    - Roger.... =)…
-    - Raphael... idiot
-    - Fabian… huh?
-    - Mal was usprobiere^^
-    - gigidi
