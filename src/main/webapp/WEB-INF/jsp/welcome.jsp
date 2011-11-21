@@ -6,8 +6,7 @@
 </head>
 
 <body>
-<h2><spring:message code="welcome.message"
-        text="Welcome to Court Reservation System" /></h2>
+<h2>New Social Network</h2>
 
 Today is <fmt:formatDate value="${today}" pattern="yyyy-MM-dd" />.
 </body>
