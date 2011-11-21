@@ -7,14 +7,18 @@
     ```
     $ git@github.com:gabac/Fallstudie.git
     ```
-
-2.  Run Maven installation
+2. 
+3.  Run Maven installation
 
     ```
     $ mvn eclipse:eclipse
 
-3. Download Tomcat 7
-    ```
 
-4.  Ready to start hacking
+4. Download Tomcat 7
+
+
+5. In eclipse add src/main to the classpath
+
+    ```
+6.  Ready to start hacking
 
