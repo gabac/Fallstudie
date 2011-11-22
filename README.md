@@ -23,3 +23,7 @@
 
 5.  Ready to start hacking
 
+
+## Project Documentation
+
+All documentation can be found in the [Wiki](https://github.com/gabac/Fallstudie/wiki).
