@@ -1,5 +1,6 @@
 package ch.hszt.mdp.web;
 
+import java.sql.Time;
 import java.util.Date;
 
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,7 @@ public class WelcomeController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String welcome(Model model) {
-		Date today = new Date();
+		Time today = new Time(System.currentTimeMillis());
 		model.addAttribute("today", today);
 
 		return "welcome";
