@@ -15,7 +15,7 @@ public class WelcomeController {
 	public String welcome(Model model) {
 		
 		//how to get data into the jsp
-		Time today = new Time(System.currentTimeMillis());
+		Date today = new Date();
 		model.addAttribute("today", today);
 		
 		return "welcome";

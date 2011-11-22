@@ -16,7 +16,7 @@ public class WelcomeController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String welcome(Model model) {
-		Time today = new Time(System.currentTimeMillis());
+		Date today = new Date();
 		model.addAttribute("today", today);
 
 		return "welcome";
