@@ -11,8 +11,7 @@
 2.  Run Maven installation
 
     ```
-    $ mvn install
-    $ mvn eclipse:eclipse
+    $ mvn install eclipse:eclipse
     ```
 
 3. Download [Tomcat 7](http://tomcat.apache.org/download-70.cgi)
