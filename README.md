@@ -18,8 +18,10 @@
 3. Download [Tomcat 7](http://tomcat.apache.org/download-70.cgi)
 
 
-4. In eclipse add src/main to the classpath
-
+4. Adapt the output folder of the classpath src/test/java
+	```
+	target/classes
+	```
 
 5.  Ready to start hacking
 
