@@ -1,12 +1,13 @@
 <%@tag description="Layout Tag" pageEncoding="UTF-8"%>
-<%@attribute name="title" fragment="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@attribute name="title" required="true"%>
 <%@attribute name="header" fragment="true"%>
 <%@attribute name="footer" fragment="true"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title><jsp:invoke fragment="title" /></title>
+<title>${title}</title>
 <!-- Le styles -->
 <link href="/resources/bootstrap/bootstrap.css" rel="stylesheet">
 <link href="/resources/stylesheets/layout.css" rel="stylesheet">
@@ -26,7 +27,7 @@ body {
             <div class="container">
                 <a class="brand" href="#">Next Social Nextwork</a>
                 <p class="pull-right">
-                    Logged in as <a href="#">Fabian Vogler</a>
+                    <c:if test="${not empty pageContext.request.remoteUser}" scope="request" var="remoteUser">hello <a href="#"><c:out value="${pageContext.request.remoteUser}" /></a></c:if>
                 </p>
             </div>
         </div>

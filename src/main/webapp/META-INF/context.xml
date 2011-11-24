@@ -15,4 +15,17 @@
             removeAbandonedTimeout="300"
             logAbandoned="true"
     />
+    <Realm  
+            className="org.apache.catalina.realm.JDBCRealm"
+            digest="SHA1"
+            driverName="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://127.0.0.1:3306/socialnetwork" 
+            connectionName="root" 
+            connectionPassword="" 
+            userTable="users" 
+            userNameCol="email" 
+            userCredCol="password" 
+            userRoleTable="user_roles" 
+            roleNameCol="role" 
+    />
 </Context>
