@@ -76,7 +76,7 @@
         <auth-method>FORM</auth-method>
         <form-login-config>
             <form-login-page>/auth</form-login-page>
-            <form-error-page>/login/loginFailed.html</form-error-page>
+            <form-error-page>/auth/failed</form-error-page>
         </form-login-config>
     </login-config>
     <security-role>
