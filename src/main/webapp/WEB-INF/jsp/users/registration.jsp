@@ -1,7 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
-<t:layout>
-    <jsp:attribute name="title">Next Social Network</jsp:attribute>
+<t:layout title="Next Social Network">
     <jsp:body>
         <!-- Example row of columns -->
         <div class="page-header">
@@ -77,8 +76,7 @@
                   </div>
                   <div class="actions">
                     <input type="submit" class="btn primary"
-                                value="Register">&nbsp;<button
-                                type="reset" class="btn">Reset</button>
+                                value="Register">&nbsp;<a href="/" class="btn">Cancel</a>
                   </div>
                 </fieldset>
               </form>
