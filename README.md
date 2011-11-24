@@ -16,9 +16,11 @@
 
 3. Download [Tomcat 7](http://tomcat.apache.org/download-70.cgi)
 
-4. Download [MySQL Connector/J](http://dev.mysql.com/downloads/connector/j/) and copy it into <tomcat_dir>/lib
+4. Download [MySQL Connector/J](http://dev.mysql.com/downloads/connector/j/) and copy `mysql-connector-java-*.jar` into `<tomcat_dir>/lib`
 
-5. Ready to start hacking
+5. Create a database `socialnetwork` and execute the file `sql/create.sql`
+
+6. Ready to start hacking
 
 
 ## Project Documentation
