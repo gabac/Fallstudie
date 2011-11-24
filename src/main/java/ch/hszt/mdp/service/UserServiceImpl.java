@@ -26,4 +26,7 @@ public class UserServiceImpl implements UserService {
 		this.userDao = userDao;
 	}
 
+	public void create(User user) {
+		userDao.save(user);
+	}
 }

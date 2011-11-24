@@ -12,11 +12,11 @@ import ch.hszt.mdp.dao.UserDao;
 import ch.hszt.mdp.domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:mdp-test-daos.xml"})
+@ContextConfiguration(locations = { "classpath:mdp-test-daos.xml" })
 public class UserServiceTest {
-	
+
 	// this instance will be dependency injected by type
-    private UserDao userDao;
+	private UserDao userDao;
 
     @Autowired
     public void setTitleDao(UserDao userDao) {

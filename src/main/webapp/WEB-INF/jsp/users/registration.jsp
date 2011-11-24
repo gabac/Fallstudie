@@ -62,17 +62,17 @@
                     </div>
                   </div>
                   <div class="clearfix">
-                    <label for="password">Password</label>
+                    <form:label for="password" path="password" cssErrorClass="error">Password</form:label>
                     <div class="input">
-                      <input class="xlarge" id="password" name="password"
-                                    size="30" type="password" />
+                      <form:password path="password" cssClass="xlarge" cssErrorClass="xlarge error" />
+                      <span class="help-block error"><form:errors path="password" /></span>
                     </div>
                   </div>
                   <div class="clearfix">
-                    <label for="repeat">Repeat Password</label>
+                    <form:label for="repeat" path="repeat" cssErrorClass="error">Repeat Password</form:label>
                     <div class="input">
-                      <input class="xlarge" id="repeat" name="repeat"
-                                    size="30" type="password" />
+                      <form:password path="repeat" cssClass="xlarge" cssErrorClass="xlarge error" />
+                      <span class="help-block error"><form:errors path="repeat" /></span>
                     </div>
                   </div>
                   <div class="actions">

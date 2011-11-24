@@ -38,8 +38,9 @@ public class UsersController {
 			return "users/registration";
 		}
 
-		// save user
+		// create user
+		service.create(user);
 
-		return "users/registration";
+		return "redirect:/";
 	}
 }

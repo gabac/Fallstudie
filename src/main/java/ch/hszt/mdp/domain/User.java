@@ -1,9 +1,11 @@
 package ch.hszt.mdp.domain;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -24,11 +26,16 @@ public class User {
 	private String password;
 
 	@NotNull
-	@Size(min = 5, max = 255)
+	@Size(min = 1, max = 255)
+	@Transient
+	private String repeat;
+
+	@NotNull
+	@Size(min = 2, max = 255)
 	private String prename;
 
 	@NotNull
-	@Size(min = 5, max = 255)
+	@Size(min = 2, max = 255)
 	private String surname;
 
 	public User() {
@@ -64,6 +71,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRepeat() {
+		return repeat;
+	}
+
+	public void setRepeat(String repeat) {
+		this.repeat = repeat;
 	}
 
 	public String getPrename() {
