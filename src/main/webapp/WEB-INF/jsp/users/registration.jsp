@@ -1,6 +1,8 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <t:layout title="Next Social Network">
     <jsp:body>
         <!-- Example row of columns -->
@@ -13,6 +15,11 @@
             </div>
             <div class="span-two-thirds">
               <form:form modelAttribute="user" action="" method="post">
+                <spring:hasBindErrors name="user">
+                    <div class="alert-message error">
+                        <p><strong>We're not kidding, please fix the errors!</strong> <form:errors /></p>
+                    </div>
+                </spring:hasBindErrors>
                 <fieldset>
                     <legend>Personal information</legend>
                   <div class="clearfix">
