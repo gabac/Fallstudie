@@ -1,4 +1,7 @@
-.topbar-inner, .topbar .fill {
+input,
+textarea,
+select {
+    color: #555;
 }
 
 form .clearfix > label.error,

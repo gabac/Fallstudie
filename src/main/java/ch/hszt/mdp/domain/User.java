@@ -47,6 +47,7 @@ public class User {
 	public User(String email, String password, String prename, String surname) {
 		this.email = email;
 		this.password = password;
+		this.repeat = password;
 		this.prename = prename;
 		this.surname = surname;
 	}
