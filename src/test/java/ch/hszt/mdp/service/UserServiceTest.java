@@ -1,6 +1,12 @@
 package ch.hszt.mdp.service;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import ch.hszt.mdp.dao.UserDao;
 import ch.hszt.mdp.domain.User;
@@ -18,8 +24,15 @@ public class UserServiceTest {
     }
     
     @Test
-    public void testLoadTitle() throws Exception {
-    	userDao.save(new User("", "gabathuler@gmail.com", "", new Integer(0)));
-        assertNotNull(userDao.getUserByEmail("gabathuler@gmail.com"));
+    public void testSaveUser() {
+    	User user = new User();
+    	user.setEmail("gabathuler@gmail.com");
+    	user.setPrename("Cyril");
+    	user.setSurname("Gabathuler");
+    	user.setPassword("123");
+    	
+    	userDao.save(user);
+        
+    	assertNotNull(userDao.getUserByEmail("gabathuler@gmail.com"));
     }
 }
