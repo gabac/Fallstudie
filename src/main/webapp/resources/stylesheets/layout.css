@@ -1,2 +1,22 @@
 .topbar-inner, .topbar .fill {
 }
+
+form .clearfix > label.error,
+form .clearfix .help-block.error,
+form .clearfix .help-inline.error {
+  color: #b94a48;
+}
+
+form .clearfix input.error,
+form .clearfix textarea.error {
+  color: #b94a48;
+  border-color: #ee5f5b;
+}
+
+form .clearfix input.error:focus,
+form .clearfix textarea.error:focus {
+  border-color: #e9322d;
+  -webkit-box-shadow: 0 0 6px #f8b9b7;
+  -moz-box-shadow: 0 0 6px #f8b9b7;
+  box-shadow: 0 0 6px #f8b9b7;
+}

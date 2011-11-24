@@ -1,5 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <t:layout title="Next Social Network">
     <jsp:body>
         <!-- Example row of columns -->
@@ -11,21 +12,21 @@
                 <p>You'd like to join the Next Social Network…? What a great decision, you are awesome! Please fill out all fields, as we'd like to know everything about you - we are evil.</p>
             </div>
             <div class="span-two-thirds">
-              <form>
+              <form:form modelAttribute="user" action="" method="post">
                 <fieldset>
                     <legend>Personal information</legend>
                   <div class="clearfix">
-                    <label for="prename">Prename</label>
+                    <form:label for="prename" path="prename" cssErrorClass="error">Prename</form:label>
                     <div class="input">
-                      <input class="xlarge" id="prename" name="prename"
-                                    size="30" type="text" />
+                      <form:input path="prename" cssClass="xlarge" cssErrorClass="error" />
+                      <span class="help-block error"><form:errors path="prename" /></span>
                     </div>
                   </div>
                   <div class="clearfix">
-                    <label for="surname">Surname</label>
+                    <form:label for="surname" path="surname" cssErrorClass="error">Surname</form:label>
                     <div class="input">
-                      <input class="xlarge" id="surname" name="surname"
-                                    size="30" type="text" />
+                      <form:input path="surname" cssClass="xlarge" cssErrorClass="error" />
+                      <span class="help-block error"><form:errors path="surname" /></span>
                     </div>
                   </div>
                   <div class="clearfix">
@@ -54,10 +55,10 @@
                   <fieldset>
                     <legend>Login information</legend>
                   <div class="clearfix">
-                    <label for="email">E-Mail</label>
+                    <form:label for="email" path="email" cssErrorClass="error">E-Mail</form:label>
                     <div class="input">
-                      <input class="xlarge" id="email" name="email"
-                                    size="30" type="text" />
+                      <form:input path="email" cssClass="xlarge" cssErrorClass="error" />
+                      <span class="help-block error"><form:errors path="email" /></span>
                     </div>
                   </div>
                   <div class="clearfix">
@@ -79,7 +80,7 @@
                                 value="Register">&nbsp;<a href="/" class="btn">Cancel</a>
                   </div>
                 </fieldset>
-              </form>
+              </form:form>
             </div>
         </div>
     </jsp:body>

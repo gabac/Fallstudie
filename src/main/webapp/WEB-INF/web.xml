@@ -55,7 +55,15 @@
     </security-constraint>
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>Users</web-resource-name>
+            <web-resource-name>Registration</web-resource-name>
+            <url-pattern>/users/</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Everything else</web-resource-name>
             <url-pattern>/*</url-pattern>
             <http-method>GET</http-method>
             <http-method>PUT</http-method>
