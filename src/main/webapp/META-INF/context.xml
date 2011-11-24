@@ -25,7 +25,7 @@
             userTable="users" 
             userNameCol="email" 
             userCredCol="password" 
-            userRoleTable="user_roles" 
+            userRoleTable="roles" 
             roleNameCol="role" 
     />
 </Context>

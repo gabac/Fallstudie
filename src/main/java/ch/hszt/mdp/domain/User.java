@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="User")
+@Table(name = "users")
 public class User {
 	@Column
 	private String name;
@@ -15,16 +15,14 @@ public class User {
 	@GeneratedValue
 	private Integer id;
 	private String email;
-	private String nick;
-	
+
 	public User() {
-		
+
 	}
-	
+
 	public User(String name, String email, String nick, Integer id) {
 		this.name = name;
 		this.email = email;
-		this.nick = nick;
 		this.id = id;
 	}
 
@@ -44,15 +42,6 @@ public class User {
 		this.email = email;
 	}
 
-	public String getNick() {
-		return nick;
-	}
-
-	public void setNick(String nick) {
-		this.nick = nick;
-	}
-
-
 	public Integer getId() {
 		return id;
 	}
@@ -60,6 +49,5 @@ public class User {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	
+
 }
