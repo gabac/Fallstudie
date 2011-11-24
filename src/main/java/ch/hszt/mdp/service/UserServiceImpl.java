@@ -1,32 +1,29 @@
 package ch.hszt.mdp.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import ch.hszt.mdp.dao.UserDao;
 import ch.hszt.mdp.domain.User;
 
-//TODO Implements with DB persistence
+@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class UserServiceImpl implements UserService {
 
-	private List<User> nicks;
-
-	public UserServiceImpl() {
-		nicks = new ArrayList<User>();
-
-		nicks.add(new User("Cyril Gabathuler", "gabathuler@gmail.com", "gaba"));
-		nicks.add(new User("Fabian Vogler", "fabian.vogler@gmail.com", "euklid"));
-	}
+	private UserDao userDao;
 
 	@Override
 	public List<User> queryNick(String nick) {
-		List<User> result = new ArrayList<User>();
+		return userDao.getUserByNick(nick);
+	}
 
-		for (User user : nicks) {
-			if (user.getNick().equals(nick)) {
-				result.add(user);
-			}
-		}
-		return result;
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
 	}
 
 }

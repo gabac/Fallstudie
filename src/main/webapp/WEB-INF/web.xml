@@ -13,7 +13,15 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
+	
+	<resource-ref id="DataSource_ResourceRef">
+		<description>bla</description>
+		<res-ref-name>jdbc/JDBCDataSource</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+		<res-sharing-scope>Shareable</res-sharing-scope>
+	</resource-ref>
+	
 	<display-name>New Social Network</display-name>
 
 	<servlet>
