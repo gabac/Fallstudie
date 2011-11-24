@@ -1,7 +1,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
-<t:layout title="Login for Next Social Network">
+<t:layout title="Next Social Network">
     <jsp:body>
+      <div class="hero-unit">
+        <h1>Hello, friend!</h1>
+        <p>We are ready to welcome you in our Social Network. Your Next Social Network and your friends are waiting for you. Please register yourself or login below.</p>
+        <p><a class="btn primary large" href="/users/">Registration &raquo;</a></p>
+      </div>
     
         <!-- Example row of columns -->
         <div class="page-header">
