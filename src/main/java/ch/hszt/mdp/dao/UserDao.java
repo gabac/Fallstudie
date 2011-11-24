@@ -7,5 +7,5 @@ import ch.hszt.mdp.domain.User;
 public interface UserDao {
 	void save(User user);
 	
-	List<User> getUserByNick(String name);
+	List<User> getUserByEmail(String email);
 }

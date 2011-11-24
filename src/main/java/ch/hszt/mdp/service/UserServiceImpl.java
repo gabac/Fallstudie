@@ -14,8 +14,8 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	@Override
-	public List<User> queryNick(String nick) {
-		return userDao.getUserByNick(nick);
+	public List<User> queryEmail(String email) {
+		return userDao.getUserByEmail(email);
 	}
 
 	public UserDao getUserDao() {

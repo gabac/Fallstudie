@@ -13,9 +13,9 @@ public class UserDaoImpl extends HibernateTemplate implements UserDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<User> getUserByNick(String nick) {
+	public List<User> getUserByEmail(String email) {
 		return getSession().createQuery(
-				"from User u where u.nick='" + nick + "'").list();
+				"from User u where u.email='" + email + "'").list();
 	}
 
 }
