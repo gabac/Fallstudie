@@ -18,14 +18,14 @@
                   <div class="clearfix">
                     <form:label for="prename" path="prename" cssErrorClass="error">Prename</form:label>
                     <div class="input">
-                      <form:input path="prename" cssClass="xlarge" cssErrorClass="error" />
+                      <form:input path="prename" cssClass="xlarge" cssErrorClass="xlarge error" />
                       <span class="help-block error"><form:errors path="prename" /></span>
                     </div>
                   </div>
                   <div class="clearfix">
                     <form:label for="surname" path="surname" cssErrorClass="error">Surname</form:label>
                     <div class="input">
-                      <form:input path="surname" cssClass="xlarge" cssErrorClass="error" />
+                      <form:input path="surname" cssClass="xlarge" cssErrorClass="xlarge error" />
                       <span class="help-block error"><form:errors path="surname" /></span>
                     </div>
                   </div>
@@ -57,7 +57,7 @@
                   <div class="clearfix">
                     <form:label for="email" path="email" cssErrorClass="error">E-Mail</form:label>
                     <div class="input">
-                      <form:input path="email" cssClass="xlarge" cssErrorClass="error" />
+                      <form:input path="email" cssClass="xlarge" cssErrorClass="xlarge error" />
                       <span class="help-block error"><form:errors path="email" /></span>
                     </div>
                   </div>
