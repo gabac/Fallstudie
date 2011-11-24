@@ -30,6 +30,7 @@ public class UserServiceTest {
     	user.setPrename("Cyril");
     	user.setSurname("Gabathuler");
     	user.setPassword("123");
+    	user.setRepeat("123");
     	
     	userDao.save(user);
         

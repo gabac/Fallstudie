@@ -1,6 +1,5 @@
 package ch.hszt.mdp.domain;
 
-import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
