@@ -13,27 +13,27 @@ import ch.hszt.mdp.domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:mdp-test-daos.xml" })
-public class UserServiceTest {
+public class UserDaoTest {
 
 	// this instance will be dependency injected by type
 	private UserDao userDao;
 
-    @Autowired
-    public void setTitleDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
-    
-    @Test
-    public void testSaveUser() {
-    	User user = new User();
-    	user.setEmail("gabathuler@gmail.com");
-    	user.setPrename("Cyril");
-    	user.setSurname("Gabathuler");
-    	user.setPassword("123");
-    	user.setRepeat("123");
-    	
-    	userDao.save(user);
-        
-    	assertNotNull(userDao.getUserByEmail("gabathuler@gmail.com"));
-    }
+	@Autowired
+	public void setTitleDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
+	@Test
+	public void testSaveUser() {
+		User user = new User();
+		user.setEmail("gabathuler@gmail.com");
+		user.setPrename("Cyril");
+		user.setSurname("Gabathuler");
+		user.setPassword("123");
+		user.setRepeat("123");
+
+		userDao.save(user);
+
+		assertNotNull(userDao.getUserByEmail("gabathuler@gmail.com"));
+	}
 }
