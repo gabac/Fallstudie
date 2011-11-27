@@ -9,7 +9,7 @@
 <body>
 <form method="post">
 Nick
-<input type="text" name="nick" value="${nick}" />
+<input type="text" name="email" value="${email}" />
 <input type="submit" value="Query" />
 </form>
 

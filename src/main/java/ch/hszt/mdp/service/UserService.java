@@ -6,5 +6,7 @@ import ch.hszt.mdp.domain.User;
 
 public interface UserService {
 
-	public List<User> queryNick(String nick);
+	public List<User> queryEmail(String email);
+
+	public void create(User user);
 }

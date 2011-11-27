@@ -4,3 +4,5 @@
 .classpath
 .project
 .DS_Store
+.metadata
+src/main/webapp/META-INF/MANIFEST.MF

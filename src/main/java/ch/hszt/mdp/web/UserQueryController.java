@@ -29,10 +29,10 @@ private UserService userService;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String submitForm(@RequestParam("nick") String nick, Model model) {
+	public String submitForm(@RequestParam("email") String email, Model model) {
 		List<User> users = Collections.emptyList();
-		if(nick != null) {
-			users = userService.queryNick(nick);
+		if(email != null) {
+			users = userService.queryEmail(email);
 		}
 		model.addAttribute("users", users);
 		return "userQuery";
