@@ -37,18 +37,18 @@
                     </div>
                   </div>
                   <div class="clearfix">
-                    <label for="birthdate">Birthdate</label>
+                    <form:label for="birthdate" path="birthdate" cssErrorClass="error">Birthdate</form:label>
                     <div class="input">
-                      <input id="birthdate" name="birthdate" size="30"
-                                    type="text" />
-                      <span class="help-block">YYYY-MM-DD</span>
+                      <form:input path="birthdate" cssClass="xlarge" cssErrorClass="xlarge error" />
+                      <span class="help-block">Format YYYY-MM-DD</span>
+                      <span class="help-block error"><form:errors path="birthdate" /></span>
                     </div>
                   </div>
                   <div class="clearfix">
-                    <label for="city">City</label>
+                    <form:label for="city" path="city" cssErrorClass="error">City</form:label>
                     <div class="input">
-                      <input class="xlarge" id="city" name="city"
-                                    size="30" type="text" />
+                      <form:input path="city" cssClass="xlarge" cssErrorClass="xlarge error" />
+                      <span class="help-block error"><form:errors path="city" /></span>
                     </div>
                   </div>
                   <div class="clearfix">

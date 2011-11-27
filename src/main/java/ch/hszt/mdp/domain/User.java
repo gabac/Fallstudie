@@ -1,12 +1,18 @@
 package ch.hszt.mdp.domain;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import ch.hszt.mdp.validation.PasswordsEqual;
 
@@ -39,6 +45,15 @@ public class User {
 	@NotNull
 	@Size(min = 2, max = 255)
 	private String surname;
+
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Past
+	private Date birthdate;
+
+	@NotNull
+	@Size(min = 2, max = 255)
+	private String city;
 
 	public User() {
 
@@ -98,5 +113,21 @@ public class User {
 
 	public void setSurname(String surname) {
 		this.surname = surname;
+	}
+
+	public Date getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 }
