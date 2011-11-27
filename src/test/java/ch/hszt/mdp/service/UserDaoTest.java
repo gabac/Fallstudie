@@ -2,6 +2,8 @@ package ch.hszt.mdp.service;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,8 @@ public class UserDaoTest {
 		user.setSurname("Gabathuler");
 		user.setPassword("123");
 		user.setRepeat("123");
+		user.setBirthdate(new Date());
+		user.setCity("Baden");
 
 		userDao.save(user);
 
