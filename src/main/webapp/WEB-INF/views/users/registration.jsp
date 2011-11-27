@@ -14,7 +14,7 @@
                 <p>You'd like to join the Next Social Network…? What a great decision, you are awesome! Please fill out all fields, as we'd like to know everything about you - we are evil.</p>
             </div>
             <div class="span-two-thirds">
-              <form:form modelAttribute="user" action="" method="post">
+              <form:form modelAttribute="user" action="" method="post" enctype="multipart/form-data">
                 <spring:hasBindErrors name="user">
                     <div class="alert-message error">
                         <p><strong>We're not kidding, please fix the errors!</strong> <form:errors /></p>
