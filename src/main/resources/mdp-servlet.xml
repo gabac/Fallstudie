@@ -9,8 +9,6 @@
 
     <mvc:annotation-driven />
 
-    <mvc:view-controller path="/" view-name="welcome" />
-
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
 
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
