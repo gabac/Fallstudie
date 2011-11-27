@@ -1,4 +1,4 @@
-package ch.hszt.mdp.service;
+package ch.hszt.mdp.dao;
 
 import static org.junit.Assert.assertNotNull;
 
