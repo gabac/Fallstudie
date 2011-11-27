@@ -52,10 +52,10 @@
                     </div>
                   </div>
                   <div class="clearfix">
-                    <label for="photo">Photo</label>
+                    <form:label for="photo" path="photo" cssErrorClass="error">Photo</form:label>
                     <div class="input">
-                      <input class="input-file" id="photo" name="photo"
-                                            type="file">
+                      <input class="input-file" id="photo" name="photo" type="file">
+                      <span class="help-block error"><form:errors path="photo" /></span>
                     </div>
                   </div>
                   </fieldset>

@@ -2,14 +2,16 @@ package ch.hszt.mdp.domain;
 
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -54,6 +56,10 @@ public class User {
 	@NotNull
 	@Size(min = 2, max = 255)
 	private String city;
+
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	private byte[] photo;
 
 	public User() {
 
@@ -129,5 +135,13 @@ public class User {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public byte[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
 	}
 }
