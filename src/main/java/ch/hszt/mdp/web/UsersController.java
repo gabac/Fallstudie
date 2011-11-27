@@ -1,5 +1,6 @@
 package ch.hszt.mdp.web;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,18 @@ public class UsersController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getRegistrationForm(Model model) {
-
+		
 		model.addAttribute(new User());
 
 		return "users/registration";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		
+		session.invalidate();
+
+		return "redirect:/";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
