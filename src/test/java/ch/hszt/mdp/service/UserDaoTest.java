@@ -34,6 +34,7 @@ public class UserDaoTest {
 
 		userDao.save(user);
 
-		assertNotNull(userDao.getUserByEmail("gabathuler@gmail.com"));
+		//assertNotNull(userDao.getUserByEmail("gabathuler@gmail.com"));
+		assertNotNull(null);
 	}
 }
