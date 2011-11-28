@@ -72,35 +72,25 @@ public class UsersControllerTest {
 		}
 	}
 
-	/*
-	 * @Test public void testRegister() { try { request.setMethod("POST");
-	 * request.setRequestURI("/users");
-	 * 
-	 * BindingResult bindingResult = new MapBindingResult(new HashedMap(),
-	 * "result");
-	 * 
-	 * request.setAttribute("user", getDummyUser());
-	 * request.setAttribute("result", bindingResult);
-	 * 
-	 * ModelAndView mAv = adapter.handle(request, response, usersController);
-	 * 
-	 * assertEquals("redirect:/", mAv.getViewName()); } catch (Exception e) {
-	 * fail(); } }
-	 */
+	@Test
+	public void testRegister() {
+		try {
+			request.setMethod("POST");
+			request.setRequestURI("/users");
 
-	private User getDummyUser() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(2000, 1, 1);
+			request.setParameter("email", "gabathuler@gmail.com");
+			request.setParameter("prename", "Cyril");
+			request.setParameter("surname", "Gabathuler");
+			request.setParameter("password", "123");
+			request.setParameter("repeat", "123");
+			request.setParameter("birthdate", "1988-06-29");
+			request.setParameter("city", "Baden");
 
-		User user = new User();
-		user.setEmail("gabathuler@gmail.com");
-		user.setPrename("Cyril");
-		user.setSurname("Gabathuler");
-		user.setPassword("123");
-		user.setRepeat("123");
-		user.setBirthdate(calendar.getTime());
-		user.setCity("Baden");
+			ModelAndView mAv = adapter.handle(request, response, usersController);
 
-		return user;
+			assertEquals("users/registration", mAv.getViewName());
+		} catch (Exception e) {
+			fail();
+		}
 	}
 }
