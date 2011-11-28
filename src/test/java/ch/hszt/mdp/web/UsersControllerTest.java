@@ -1,20 +1,27 @@
 package ch.hszt.mdp.web;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 
@@ -26,71 +33,80 @@ import ch.hszt.mdp.service.UserService;
 public class UsersControllerTest {
 
 	@Autowired
-	UserService userService;
+	private Validator validator;
 
-	private MockHttpServletRequest request;
-	private MockHttpServletResponse response;
+	@Autowired
+	private UserService userService;
+
 	private AnnotationMethodHandlerAdapter adapter;
-	private UsersController usersController;
+
+	private MockHttpServletResponse response;
+
+	private UsersController controller;
 
 	@Before
 	public void setup() {
-
-		request = new MockHttpServletRequest();
-		response = new MockHttpServletResponse();
 		adapter = new AnnotationMethodHandlerAdapter();
-		usersController = new UsersController(userService);
+		response = new MockHttpServletResponse();
+		controller = new UsersController(userService);
 	}
 
 	@Test
-	public void testLogout() {
-		try {
-			request.setMethod("GET");
-			request.setRequestURI("/users/logout");
+	public void testRegister() throws Exception {
 
-			MockHttpSession session = new MockHttpSession();
-			request.setSession(session);
+		// http://blog.vergiss-blackjack.de/2010/04/unit-testing-a-spring-controller/
 
-			ModelAndView mAv = adapter.handle(request, response, usersController);
+		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/users");
 
-			assertTrue(session.isInvalid());
-			assertEquals("redirect:/", mAv.getViewName());
-		} catch (Exception e) {
-			fail();
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(2000, 1, 1);
+
+		request.setParameter("email", "gabathuler@gmail.com");
+		request.setParameter("prename", "Cyril");
+		request.setParameter("surname", "Gabathuler");
+		request.setParameter("password", "123");
+		request.setParameter("repeat", "123");
+		request.setParameter("birthdate", "1988-06-29");
+		request.setParameter("city", "Baden");
+
+		BindingResult result = validate(request);
+
+		for (ObjectError error : result.getAllErrors()) {
+			System.out.println(error.getDefaultMessage());
 		}
+		assertEquals(0, result.getErrorCount());
+
+		ModelAndView mv = adapter.handle(request, response, controller);
+
+		assertEquals("redirect:/", mv.getViewName());
 	}
 
 	@Test
-	public void testRegistrationForm() {
-		try {
-			request.setMethod("GET");
-			request.setRequestURI("/users");
-			ModelAndView mAv = adapter.handle(request, response, usersController);
-			assertEquals("users/registration", mAv.getViewName());
-		} catch (Exception e) {
-			fail();
-		}
+	public void testRegisterError() throws Exception {
+
+		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/users");
+
+		BindingResult result = validate(request);
+
+		assertEquals(8, result.getErrorCount());
 	}
 
-	@Test
-	public void testRegister() {
-		try {
-			request.setMethod("POST");
-			request.setRequestURI("/users");
+	private BindingResult validate(HttpServletRequest request) {
 
-			request.setParameter("email", "gabathuler@gmail.com");
-			request.setParameter("prename", "Cyril");
-			request.setParameter("surname", "Gabathuler");
-			request.setParameter("password", "123");
-			request.setParameter("repeat", "123");
-			request.setParameter("birthdate", "1988-06-29");
-			request.setParameter("city", "Baden");
+		User user = new User();
 
-			ModelAndView mAv = adapter.handle(request, response, usersController);
+		WebDataBinder binder = new WebDataBinder(user);
 
-			assertEquals("users/registration", mAv.getViewName());
-		} catch (Exception e) {
-			fail();
-		}
+		binder.setValidator(validator); // use the validator from the context
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, null, new CustomDateEditor(dateFormat, true));
+
+		binder.bind(new MutablePropertyValues(request.getParameterMap()));
+
+		// validation must be triggered manually
+		binder.getValidator().validate(binder.getTarget(), binder.getBindingResult());
+		return binder.getBindingResult();
 	}
 }
