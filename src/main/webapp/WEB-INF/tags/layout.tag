@@ -27,7 +27,7 @@ body {
             <div class="container">
                 <a class="brand" href="#">Next Social Network</a>
                 <p class="pull-right">
-                    <c:if test="${not empty pageContext.request.remoteUser}" scope="request" var="remoteUser">hello <a href="#"><c:out value="${pageContext.request.remoteUser}" /></a> – <a href="users/logout">logout</a></c:if>
+                    <c:if test="${not empty pageContext.request.remoteUser}" scope="request" var="remoteUser">hello <a href="#"><c:out value="${pageContext.request.remoteUser}" /></a> – <a href="/v1/auth/logout">logout</a></c:if>
                 </p>
             </div>
         </div>

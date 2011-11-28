@@ -2,7 +2,6 @@ package ch.hszt.mdp.web;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,21 +64,6 @@ public class UsersController {
 		model.addAttribute(new User());
 
 		return "users/registration";
-	}
-
-	/**
-	 * 
-	 * Set's the session invalid and therefor the user is logged out.
-	 * 
-	 * @param session
-	 * @return returns to the homepage
-	 */
-	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
-
-		session.invalidate();
-
-		return "redirect:/";
 	}
 
 	/**

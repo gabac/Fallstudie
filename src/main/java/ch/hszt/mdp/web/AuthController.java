@@ -1,5 +1,7 @@
 package ch.hszt.mdp.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,5 +21,19 @@ public class AuthController {
 	public String failed(Model model) {
 
 		return "auth/failed";
+	}
+
+	/**
+	 * Set's the session invalid and therefor the user is logged out.
+	 * 
+	 * @param session
+	 * @return returns to the homepage
+	 */
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+
+		session.invalidate();
+
+		return "redirect:/";
 	}
 }
