@@ -20,11 +20,11 @@ import ch.hszt.mdp.service.UserService;
 
 /**
  * 
- * Controller for all request beyond "/users"
- * The controller uses the userService to get the data from hibernate. The object is injected via Spring
+ * Controller for all request beyond "/users" The controller uses the userService to get the data from hibernate. The
+ * object is injected via Spring
  * 
  * @author gaba, fabian
- *
+ * 
  */
 
 @Controller
@@ -37,7 +37,7 @@ public class UsersController {
 	public UsersController(UserService service) {
 		this.service = service;
 	}
-	
+
 	/**
 	 * 
 	 * Used to register the binder for the photo upload
