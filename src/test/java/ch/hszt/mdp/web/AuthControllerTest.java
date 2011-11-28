@@ -30,6 +30,24 @@ public class AuthControllerTest {
 		response = new MockHttpServletResponse();
 		controller = new AuthController();
 	}
+	
+	
+	@Test
+	public void testLogin() throws Exception{
+		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/auth");
+		ModelAndView mAv = adapter.handle(request, response, controller);
+
+		assertEquals("auth/login", mAv.getViewName());
+	}
+	
+	@Test
+	public void testFailed() throws Exception{
+		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/auth/failed");
+		
+		ModelAndView mAv = adapter.handle(request, response, controller);
+
+		assertEquals("auth/failed", mAv.getViewName());
+	}
 
 	@Test
 	public void testLogout() throws Exception {
