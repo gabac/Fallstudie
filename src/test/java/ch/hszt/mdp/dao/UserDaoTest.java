@@ -4,6 +4,8 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Calendar;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,27 +21,20 @@ public class UserDaoTest {
 	// this instance will be dependency injected by type
 	private UserDao userDao;
 
+	private User user;
+
 	@Autowired
 	public void setTitleDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
 
-	@Test
-	public void testSaveUser() {
-
-		User user = getUser();
-
-		userDao.save(user);
-
-		assertNotNull(userDao.getUserByEmail("gabathuler@gmail.com"));
-	}
-
-	private User getUser() {
+	@Before
+	public void setup() {
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2000, 1, 1);
 
-		User user = new User();
+		user = new User();
 		user.setEmail("gabathuler@gmail.com");
 		user.setPrename("Cyril");
 		user.setSurname("Gabathuler");
@@ -47,7 +42,18 @@ public class UserDaoTest {
 		user.setRepeat("123");
 		user.setBirthdate(calendar.getTime());
 		user.setCity("Baden");
+	}
 
-		return user;
+	@After
+	public void cleanup() {
+		userDao.delete(user);
+	}
+
+	@Test
+	public void testSaveUser() {
+
+		userDao.save(user);
+
+		assertNotNull(userDao.getUserByEmail("gabathuler@gmail.com"));
 	}
 }
