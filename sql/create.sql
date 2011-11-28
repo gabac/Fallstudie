@@ -34,6 +34,14 @@ CREATE TABLE `activity_definition` (
   PRIMARY KEY (`activity_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `status` (
+	`status_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`frendship_id` INT(11) NOT NULL DEFAULT '0',
+	`status` varchar(1000) NOT NULL DEFAULT '',
+	PRIMARY KEY (`status_id`))
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+
 /**Create Views
  * Creating all views, when you copy the stamente into a sql browser and execute it
  * at the end commit;
