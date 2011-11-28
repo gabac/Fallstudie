@@ -6,7 +6,6 @@ import static org.junit.Assert.fail;
 
 import java.util.Calendar;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,8 +15,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.MapBindingResult;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 
@@ -50,12 +47,12 @@ public class UsersControllerTest {
 		try {
 			request.setMethod("GET");
 			request.setRequestURI("/users/logout");
-			
+
 			MockHttpSession session = new MockHttpSession();
 			request.setSession(session);
-			
+
 			ModelAndView mAv = adapter.handle(request, response, usersController);
-			
+
 			assertTrue(session.isInvalid());
 			assertEquals("redirect:/", mAv.getViewName());
 		} catch (Exception e) {
@@ -75,24 +72,21 @@ public class UsersControllerTest {
 		}
 	}
 
-	/*@Test
-	public void testRegister() {
-		try {
-			request.setMethod("POST");
-			request.setRequestURI("/users");
-
-			BindingResult bindingResult = new MapBindingResult(new HashedMap(), "result");
-
-			request.setAttribute("user", getDummyUser());
-			request.setAttribute("result", bindingResult);
-
-			ModelAndView mAv = adapter.handle(request, response, usersController);
-
-			assertEquals("redirect:/", mAv.getViewName());
-		} catch (Exception e) {
-			fail();
-		}
-	}*/
+	/*
+	 * @Test public void testRegister() { try { request.setMethod("POST");
+	 * request.setRequestURI("/users");
+	 * 
+	 * BindingResult bindingResult = new MapBindingResult(new HashedMap(),
+	 * "result");
+	 * 
+	 * request.setAttribute("user", getDummyUser());
+	 * request.setAttribute("result", bindingResult);
+	 * 
+	 * ModelAndView mAv = adapter.handle(request, response, usersController);
+	 * 
+	 * assertEquals("redirect:/", mAv.getViewName()); } catch (Exception e) {
+	 * fail(); } }
+	 */
 
 	private User getDummyUser() {
 		Calendar calendar = Calendar.getInstance();
