@@ -1,6 +1,7 @@
 package ch.hszt.mdp.dao;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 
@@ -24,13 +25,12 @@ public class UserDaoTest {
 	private User user;
 
 	@Autowired
-	public void setTitleDao(UserDao userDao) {
+	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
 
 	@Before
 	public void setup() {
-
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2000, 1, 1);
 
@@ -55,5 +55,13 @@ public class UserDaoTest {
 		userDao.save(user);
 
 		assertNotNull(userDao.getUserByEmail("gabathuler@gmail.com"));
+	}
+	
+	@Test
+	public void testDuplicate() {
+		
+		userDao.save(user);
+		
+		assertTrue(userDao.duplicate("gabathuler@gmail.com"));
 	}
 }
