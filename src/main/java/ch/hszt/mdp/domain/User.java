@@ -17,6 +17,7 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import ch.hszt.mdp.validation.PasswordsEqual;
+import ch.hszt.mdp.validation.UniqueEmail;
 
 @Entity
 @Table(name = "users")
@@ -29,6 +30,7 @@ public class User {
 
 	@NotNull
 	@Size(min = 5, max = 255)
+	@UniqueEmail(message = "There is already a user with this e-mail address.")
 	private String email;
 
 	@NotNull

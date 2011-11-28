@@ -6,6 +6,8 @@ import ch.hszt.mdp.domain.User;
 
 public interface UserDao {
 	void save(User user);
-	
+
 	List<User> getUserByEmail(String email);
+
+	public boolean duplicate(String email);
 }
