@@ -33,11 +33,11 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>mdp</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/v1/*</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
     <security-constraint>
@@ -51,7 +51,7 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Registration</web-resource-name>
-            <url-pattern>/users/</url-pattern>
+            <url-pattern>/v1/users/</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
         </web-resource-collection>
@@ -75,8 +75,8 @@
     <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
-            <form-login-page>/auth</form-login-page>
-            <form-error-page>/auth/failed</form-error-page>
+            <form-login-page>/v1/auth</form-login-page>
+            <form-error-page>/v1/auth/failed</form-error-page>
         </form-login-config>
     </login-config>
     <security-role>
