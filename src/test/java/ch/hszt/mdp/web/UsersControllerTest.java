@@ -90,6 +90,16 @@ public class UsersControllerTest {
 
 		assertEquals(8, result.getErrorCount());
 	}
+	
+	@Test
+	public void testRegistrationForm() throws Exception{
+		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/users");
+		
+		ModelAndView mv = adapter.handle(request, response, controller);
+		
+		assertEquals("users/registration", mv.getViewName());
+		
+	}
 
 	private BindingResult validate(HttpServletRequest request) {
 
