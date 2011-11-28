@@ -1,3 +1,4 @@
+
 package ch.hszt.mdp.dao;
 
 import java.util.List;
@@ -5,6 +6,12 @@ import java.util.List;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import ch.hszt.mdp.domain.User;
+
+/**
+*Return a User-Email Address from the User
+*
+*
+*/
 
 public class UserDaoImpl extends HibernateTemplate implements UserDao {
 
