@@ -25,7 +25,7 @@ body {
     <div class="topbar">
         <div class="fill">
             <div class="container">
-                <a class="brand" href="#">Next Social Nextwork</a>
+                <a class="brand" href="#">Next Social Network</a>
                 <p class="pull-right">
                     <c:if test="${not empty pageContext.request.remoteUser}" scope="request" var="remoteUser">hello <a href="#"><c:out value="${pageContext.request.remoteUser}" /></a> – <a href="users/logout">logout</a></c:if>
                 </p>
