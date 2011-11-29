@@ -29,7 +29,7 @@ a:hover {
 }
 
 a:visited {
-    color: #3704cb;
+    color: #042ecb;
 }
 
 b {
@@ -43,7 +43,26 @@ hr {
 }
 
 .NavBarCell1 {
-    background-color: #DAE2F2;
+    background-color: #fff;
+    padding: 0.4em 0;
+}
+
+.NavBarCell1 table {
+    border-collapse: collapse;
+}
+
+.NavBarCell1 .NavBarCell1,
+.NavBarCell1Rev {
+    padding: 0;
+    padding-right: 0.4em;
+}
+
+.NavBarCell1Rev b {
+    font-weight: bold;
+}
+
+.NavBarCell2 {
+    display: none;
 }
 
 .TableHeadingColor {
@@ -88,4 +107,11 @@ td[nowrap] {
 
 body > .FrameHeadingFont {
     padding: 0 0.4em;
+}
+
+body > .FrameTitleFont {
+    font-size: 1em;
+    padding: 0 0.5em;
+    margin: 1em 0;
+    display: block;
 }
