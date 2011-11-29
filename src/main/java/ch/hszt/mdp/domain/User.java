@@ -20,6 +20,31 @@ import org.springframework.format.annotation.DateTimeFormat;
 import ch.hszt.mdp.validation.PasswordsEqual;
 import ch.hszt.mdp.validation.UniqueEmail;
 
+/**
+ * This Class is used as a resource. It uses hibernate to saves everything
+ * inside of the table "User".
+ * 
+ * @author Cyril Gabathuler
+ * 
+ * @param id integer for a exact identifiation of every user.
+ * 
+ * @param email string with the e-Mail of the user (with format check)
+ * 
+ * @param password password string (MD5 encrypted)
+ * 
+ * @param repeat password string (MD5 encrypted) uses for password validation
+ * for registration
+ * 
+ * @param prename prename of the user
+ * 
+ * @param surname surname string of the user
+ * 
+ * @param birthday date field that defines the birthday of the user
+ * 
+ * @param city string where the user lives
+ * 
+ * @param photo photo binary of the user
+ */
 @Entity
 @Table(name = "users")
 @PasswordsEqual(message = "passwords are not equal")
