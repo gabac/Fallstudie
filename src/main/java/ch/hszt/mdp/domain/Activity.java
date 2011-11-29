@@ -14,7 +14,9 @@ public class Activity {
 	public enum ActivityType {
 		status,
 		profile,
-		friend
+		friend,
+		like,
+		dislike
 	}
 	
 	@Id
