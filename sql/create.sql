@@ -29,11 +29,15 @@ CREATE TABLE `friendship` (
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB;
 
+DROP TABLE IF EXISTS `activities`;
 CREATE TABLE `activities` (
 	`activity_id` INT(11) NOT NULL AUTO_INCREMENT,
 	`user_id` INT(11) NOT NULL DEFAULT '0',
-	`typ` ENUM('status','profile','friend') NOT NULL,
-	PRIMARY KEY (`activity_id`)
+	`typ` ENUM('status','profile','friend','like') NOT NULL,
+    `parent` INT(11) DEFAULT NULL,
+    `time` DATETIME NOT NULL,
+	PRIMARY KEY (`activity_id`),
+	FOREIGN KEY (`parent`) REFERENCES `activities` (`activity_id`) ON DELETE CASCADE
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB;
