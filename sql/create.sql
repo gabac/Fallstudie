@@ -54,12 +54,11 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE VIEW `roles` AS SELECT `users`.`email` AS `email`,'user' AS `role` FROM `users`;
 
-CREATE VIEW `friends` AS select u1.surname as 'User Surname', u1.prename as 'User Prename', u2.surname as 'Friends Surname', u2.prename as 'Friend Prename'
+CREATE VIEW `friends` AS select u1.surname as 'user_surname', u1.prename as 'user_prename', u2.surname as 'friends_surname', u2.prename as 'friends_prename'
 from friendship fs, users u1, users u2 where u1.id=fs.primary_user and u2.id=fs.secondary_user and fs.accepted = 1;
 
 create view activities_friends as
-select u1.email as 'User', u2.email as 'Frend', ad.activity
+select u1.email as 'user', u2.email as 'friend', ad.activity
 from friendship fs, users u1, users u2, activities a, activity_definition ad
 where u1.id = fs.primary_user and u2.id=fs.secondary_user
-and a.friendship_id = fs.friendship_id
-and ad.activity_id=a.activity_id
+and ad.activity_id=a.activity_id;
