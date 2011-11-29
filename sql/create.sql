@@ -15,16 +15,16 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `frendship` (
-  `frendship_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `friendship` (
+  `friendship_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `primary_user` int(11) NOT NULL DEFAULT '0',
   `secondary_user` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`frendship_id`)
+  PRIMARY KEY (`friendship_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `activities` (
   `activity_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `frendship_id` int(11) NOT NULL DEFAULT '0',
+  `friendship_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`activity_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -36,7 +36,7 @@ CREATE TABLE `activity_definition` (
 
 CREATE TABLE `status` (
 	`status_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-	`frendship_id` INT(11) NOT NULL DEFAULT '0',
+	`friendship_id` INT(11) NOT NULL DEFAULT '0',
 	`status` varchar(1000) NOT NULL DEFAULT '',
 	PRIMARY KEY (`status_id`))
 COLLATE='utf8_general_ci'
@@ -51,11 +51,11 @@ ENGINE=InnoDB
 CREATE VIEW `roles` AS SELECT `users`.`email` AS `email`,'user' AS `role` FROM `users`;
 
 CREATE VIEW `frends` AS select u1.surname as 'User Surname', u1.prename as 'User Prename', u2.surname as 'Frends Surname', u2.prename as 'Frend Prename'
-from frendship fs, users u1, users u2 where u1.id=fs.primary_user and u2.id=fs.secondary_user;
+from friendship fs, users u1, users u2 where u1.id=fs.primary_user and u2.id=fs.secondary_user;
 
 create view activities_frends as
 select u1.email as 'User', u2.email as 'Frend', ad.activity
-from frendship fs, users u1, users u2, activities a, activity_definition ad
+from friendship fs, users u1, users u2, activities a, activity_definition ad
 where u1.id = fs.primary_user and u2.id=fs.secondary_user
-and a.frendship_id = fs.frendship_id
+and a.friendship_id = fs.friendship_id
 and ad.activity_id=a.activity_id
