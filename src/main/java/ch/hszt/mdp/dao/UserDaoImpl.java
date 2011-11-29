@@ -10,17 +10,22 @@ import ch.hszt.mdp.domain.User;
 
 /**
 *Return a User-Email Address from the User
-*
+*@author Cyril Gabathuler
 *
 */
 
 public class UserDaoImpl extends HibernateTemplate implements UserDao {
-
+	/**
+	 * Saves a UserObject to the Database with Hibernate
+	 */
 	public void save(User user) {
 		getSession().saveOrUpdate(user);
 	}
 
 	@SuppressWarnings("unchecked")
+	/**
+	 * Creates a UserList with User Objects. The Userlist is collected from the User Database.
+	 */
 	public List<User> getUserByEmail(String email) {
 		return getSession().createQuery("from User u where u.email='" + email + "'").list();
 	}
