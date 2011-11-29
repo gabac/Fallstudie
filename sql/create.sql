@@ -33,7 +33,7 @@ DROP TABLE IF EXISTS `activities`;
 CREATE TABLE `activities` (
 	`activity_id` INT(11) NOT NULL AUTO_INCREMENT,
 	`user_id` INT(11) NOT NULL DEFAULT '0',
-	`typ` ENUM('status','profile','friend','like') NOT NULL,
+	`typ` ENUM('status','profile','friend','like','dislike') NOT NULL,
     `parent` INT(11) DEFAULT NULL,
     `time` DATETIME NOT NULL,
 	PRIMARY KEY (`activity_id`),
