@@ -23,29 +23,37 @@ CREATE TABLE `users` (
 CREATE TABLE `friendship` (
 	`primary_user` INT(11) NOT NULL,
 	`secondary_user` INT(11) NOT NULL,
-	`accepted` TINYINT(1) NOT NULL DEFAULT 0,
+	`accepted` TINYINT(1) NOT NULL DEFAULT '0',
 	PRIMARY KEY (`primary_user`, `secondary_user`)
-) COLLATE='utf8_general_ci'
+)
+COLLATE='utf8_general_ci'
 ENGINE=InnoDB;
 
 CREATE TABLE `activities` (
-  `activity_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `friendship_id` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`activity_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	`activity_id` INT(11) NOT NULL AUTO_INCREMENT,
+	`user_id` INT(11) NOT NULL DEFAULT '0',
+	`typ` ENUM('status','profile','friend') NOT NULL,
+	PRIMARY KEY (`activity_id`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
 
 CREATE TABLE `activity_definition` (
-  `activity_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `activity` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`activity_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	`activity_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`activity` VARCHAR(255) NOT NULL DEFAULT '',
+	PRIMARY KEY (`activity_id`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
 
 CREATE TABLE `status` (
-	`status_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-	`friendship_id` INT(11) NOT NULL DEFAULT '0',
-	`status` varchar(1000) NOT NULL DEFAULT '',
-	PRIMARY KEY (`status_id`))
-ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	`status_id` INT(11) NOT NULL AUTO_INCREMENT,
+	`activity_id` INT(11) NOT NULL DEFAULT '0',
+	`content` VARCHAR(1000) NOT NULL,
+	PRIMARY KEY (`status_id`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
 
 /**Create Views
  * Creating all views, when you copy the stamente into a sql browser and execute it
