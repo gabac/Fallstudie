@@ -10,6 +10,11 @@ import ch.hszt.mdp.dao.UserDao;
 import ch.hszt.mdp.domain.User;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+/**
+ * Implementation for UserService. This handles the registration on back-end side.
+ * @author Fabian Vogler
+ * 
+ */
 public class UserServiceImpl implements UserService {
 
 	private UserDao userDao;
@@ -17,7 +22,12 @@ public class UserServiceImpl implements UserService {
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
-
+	/**
+	 * This method saves a user into the database.
+	 * @param password
+	 * @param user
+	 * @param userDao User Data Access object defination for hibernate
+	 */
 	public void create(User user) {
 
 		String password = user.getPassword();
