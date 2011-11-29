@@ -21,11 +21,12 @@ CREATE TABLE `users` (
  */
 
 CREATE TABLE `friendship` (
-  `friendship_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `primary_user` int(11) NOT NULL DEFAULT '0',
-  `secondary_user` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`friendship_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	`primary_user` INT(11) NOT NULL,
+	`secondary_user` INT(11) NOT NULL,
+	`accepted` TINYINT(1) NOT NULL DEFAULT 0,
+	PRIMARY KEY (`primary_user`, `secondary_user`)
+) COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
 
 CREATE TABLE `activities` (
   `activity_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -54,7 +55,7 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE VIEW `roles` AS SELECT `users`.`email` AS `email`,'user' AS `role` FROM `users`;
 
 CREATE VIEW `friends` AS select u1.surname as 'User Surname', u1.prename as 'User Prename', u2.surname as 'Friends Surname', u2.prename as 'Friend Prename'
-from friendship fs, users u1, users u2 where u1.id=fs.primary_user and u2.id=fs.secondary_user;
+from friendship fs, users u1, users u2 where u1.id=fs.primary_user and u2.id=fs.secondary_user and fs.accepted = 1;
 
 create view activities_friends as
 select u1.email as 'User', u2.email as 'Frend', ad.activity
