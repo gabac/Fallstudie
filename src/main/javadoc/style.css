@@ -1,0 +1,91 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 90%;
+    margin: 1.4em 1.6em;
+}
+
+h1 {
+    font-size: 2.5em;
+    font-weight: normal;
+    text-align: left;
+    margin: 1.5em 0 1em;
+}
+
+h2 {
+    font-weight: normal;
+    font-size: 2em;
+}
+
+h3 {
+    font-weight: normal;
+}
+
+a {
+    color: #046bcb;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:visited {
+    color: #3704cb;
+}
+
+b {
+    font-weight: normal;
+}
+
+hr {
+    border: 0;
+    background-color: #ccc;
+    height: 1px;
+}
+
+.NavBarCell1 {
+    background-color: #DAE2F2;
+}
+
+.TableHeadingColor {
+    background: #FFF;
+    border-bottom: 2px solid #A5ABBD;
+}
+
+.TableHeadingColor th {
+    padding-left: 0;
+    padding-bottom: 0.5em;
+}
+
+table[border="1"] {
+    border: 0 solid transparent !important;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 0.25em 0.4em;
+}
+
+.TableRowColor {
+    border-bottom: 1px solid #D0D0D0;
+}
+
+.TableRowColor td {
+    height: 2em;
+    vertical-align: middle;
+}
+
+.TableRowColor td br {
+    display: none;
+}
+
+.TableRowColor:nth-child(2n+1) {
+    background-color: #F2F2F2;
+}
+
+td[nowrap] {
+    line-height: 1.7em;
+}
+
+body > .FrameHeadingFont {
+    padding: 0 0.4em;
+}
