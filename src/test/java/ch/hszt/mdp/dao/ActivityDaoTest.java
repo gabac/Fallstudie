@@ -47,7 +47,7 @@ public class ActivityDaoTest {
 	}
 
 	@Test
-	public void testSaveActivity() {
+	public void testSaveActivity() { 
 
 		activityDao.save(activity);
 
@@ -65,5 +65,6 @@ public class ActivityDaoTest {
 		Activity test = activities.get(0);
 		
 		assertEquals(ActivityType.profile, test.getTyp());
+		assertEquals(new Integer(0), test.getUser_id());
 	}
 }
