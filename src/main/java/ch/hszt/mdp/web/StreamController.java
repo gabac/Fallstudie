@@ -25,10 +25,11 @@ public class StreamController {
 		dt = new DateTime();
 	}
 	
-	public StreamController(DateTime dt) {
+	public StreamController(ActivityService service, DateTime dt) {
+		this.activityService = service;
 		this.dt = dt;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model) {
 		model.addAttribute("today", dt.toDate());
