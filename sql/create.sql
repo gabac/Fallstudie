@@ -15,6 +15,11 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/**Create Table
+ * Creating all tables, when you copy the stamente into a sql browser and execute it
+ * at the end commit;
+ */
+
 CREATE TABLE `friendship` (
   `friendship_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `primary_user` int(11) NOT NULL DEFAULT '0',
@@ -39,21 +44,19 @@ CREATE TABLE `status` (
 	`friendship_id` INT(11) NOT NULL DEFAULT '0',
 	`status` varchar(1000) NOT NULL DEFAULT '',
 	PRIMARY KEY (`status_id`))
-COLLATE='utf8_general_ci'
-ENGINE=InnoDB
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /**Create Views
  * Creating all views, when you copy the stamente into a sql browser and execute it
  * at the end commit;
  */
 
-
 CREATE VIEW `roles` AS SELECT `users`.`email` AS `email`,'user' AS `role` FROM `users`;
 
-CREATE VIEW `frends` AS select u1.surname as 'User Surname', u1.prename as 'User Prename', u2.surname as 'Frends Surname', u2.prename as 'Frend Prename'
+CREATE VIEW `friends` AS select u1.surname as 'User Surname', u1.prename as 'User Prename', u2.surname as 'Friends Surname', u2.prename as 'Friend Prename'
 from friendship fs, users u1, users u2 where u1.id=fs.primary_user and u2.id=fs.secondary_user;
 
-create view activities_frends as
+create view activities_friends as
 select u1.email as 'User', u2.email as 'Frend', ad.activity
 from friendship fs, users u1, users u2, activities a, activity_definition ad
 where u1.id = fs.primary_user and u2.id=fs.secondary_user
