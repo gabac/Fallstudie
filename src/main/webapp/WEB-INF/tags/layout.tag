@@ -26,6 +26,9 @@ body {
         <div class="fill">
             <div class="container">
                 <a class="brand" href="#">Next Social Network</a>
+                <form class="pull-left" action="">
+		            <input type="text" placeholder="Search">
+		        </form>
                 <p class="pull-right">
                     <c:if test="${not empty pageContext.request.remoteUser}" scope="request" var="remoteUser">hello <a href="#"><c:out value="${pageContext.request.remoteUser}" /></a> – <a href="/v1/auth/logout">logout</a></c:if>
                 </p>

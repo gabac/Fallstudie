@@ -13,10 +13,18 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
 	<bean id="userService" class="ch.hszt.mdp.service.UserServiceImpl">
 		<property name="userDao" ref="userDao" />
 	</bean>
+    
+    <bean id="activityervice" class="ch.hszt.mdp.service.ActivityServiceImpl">
+        <property name="activityDao" ref="activityDao" />
+    </bean>
 	
 	<bean id="userDao" class="ch.hszt.mdp.dao.UserDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+    
+    <bean id="activityDao" class="ch.hszt.mdp.dao.ActivityDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
 
 	<bean id="hibernateTxManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
@@ -30,6 +38,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
 		<property name="annotatedClasses">
 			<list>
 				<value>ch.hszt.mdp.domain.User</value>
+                <value>ch.hszt.mdp.domain.Activity</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -18,7 +18,7 @@ public class UserServiceTest {
 
 	private Mockery context;
 
-	private UserServiceImpl service;
+	private UserService service;
 
 	@Before
 	public void setUp() {
