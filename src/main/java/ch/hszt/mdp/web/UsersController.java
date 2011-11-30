@@ -1,10 +1,13 @@
 package ch.hszt.mdp.web;
 
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import ch.hszt.mdp.domain.User;
+import ch.hszt.mdp.service.FriendshipService;
 import ch.hszt.mdp.service.UserService;
 
 /**
@@ -35,10 +39,12 @@ import ch.hszt.mdp.service.UserService;
 public class UsersController {
 
 	private UserService service;
+	private FriendshipService friendshipService;
 
 	@Autowired
-	public UsersController(UserService service) {
+	public UsersController(UserService service, FriendshipService friendshipService) {
 		this.service = service;
+		this.friendshipService = friendshipService;
 	}
 
 	/**
@@ -72,6 +78,15 @@ public class UsersController {
 		model.addAttribute(new User());
 
 		return "users/registration";
+	}
+	@RequestMapping(value="profile", method = RequestMethod.GET)
+	public String getProfileForm(Model model, Principal principal) {
+
+		//model.addAttribute("user",);
+		model.addAttribute("user", service.getUserByEmail(principal.getName()).get(0));
+		model.addAttribute("friends", friendshipService.getFriendsFromUser(principal.getName()).get(0));
+
+		return "users/profile";
 	}
 
 	/**

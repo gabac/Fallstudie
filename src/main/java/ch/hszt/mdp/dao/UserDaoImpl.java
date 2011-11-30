@@ -45,4 +45,6 @@ public class UserDaoImpl extends HibernateTemplate implements UserDao {
 
 		return count > 0;
 	}
+
+
 }

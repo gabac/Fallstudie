@@ -18,6 +18,7 @@ public interface UserDao {
 	List<User> getUserByEmail(String email);
 
 	public boolean duplicate(String email);
+	
 
 	public void delete(Object entity) throws DataAccessException;
 }

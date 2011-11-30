@@ -2,6 +2,7 @@ package ch.hszt.mdp.service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,4 +65,14 @@ public class UserServiceImpl implements UserService {
 
 		return hexStr;
 	}
+
+	/**
+	 * Creates a UserList with User Objects. The Userlist is collected from the User Database.
+	 */
+	public List<User> getUserByEmail(String email) {
+		return userDao.getUserByEmail(email);
+	}
+
+
+	
 }
