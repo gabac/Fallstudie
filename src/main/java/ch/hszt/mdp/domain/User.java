@@ -1,6 +1,7 @@
 package ch.hszt.mdp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -21,29 +23,40 @@ import ch.hszt.mdp.validation.PasswordsEqual;
 import ch.hszt.mdp.validation.UniqueEmail;
 
 /**
- * This Class is used as a resource. It uses hibernate to saves everything
- * inside of the table "User".
+ * This Class is used as a resource. It uses hibernate to saves everything inside of the table "User".
+ * 
+ * @see <a
+ *      href="http://en.wikibooks.org/wiki/Java_Persistence/ManyToMany#Additional_columns_in_join_table.">Many-To-Many
+ *      with additional columns</a>
  * 
  * @author Cyril Gabathuler
  * 
- * @param id integer for a exact identifiation of every user.
+ * @param id
+ *            integer for a exact identifiation of every user.
  * 
- * @param email string with the e-Mail of the user (with format check)
+ * @param email
+ *            string with the e-Mail of the user (with format check)
  * 
- * @param password password string (MD5 encrypted)
+ * @param password
+ *            password string (MD5 encrypted)
  * 
- * @param repeat password string (MD5 encrypted) uses for password validation
- * for registration
+ * @param repeat
+ *            password string (MD5 encrypted) uses for password validation for registration
  * 
- * @param prename prename of the user
+ * @param prename
+ *            prename of the user
  * 
- * @param surname surname string of the user
+ * @param surname
+ *            surname string of the user
  * 
- * @param birthday date field that defines the birthday of the user
+ * @param birthday
+ *            date field that defines the birthday of the user
  * 
- * @param city string where the user lives
+ * @param city
+ *            string where the user lives
  * 
- * @param photo photo binary of the user
+ * @param photo
+ *            photo binary of the user
  */
 @Entity
 @Table(name = "users")
@@ -89,6 +102,9 @@ public class User {
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] photo;
+
+	@OneToMany(mappedBy = "primaryUser")
+	private List<Friendship> friendships;
 
 	public User() {
 
@@ -164,5 +180,24 @@ public class User {
 
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
+	}
+
+	public List<Friendship> getFriendships() {
+		return friendships;
+	}
+
+	public void setFriendships(List<Friendship> friendships) {
+		this.friendships = friendships;
+	}
+
+	public void addSecondaryUser(User primaryUser, boolean accepted) {
+		Friendship friendship = new Friendship();
+		friendship.setPrimaryUser(primaryUser);
+		friendship.setSecondaryUser(this);
+		friendship.setPrimary_user(primaryUser.getId());
+		friendship.setSecondary_user(this.getId());
+		friendship.setAccepted(accepted ? 1 : 0);
+
+		this.friendships.add(friendship);
 	}
 }

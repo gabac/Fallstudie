@@ -11,7 +11,6 @@ public class ActivityDaoImpl extends HibernateTemplate implements ActivityDao {
 
 	public List<Activity> getActivities() {
 		Query q = getSession().createQuery("from Activity");
-
 		return q.list();
 	}
 	
