@@ -17,12 +17,20 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
     <bean id="activityService" class="ch.hszt.mdp.service.ActivityServiceImpl">
         <property name="activityDao" ref="activityDao" />
     </bean>
+    
+    <bean id="friendshipService" class="ch.hszt.mdp.service.FriendshipServiceImpl">
+        <property name="friendshipDao" ref="friendshipDao" />
+    </bean>
 	
 	<bean id="userDao" class="ch.hszt.mdp.dao.UserDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
     
     <bean id="activityDao" class="ch.hszt.mdp.dao.ActivityDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="friendshipDao" class="ch.hszt.mdp.dao.FriendshipDaoImpl">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
