@@ -23,6 +23,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
 			<list>
 				<value>ch.hszt.mdp.domain.User</value>
                 <value>ch.hszt.mdp.domain.Activity</value>
+                <value>ch.hszt.mdp.domain.Friendship</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
