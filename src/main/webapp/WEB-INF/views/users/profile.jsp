@@ -40,12 +40,8 @@
   	<div class="sidebar">
   		<h3>Friends</h3>
   		</br>
-  		<form:label for="friends_surname" path="friends_surname" cssErrorClass="error">${friends.friends_surname}</form:label></br></br>
+  		<form:label for="friends_surname" path="friends_surname" cssErrorClass="error">${friends.secondary_user}</form:label></br></br>
   	</div>
   </div>
-</body>
-
-     
-
 </body>
 </t:layout>
