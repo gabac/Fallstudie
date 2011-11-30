@@ -8,11 +8,20 @@ import ch.hszt.mdp.domain.Friendship;
 public class FriendshipServiceImpl implements FriendshipService{
 	
 	private FriendshipDao friendshipDao;
+	
+	@Override
+	public void setFriendshipDao(FriendshipDao friendshipDao) {
+		this.friendshipDao = friendshipDao;
+		
+	}
 
 	@Override
 	public List<Friendship> getFriendsFromUser(String email) {
 		// TODO Auto-generated method stub
 		return friendshipDao.getFriendsFromUser(email);
 	}
+
+
+
 
 }
