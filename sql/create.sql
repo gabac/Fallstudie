@@ -9,7 +9,7 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL DEFAULT '',
   `prename` varchar(255) NOT NULL DEFAULT '',
   `surname` varchar(255) NOT NULL DEFAULT '',
-  `birthdate` date NOT NULL,
+  `birthdate` DATETIME NOT NULL,
   `city` varchar(255) NOT NULL DEFAULT '',
   `photo` longblob,
   PRIMARY KEY (`id`)
