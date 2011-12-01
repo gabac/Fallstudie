@@ -16,6 +16,6 @@ public interface UserService {
 
 	void setUserDao(UserDao userDao);
 	
-	public List<User> getUserByEmail(String email);
+	User getUserByEmail(String email);
 
 }

@@ -25,11 +25,14 @@ public class UserServiceImpl implements UserService {
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
+
 	/**
 	 * This method saves a user into the database.
+	 * 
 	 * @param password
 	 * @param user
-	 * @param userDao User Data Access object defination for hibernate
+	 * @param userDao
+	 *            User Data Access object defination for hibernate
 	 */
 	public void create(User user) {
 
@@ -71,22 +74,24 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * Creates a UserList with User Objects. The Userlist is collected from the User Database.
 	 */
-	public List<User> getUserByEmail(String email) {
+	public User getUserByEmail(String email) {
 		return userDao.getUserByEmail(email);
-	
 	}
-	public List<Friendship> getAccepteFriendships(String email){
-		User user = getUserByEmail(email).get(0);
+
+	public List<Friendship> getAccepteFriendships(String email) {
+
+		User user = getUserByEmail(email);
 		List<Friendship> acceptedFriends = new ArrayList<Friendship>();
-		for(Friendship friend : user.getFriendships()) {
-			if(friend.getAccepted().equals("1"));
-			acceptedFriends.add(friend);
+
+		for (Friendship friend : user.getFriendships()) {
+
+			if (friend.getAccepted().equals("1")) {
+				acceptedFriends.add(friend);
+			}
 		}
-		
+
 		return acceptedFriends;
-		
+
 	}
 
-
-	
 }

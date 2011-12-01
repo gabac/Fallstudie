@@ -77,10 +77,9 @@ public class UsersController {
 	@RequestMapping(value="profile", method = RequestMethod.GET)
 	public String getProfileForm(Model model, Principal principal) {
 
-		//model.addAttribute("user",);
-		User user = service.getUserByEmail(principal.getName()).get(0);
+		User user = service.getUserByEmail(principal.getName());
+
 		model.addAttribute("user", user);
-		//model.addAttribute("friends", service.getUserByFriendID(friendshipService.getFriendsFromUser(principal.getName()).get(0)));
 		model.addAttribute("friends", user.getFriendships());
 
 		return "users/profile";

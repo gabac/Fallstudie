@@ -1,12 +1,9 @@
 
 package ch.hszt.mdp.dao;
 
-import java.util.List;
-
 import org.hibernate.Query;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
-import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
 
 /**
@@ -23,12 +20,11 @@ public class UserDaoImpl extends HibernateTemplate implements UserDao {
 		getSession().saveOrUpdate(user);
 	}
 
-	@SuppressWarnings("unchecked")
 	/**
 	 * Creates a UserList with User Objects. The Userlist is collected from the User Database.
 	 */
-	public List<User> getUserByEmail(String email) {
-		return getSession().createQuery("from User u where u.email='" + email + "'").list();
+	public User getUserByEmail(String email) {
+		return (User) getSession().createQuery("from User u where u.email='" + email + "'").uniqueResult();
 	}
 	
 

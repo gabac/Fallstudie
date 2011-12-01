@@ -16,11 +16,10 @@ import ch.hszt.mdp.domain.User;
 public interface UserDao {
 	void save(User user);
 
-	List<User> getUserByEmail(String email);
+	User getUserByEmail(String email);
 
-	public boolean duplicate(String email);
+	boolean duplicate(String email);
 	
-
-	public void delete(Object entity) throws DataAccessException;
+	void delete(Object entity) throws DataAccessException;
 
 }
