@@ -26,7 +26,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 
 import ch.hszt.mdp.domain.User;
-import ch.hszt.mdp.service.FriendshipService;
 import ch.hszt.mdp.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -45,13 +44,11 @@ public class UsersControllerTest {
 
 	private UsersController controller;
 	
-	private FriendshipService friendshipService;
-
 	@Before
 	public void setup() {
 		adapter = new AnnotationMethodHandlerAdapter();
 		response = new MockHttpServletResponse();
-		controller = new UsersController(userService, friendshipService);
+		controller = new UsersController(userService);
 	}
 
 	@Test

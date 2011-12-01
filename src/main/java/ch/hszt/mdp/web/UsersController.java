@@ -3,11 +3,9 @@ package ch.hszt.mdp.web;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import ch.hszt.mdp.domain.User;
-import ch.hszt.mdp.service.FriendshipService;
 import ch.hszt.mdp.service.UserService;
 
 /**
@@ -39,12 +36,10 @@ import ch.hszt.mdp.service.UserService;
 public class UsersController {
 
 	private UserService service;
-	private FriendshipService friendshipService;
 
 	@Autowired
-	public UsersController(UserService service, FriendshipService friendshipService) {
+	public UsersController(UserService service) {
 		this.service = service;
-		this.friendshipService = friendshipService;
 	}
 
 	/**
