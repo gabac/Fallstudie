@@ -56,4 +56,19 @@ public class UserServiceTest {
 
 		return user;
 	}
+	
+	private void getAcceptedFriends(){
+		UserServiceImpl userService = new UserServiceImpl();
+		
+		if (userService.getAccepteFriendships("roger.bollmann@gmail.com").get(0).equals("Raphael Marques")){
+			System.out.println("Test successfully");
+		}else{
+			System.out.println("TEST NOT SUCCESSFULLY!!!!!");
+		}
+		
+		
+		
+	}
+	
+	
 }

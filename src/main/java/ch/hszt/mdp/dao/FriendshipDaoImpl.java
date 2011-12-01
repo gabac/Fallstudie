@@ -10,7 +10,7 @@ public class FriendshipDaoImpl extends HibernateTemplate implements FriendshipDa
 	
 	@SuppressWarnings("unchecked")
 	public List<Friendship> getFriendsFromUser(String email) {
-		return getSession().createQuery("from Friendship").list();
+		return getSession().createQuery("from Friendship fs where fs.accepted = '1'").list();
 	}
 
 }

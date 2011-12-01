@@ -103,7 +103,7 @@ public class User {
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] photo;
 
-	@OneToMany(mappedBy = "primaryUser")
+	@OneToMany(mappedBy = "primaryUser", fetch=FetchType.EAGER)
 	private List<Friendship> friendships;
 
 	public User() {

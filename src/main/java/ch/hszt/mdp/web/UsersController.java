@@ -83,8 +83,10 @@ public class UsersController {
 	public String getProfileForm(Model model, Principal principal) {
 
 		//model.addAttribute("user",);
-		model.addAttribute("user", service.getUserByEmail(principal.getName()).get(0));
-		model.addAttribute("friends", friendshipService.getFriendsFromUser(principal.getName()).get(0));
+		User user = service.getUserByEmail(principal.getName()).get(0);
+		model.addAttribute("user", user);
+		//model.addAttribute("friends", service.getUserByFriendID(friendshipService.getFriendsFromUser(principal.getName()).get(0)));
+		model.addAttribute("friends", user.getFriendships());
 
 		return "users/profile";
 	}

@@ -2,12 +2,14 @@ package ch.hszt.mdp.service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ch.hszt.mdp.dao.UserDao;
+import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
@@ -71,6 +73,18 @@ public class UserServiceImpl implements UserService {
 	 */
 	public List<User> getUserByEmail(String email) {
 		return userDao.getUserByEmail(email);
+	
+	}
+	public List<Friendship> getAccepteFriendships(String email){
+		User user = getUserByEmail(email).get(0);
+		List<Friendship> acceptedFriends = new ArrayList<Friendship>();
+		for(Friendship friend : user.getFriendships()) {
+			if(friend.getAccepted().equals("1"));
+			acceptedFriends.add(friend);
+		}
+		
+		return acceptedFriends;
+		
 	}
 
 

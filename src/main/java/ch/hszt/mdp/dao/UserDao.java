@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
+import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
 
 /**
@@ -21,4 +22,5 @@ public interface UserDao {
 	
 
 	public void delete(Object entity) throws DataAccessException;
+
 }
