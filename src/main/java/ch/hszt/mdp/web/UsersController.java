@@ -1,8 +1,6 @@
 package ch.hszt.mdp.web;
 
 import java.security.Principal;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,13 +8,16 @@ import javax.validation.Valid;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
@@ -85,6 +86,20 @@ public class UsersController {
 		model.addAttribute("friends", user.getFriendships());
 
 		return "users/profile";
+	}
+
+	@RequestMapping(value = "{id}/image", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> image(@PathVariable("id") int id, Model model, Principal principal) {
+
+		User user = service.getUser(id);
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.parseMediaType("image/png"));
+		responseHeaders.setContentLength(user.getPhoto().length);
+		
+		System.out.println(user.getPhoto().length);
+
+		return new ResponseEntity<byte[]>(user.getPhoto(), responseHeaders, HttpStatus.OK);
 	}
 
 	/**
