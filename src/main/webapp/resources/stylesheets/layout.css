@@ -6,9 +6,10 @@
     -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
     color: #ccc;
+    padding-top: 40px;
 }
 
-.container {
+body > .container {
     padding-top: 80px;
 }
 
