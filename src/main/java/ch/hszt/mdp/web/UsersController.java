@@ -84,6 +84,7 @@ public class UsersController {
 
 		model.addAttribute("user", user);
 		model.addAttribute("friends", user.getFriendships());
+		model.addAttribute("activities", user.getActivities());
 
 		return "users/profile";
 	}

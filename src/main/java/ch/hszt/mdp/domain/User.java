@@ -105,8 +105,11 @@ public class User {
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] photo;
 
-	@OneToMany(mappedBy = "primaryUser", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "primaryUser")
 	private List<Friendship> friendships;
+
+	@OneToMany(mappedBy = "user_id")
+	private List<Activity> activities;
 
 	public User() {
 
@@ -190,6 +193,14 @@ public class User {
 
 	public void setFriendships(List<Friendship> friendships) {
 		this.friendships = friendships;
+	}
+
+	public List<Activity> getActivities() {
+		return activities;
+	}
+
+	public void setActivities(List<Activity> activities) {
+		this.activities = activities;
 	}
 
 	public void addSecondaryUser(User primaryUser, boolean accepted) {
