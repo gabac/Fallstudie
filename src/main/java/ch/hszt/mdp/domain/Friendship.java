@@ -1,5 +1,7 @@
 package ch.hszt.mdp.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -9,8 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "friendship")
-@IdClass(FriendshipId.class)
-public class Friendship {
+public class Friendship implements Serializable {
 
 	@Id
 	private Integer primary_user;
