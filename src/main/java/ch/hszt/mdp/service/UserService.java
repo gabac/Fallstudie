@@ -1,6 +1,9 @@
 package ch.hszt.mdp.service;
 
+import java.util.List;
+
 import ch.hszt.mdp.dao.UserDao;
+import ch.hszt.mdp.domain.Activity;
 import ch.hszt.mdp.domain.User;
 
 /**
@@ -18,5 +21,7 @@ public interface UserService {
 	User getUserByEmail(String email);
 
 	User getUser(int id);
+	
+	List<Activity> getActivitiesFromFriends(String email);
 
 }
