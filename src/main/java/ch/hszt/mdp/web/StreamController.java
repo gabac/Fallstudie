@@ -35,8 +35,6 @@ public class StreamController {
 	public String list(Model model, Principal principal) {
 		model.addAttribute("today", dt.toDate());
 
-		System.out.println(principal.getName());
-
 		dt = dt.minusDays(1);
 		model.addAttribute("yesterday", dt.toDate());
 
