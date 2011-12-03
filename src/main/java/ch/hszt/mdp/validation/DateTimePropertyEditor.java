@@ -5,10 +5,17 @@ import java.beans.PropertyEditorSupport;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
+/**
+ * Converts a String date into a Joda DateTime. And vice versa.
+ */
 public class DateTimePropertyEditor extends PropertyEditorSupport {
 
 	private String pattern;
 
+	/**
+	 * @param pattern
+	 *            Date pattern, see Joda documentation.
+	 */
 	public DateTimePropertyEditor(String pattern) {
 		this.pattern = pattern;
 	}
