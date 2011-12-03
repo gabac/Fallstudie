@@ -9,14 +9,9 @@
                 <div class="page-header">
                     <h2><fmt:formatDate value="${today}" pattern="dd MMMM yyyy" /></h2>
                 </div>
-                <blockquote>
-                    <p>I like coding</p>
-                    <small>Cyril Gabathuler</small>
-                </blockquote>
-                <blockquote>
-                    <p>Hate the VirtualBox</p>
-                    <small>Roger Bollmann</small>
-                </blockquote>
+                <c:forEach items="${activities}" var="activity">
+	                <p>${activity.activityType} ${activity.content}</p>
+	            </c:forEach>
             </div>
             <div class="span-one-third">
                 <div class="page-header">
