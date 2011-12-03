@@ -44,13 +44,13 @@ public class ActivityServiceTest {
 		service.setActivityDao(dao);
 		service.create(activity);
 
-		assertEquals(ActivityType.profile, activity.getTyp());
+		assertEquals(ActivityType.PROFILE.toString(), activity.getActivityType().toString());
 	}
 
 	private Activity getActivity() {
 
 		Activity activity = new Activity();
-		activity.setTyp(ActivityType.profile);
+		activity.setTyp(ActivityType.PROFILE);
 		activity.setUser_id(new Integer(0));
 
 		return activity;

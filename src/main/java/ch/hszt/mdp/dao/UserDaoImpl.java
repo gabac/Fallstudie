@@ -1,4 +1,3 @@
-
 package ch.hszt.mdp.dao;
 
 import org.hibernate.Query;
@@ -7,12 +6,14 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import ch.hszt.mdp.domain.User;
 
 /**
-*Return a User-Email Address from the User
-*@author Cyril Gabathuler
-*
-*/
+ * Return a User-Email Address from the User
+ * 
+ * @author Cyril Gabathuler
+ * 
+ */
 
 public class UserDaoImpl extends HibernateTemplate implements UserDao {
+
 	/**
 	 * Saves a UserObject to the Database with Hibernate
 	 */
@@ -26,7 +27,10 @@ public class UserDaoImpl extends HibernateTemplate implements UserDao {
 	public User getUserByEmail(String email) {
 		return (User) getSession().createQuery("from User u where u.email='" + email + "'").uniqueResult();
 	}
-	
+
+	public User getUser(int id) {
+		return (User) getSession().createQuery("from User u where u.id = :id").setParameter("id", id).uniqueResult();
+	}
 
 	/**
 	 * Checks if there is already a user with this email address.
@@ -43,7 +47,5 @@ public class UserDaoImpl extends HibernateTemplate implements UserDao {
 
 		return count > 0;
 	}
-
-
 
 }

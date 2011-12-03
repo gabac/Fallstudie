@@ -1,6 +1,5 @@
 package ch.hszt.mdp.domain;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -17,6 +16,8 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import ch.hszt.mdp.validation.PasswordsEqual;
@@ -93,7 +94,8 @@ public class User {
 	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Past
-	private Date birthdate;
+	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	private DateTime birthdate;
 
 	@NotNull
 	@Size(min = 2, max = 255)
@@ -103,8 +105,11 @@ public class User {
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] photo;
 
-	@OneToMany(mappedBy = "primaryUser", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "primaryUser")
 	private List<Friendship> friendships;
+
+	@OneToMany(mappedBy = "user_id")
+	private List<Activity> activities;
 
 	public User() {
 
@@ -158,11 +163,11 @@ public class User {
 		this.surname = surname;
 	}
 
-	public Date getBirthdate() {
+	public DateTime getBirthdate() {
 		return birthdate;
 	}
 
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(DateTime birthdate) {
 		this.birthdate = birthdate;
 	}
 
@@ -188,6 +193,14 @@ public class User {
 
 	public void setFriendships(List<Friendship> friendships) {
 		this.friendships = friendships;
+	}
+
+	public List<Activity> getActivities() {
+		return activities;
+	}
+
+	public void setActivities(List<Activity> activities) {
+		this.activities = activities;
 	}
 
 	public void addSecondaryUser(User primaryUser, boolean accepted) {

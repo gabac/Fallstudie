@@ -5,14 +5,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import ch.hszt.mdp.dao.UserDao;
 import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
 
-@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 /**
  * Implementation for UserService. This handles the registration on back-end side.
  * @author Fabian Vogler
@@ -94,4 +90,8 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	@Override
+	public User getUser(int id) {
+		return userDao.getUser(id);
+	}
 }

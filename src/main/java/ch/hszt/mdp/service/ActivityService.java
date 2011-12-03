@@ -4,7 +4,6 @@ import java.util.List;
 
 import ch.hszt.mdp.dao.ActivityDao;
 import ch.hszt.mdp.domain.Activity;
-import ch.hszt.mdp.domain.User;
 
 public interface ActivityService {
 	List<Activity> getActivities();
@@ -13,5 +12,4 @@ public interface ActivityService {
 	
 	void setActivityDao(ActivityDao activityDao);
 	
-	List<Activity> getMyActivities(User user);
 }
