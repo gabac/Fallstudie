@@ -28,6 +28,8 @@ public class Activity {
 	@Enumerated(EnumType.STRING)
 	private ActivityType typ;
 	
+	private String content;
+	
 	public Activity() {
 		
 	}
@@ -55,4 +57,13 @@ public class Activity {
 	public void setTyp(ActivityType typ) {
 		this.typ = typ;
 	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
 }
