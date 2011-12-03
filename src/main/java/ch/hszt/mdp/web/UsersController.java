@@ -77,14 +77,12 @@ public class UsersController {
 		return "users/registration";
 	}
 
-	@RequestMapping(value = "profile", method = RequestMethod.GET)
-	public String getProfileForm(Model model, Principal principal) {
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	public String getProfileForm(@PathVariable("id") int id, Model model, Principal principal) {
 
-		User user = service.getUserByEmail(principal.getName());
+		User user = service.getUser(id);
 
-		model.addAttribute("user", user);
-		model.addAttribute("friends", user.getFriendships());
-		model.addAttribute("activities", user.getActivities());
+		model.addAttribute("profile", user);
 
 		return "users/profile";
 	}
