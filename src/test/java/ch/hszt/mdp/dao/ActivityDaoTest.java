@@ -37,7 +37,7 @@ public class ActivityDaoTest {
 		calendar.set(2000, 1, 1);
 
 		activity = new Activity();
-		//activity.setTyp(ActivityType.PROFILE);
+		activity.setTyp(ActivityType.profile);
 		activity.setUser_id(new Integer(0));
 	}
 
@@ -45,20 +45,16 @@ public class ActivityDaoTest {
 	public void cleanup() {
 		activityDao.delete(activity);
 	}
-	@Test
-	public void test() {
-		assertEquals(true, true);
-	}
 
-	//@Test
+	@Test
 	public void testSaveActivity() { 
 
-		//activityDao.save(activity);
+		activityDao.save(activity);
 
 		assertNotNull(activityDao.getActivities());
 	}
 	
-	//@Test
+	@Test
 	public void testGetActivities() {
 		activityDao.save(activity);
 		
@@ -68,7 +64,7 @@ public class ActivityDaoTest {
 		
 		Activity test = activities.get(0);
 		
-		assertEquals(ActivityType.PROFILE, test.getActivityType().toValue());
+		assertEquals(ActivityType.profile, test.getTyp());
 		assertEquals(new Integer(0), test.getUser_id());
 	}
 }

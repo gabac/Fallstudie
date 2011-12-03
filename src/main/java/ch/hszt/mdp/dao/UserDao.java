@@ -1,7 +1,10 @@
 package ch.hszt.mdp.dao;
 
+import java.util.List;
+
 import org.springframework.dao.DataAccessException;
 
+import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
 
 /**
@@ -11,15 +14,12 @@ import ch.hszt.mdp.domain.User;
  */
 
 public interface UserDao {
-
 	void save(User user);
 
 	User getUserByEmail(String email);
 
-	User getUser(int id);
-
 	boolean duplicate(String email);
-
+	
 	void delete(Object entity) throws DataAccessException;
 
 }

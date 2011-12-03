@@ -1,45 +1,22 @@
 package ch.hszt.mdp.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "activities")
 public class Activity {
 	
-
 	public enum ActivityType {
-		STATUS("status"), PROFILE("profile"), FRIEND("friend"), LIKE("like"), DISLIKE("dislike");  
-		  
-		 private final String value;  
-		  
-		 ActivityType(String value) {  
-		   this.value = value;  
-		 }  
-		  
-		 public static ActivityType fromValue(String value) {  
-		   if (value != null) {  
-		     for (ActivityType typ : values()) {  
-		       if (typ.value.equals(value)) {  
-		         return typ;  
-		       }  
-		     }  
-		   }  
-		  
-		   return getDefault();  
-		 }  
-		  
-		 public String toValue() {  
-		   return value;  
-		 }  
-		  
-		 public static ActivityType getDefault() {  
-		   return STATUS;  
-		 }  
+		status,
+		profile,
+		friend,
+		like,
+		dislike
 	}
 	
 	@Id
@@ -48,19 +25,8 @@ public class Activity {
 	
 	private Integer user_id;
 	
-	@Column(name="typ")
-	private String typValue;
-	
-	@Transient  
-	 public ActivityType getActivityType() {  
-	  return ActivityType.fromValue(typValue);  
-	 }  
-	  
-	 public void setTyp(ActivityType typ) {  
-	  this.typValue = typ.toValue();  
-	 }  
-	
-	private String text;
+	@Enumerated(EnumType.STRING)
+	private ActivityType typ;
 	
 	public Activity() {
 		
@@ -82,11 +48,11 @@ public class Activity {
 		this.user_id = user_id;
 	}
 
-	public String getText() {
-		return text;
+	public ActivityType getTyp() {
+		return typ;
 	}
 
-	public void setText(String text) {
-		this.text = text;
+	public void setTyp(ActivityType typ) {
+		this.typ = typ;
 	}
 }

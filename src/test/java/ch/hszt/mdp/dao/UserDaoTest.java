@@ -3,7 +3,8 @@ package ch.hszt.mdp.dao;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.joda.time.DateTime;
+import java.util.Calendar;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +31,8 @@ public class UserDaoTest {
 
 	@Before
 	public void setup() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(2000, 1, 1);
 
 		user = new User();
 		user.setEmail("gabathuler@gmail.com");
@@ -37,7 +40,7 @@ public class UserDaoTest {
 		user.setSurname("Gabathuler");
 		user.setPassword("123");
 		user.setRepeat("123");
-		user.setBirthdate(new DateTime(2000, 1, 1, 0, 0, 0, 0));
+		user.setBirthdate(calendar.getTime());
 		user.setCity("Baden");
 	}
 
@@ -53,12 +56,12 @@ public class UserDaoTest {
 
 		assertNotNull(userDao.getUserByEmail("gabathuler@gmail.com"));
 	}
-
+	
 	@Test
 	public void testDuplicate() {
-
+		
 		userDao.save(user);
-
+		
 		assertTrue(userDao.duplicate("gabathuler@gmail.com"));
 	}
 }
