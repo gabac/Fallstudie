@@ -5,6 +5,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import ch.hszt.mdp.dao.UserDao;
 import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
@@ -14,6 +17,7 @@ import ch.hszt.mdp.domain.User;
  * @author Fabian Vogler
  * 
  */
+@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class UserServiceImpl implements UserService {
 
 	private UserDao userDao;

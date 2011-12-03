@@ -1,68 +1,69 @@
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-3.0.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
-	<context:annotation-config />
-	<context:component-scan base-package="ch.hszt.mdp.domain" />
+    <context:annotation-config />
+    <context:component-scan base-package="ch.hszt.mdp.domain" />
 
     <bean class="ch.hszt.mdp.web.UserListener" id="userListener"></bean>
 
-	<bean id="userService" class="ch.hszt.mdp.service.UserServiceImpl">
-		<property name="userDao" ref="userDao" />
-	</bean>
-    
+    <bean id="userService" class="ch.hszt.mdp.service.UserServiceImpl">
+        <property name="userDao" ref="userDao" />
+    </bean>
+
     <bean id="activityService" class="ch.hszt.mdp.service.ActivityServiceImpl">
         <property name="activityDao" ref="activityDao" />
     </bean>
-    
-	<bean id="userDao" class="ch.hszt.mdp.dao.UserDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-    
+
+    <bean id="userDao" class="ch.hszt.mdp.dao.UserDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
     <bean id="activityDao" class="ch.hszt.mdp.dao.ActivityDaoImpl">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-    
-	<bean id="hibernateTxManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<tx:annotation-driven transaction-manager="hibernateTxManager" />
 
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="annotatedClasses">
-			<list>
-				<value>ch.hszt.mdp.domain.User</value>
+    <bean id="hibernateTxManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <tx:annotation-driven transaction-manager="hibernateTxManager" />
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="annotatedClasses">
+            <list>
+                <value>ch.hszt.mdp.domain.User</value>
                 <value>ch.hszt.mdp.domain.Activity</value>
                 <value>ch.hszt.mdp.domain.Friendship</value>
-			</list>
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.format_sql">true</prop>
-				<prop key="hibernate.use_sql_comments">true</prop>
-				<prop key="hibernate.cache.use_query_cache">false</prop>
-				<prop key="hibernate.cache.use_second_level_cache">false</prop>
-				<prop key="hibernate.generate_statistics">false</prop>
-				<prop key="hibernate.cache.use_structured_entries">false</prop>
-				<prop key="hibernate.connection.isolation">2</prop>
-			</props>
-		</property>
-		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
-	</bean>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.use_sql_comments">true</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
+                <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <prop key="hibernate.generate_statistics">false</prop>
+                <prop key="hibernate.cache.use_structured_entries">false</prop>
+                <prop key="hibernate.connection.isolation">2</prop>
+            </props>
+        </property>
+        <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
+    </bean>
 
-	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="jdbc/JDBCDataSource"></property>
-		<property name="resourceRef" value="true"></property>
-	</bean>
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="jdbc/JDBCDataSource"></property>
+        <property name="resourceRef" value="true"></property>
+    </bean>
+
+    <bean id="openSessionInViewInterceptor" class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
 
 </beans>
