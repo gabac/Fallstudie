@@ -1,5 +1,6 @@
 package ch.hszt.mdp.web;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -15,33 +16,35 @@ import ch.hszt.mdp.service.ActivityService;
 @Controller
 @RequestMapping("/")
 public class StreamController {
-	
+
 	@Autowired
 	private ActivityService activityService;
-	
+
 	private DateTime dt;
-	
+
 	public StreamController() {
 		dt = new DateTime();
 	}
-	
+
 	public StreamController(ActivityService service, DateTime dt) {
 		this.activityService = service;
 		this.dt = dt;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String list(Model model) {
+	public String list(Model model, Principal principal) {
 		model.addAttribute("today", dt.toDate());
-		
+
+		System.out.println(principal.getName());
+
 		dt = dt.minusDays(1);
 		model.addAttribute("yesterday", dt.toDate());
-		
+
 		dt = dt.minusDays(1);
 		model.addAttribute("dayBeforeYesterday", dt.toDate());
-		
+
 		List<Activity> activities = activityService.getActivities();
-		
+
 		return "stream/list";
 	}
 }
