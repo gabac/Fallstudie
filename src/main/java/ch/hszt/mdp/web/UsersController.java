@@ -95,8 +95,6 @@ public class UsersController {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.parseMediaType("image/png"));
 		responseHeaders.setContentLength(user.getPhoto().length);
-		
-		System.out.println(user.getPhoto().length);
 
 		return new ResponseEntity<byte[]>(user.getPhoto(), responseHeaders, HttpStatus.OK);
 	}
