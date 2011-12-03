@@ -5,7 +5,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import ch.hszt.mdp.dao.UserDao;
+import ch.hszt.mdp.domain.Activity;
 import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
 
@@ -14,6 +18,7 @@ import ch.hszt.mdp.domain.User;
  * @author Fabian Vogler
  * 
  */
+@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class UserServiceImpl implements UserService {
 
 	private UserDao userDao;
@@ -88,6 +93,21 @@ public class UserServiceImpl implements UserService {
 
 		return acceptedFriends;
 
+	}
+	
+	public List<Activity> getActivitiesFromFriends(String email) {
+		List<Friendship> friends = getAccepteFriendships(email);
+		
+		List<Activity> activities = new ArrayList<Activity>();
+		
+		for (Friendship friend : friends) {
+
+			for(Activity activity : friend.getSecondaryUser().getActivities()) {
+				activities.add(activity);
+			}
+		}
+		
+		return activities;
 	}
 
 	@Override
