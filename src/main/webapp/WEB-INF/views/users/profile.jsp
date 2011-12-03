@@ -30,7 +30,7 @@
             <h3>Friends</h3>
             <ul>
                 <c:forEach items="${profile.friendships}" var="friend">
-                    <li>${friend.secondaryUser.prename} ${friend.secondaryUser.surname}</li>
+                    <li><a href="/v1/users/${friend.secondaryUser.id}">${friend.secondaryUser.prename} ${friend.secondaryUser.surname}</a></li>
                 </c:forEach>
             </ul>
         </div>
