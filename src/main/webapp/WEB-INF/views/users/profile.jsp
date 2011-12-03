@@ -23,8 +23,8 @@
         </div>
         <div class="span-one-third">
             <p>
-                born
-                <joda:format value="${profile.birthdate}" style="F-" />
+                E-Mail: <a href="mailto:${profile.email}">${profile.email}</a><br /> 
+                born <joda:format value="${profile.birthdate}" style="F-" />
             </p>
 
             <h3>Friends</h3>
