@@ -66,17 +66,17 @@ select `socialnetwork`.`users`.`email` AS `email`,'user' AS `role` from `socialn
 
 
 INSERT INTO activities(activity_id, user_id, typ, parent, time, content)
-  VALUES(1, 1, 'status', NULL, '2011-12-01 12:22:33.0', 'Ich bin müde!*:…?');
+  VALUES(1, 1, 'status', NULL, '2011-12-01 12:22:33.0', 'Ich bin m√ºde!*:‚Ä¶?');
 INSERT INTO activities(activity_id, user_id, typ, parent, time, content)
-  VALUES(2, 3, 'status', 1, '2011-12-01 12:22:44.0', 'Du bist aber ein Waschlappen oder etwa nicht? wie viel Zeichen kann ich hier wohl füllen????? wer weiss!!!!!!');
+  VALUES(2, 3, 'status', 1, '2011-12-01 12:22:44.0', 'Du bist aber ein Waschlappen oder etwa nicht? wie viel Zeichen kann ich hier wohl f√ºllen????? wer weiss!!!!!!');
 INSERT INTO activities(activity_id, user_id, typ, parent, time, content)
-  VALUES(3, 1, 'friend', NULL, '2011-12-01 12:22:33.0', 'Raphael Marques hat Roger Bollmann als Freund hinzugefügt.');
+  VALUES(3, 1, 'friend', NULL, '2011-12-01 12:22:33.0', 'Raphael Marques hat Roger Bollmann als Freund hinzugef√ºgt.');
 INSERT INTO activities(activity_id, user_id, typ, parent, time, content)
   VALUES(4, 2, 'status', NULL, '2011-11-20 12:22:33.0', 'Ich heisse Cyril und bin super(denke ich zumindest)!');
 INSERT INTO activities(activity_id, user_id, typ, parent, time, content)
-  VALUES(5, 4, 'profile', NULL, '2011-10-20 12:22:33.0', 'Ich habe mein Name zu Fäbe geädertöü');
+  VALUES(5, 4, 'profile', NULL, '2011-10-20 12:22:33.0', 'Ich habe mein Name zu F√§be ge√§dert√∂√º');
 INSERT INTO activities(activity_id, user_id, typ, parent, time, content)
-  VALUES(6, 2, 'status', NULL, '2011-11-20 12:21:33.0', 'Ich bin so doof, ich könnte eine Kuh essen');
+  VALUES(6, 2, 'status', NULL, '2011-11-20 12:21:33.0', 'Ich bin so doof, ich k√∂nnte eine Kuh essen');
 INSERT INTO activities(activity_id, user_id, typ, parent, time, content)
   VALUES(7, 2, 'status', 2, '2011-11-23 13:22:22.0', 'Ich kommentiere gerne Kommentare');
 INSERT INTO friendship(primary_user, secondary_user, accepted)
