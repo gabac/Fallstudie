@@ -12,6 +12,11 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+    <filter>
+        <filter-name>userListener</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+
     <resource-ref id="DataSource_ResourceRef">
         <description>bla</description>
         <res-ref-name>jdbc/JDBCDataSource</res-ref-name>
