@@ -187,6 +187,10 @@ public class User {
 		this.photo = photo;
 	}
 
+	public boolean getHasPhoto() {
+		return this.photo != null;
+	}
+
 	public List<Friendship> getFriendships() {
 		return friendships;
 	}

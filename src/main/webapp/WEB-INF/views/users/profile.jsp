@@ -13,7 +13,12 @@
     <div class="row">
         <div class="span-one-third">
             <p>
-                <img src="/v1/users/${profile.id}/image" width="300" />
+                <c:if test="${profile.hasPhoto}">
+                    <img src="/v1/users/${profile.id}/image" width="300" />
+                </c:if>
+                <c:if test="${not profile.hasPhoto}">
+                    <img src="/resources/images/user.png" width="300" height="300" />
+                </c:if>
             </p>
         </div>
         <div class="span-one-third">
@@ -23,8 +28,8 @@
         </div>
         <div class="span-one-third">
             <p>
-                E-Mail: <a href="mailto:${profile.email}">${profile.email}</a><br /> 
-                born <joda:format value="${profile.birthdate}" style="F-" />
+                E-Mail: <a href="mailto:${profile.email}">${profile.email}</a><br /> born
+                <joda:format value="${profile.birthdate}" style="F-" />
             </p>
 
             <h3>Friends</h3>
