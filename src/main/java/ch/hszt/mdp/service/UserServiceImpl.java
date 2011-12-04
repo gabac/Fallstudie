@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
 
 		for (Friendship friend : user.getFriendships()) {
 
-			if (friend.getAccepted().equals("1")) {
+			if (friend.getAccepted() == 1) {
 				acceptedFriends.add(friend);
 			}
 		}
