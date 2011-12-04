@@ -39,7 +39,10 @@ public class StreamController {
 		dt = dt.minusDays(1);
 		model.addAttribute("dayBeforeYesterday", dt.toDate());
 
-		model.addAttribute("activities", userService.getActivitiesFromFriends(principal.getName()));
+		//todo remove if found out how to test the principal
+		if (principal != null) {
+			model.addAttribute("activities", userService.getActivitiesFromFriends(principal.getName()));
+		}
 
 		return "stream/list";
 	}

@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 
-import ch.hszt.mdp.service.ActivityService;
+import ch.hszt.mdp.service.UserService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,7 +29,7 @@ public class StreamControllerTest {
 	private StreamController streamController;
 	
 	@Autowired
-	private ActivityService activityService;
+	private UserService userService;
 
 	@Before
 	public void setup() {
@@ -37,7 +37,7 @@ public class StreamControllerTest {
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
 		adapter = new AnnotationMethodHandlerAdapter();
-		streamController = new StreamController(activityService, new DateTime());
+		streamController = new StreamController(userService, new DateTime());
 	}
 	
 	@Test
@@ -45,8 +45,7 @@ public class StreamControllerTest {
 		try {
 			request.setMethod("GET");
 			request.setRequestURI("/");
-
-
+			
 			ModelAndView mAv = adapter.handle(request, response, streamController);
 
 			assertEquals("stream/list", mAv.getViewName());

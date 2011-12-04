@@ -51,7 +51,6 @@ public class ActivityServiceTest {
 
 		Activity activity = new Activity();
 		activity.setTyp(ActivityType.PROFILE);
-		activity.setUser_id(new Integer(0));
 
 		return activity;
 	}
