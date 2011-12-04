@@ -12,8 +12,8 @@
                 </div>
                 <c:forEach items="${activities}" var="activity">
                 	<blockquote>
-	                	<p>${activity.activityType} ${activity.content}</p>
-	                	<small>${activity.user_id.prename} ${activity.user_id.surname} - <joda:format value="${activity.time}" style="F-" /></small>
+	                	<p class="${activity.activityType}">${activity.content}</p>
+	                	<small>${activity.user_id.prename} ${activity.user_id.surname} at <joda:format value="${activity.time}" style="-S" /></small>
 	                </blockquote>
 	            </c:forEach>
             </div>
