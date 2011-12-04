@@ -10,7 +10,10 @@
                     <h2><fmt:formatDate value="${today}" pattern="dd MMMM yyyy" /></h2>
                 </div>
                 <c:forEach items="${activities}" var="activity">
-	                <p>${activity.activityType} ${activity.content}</p>
+                	<blockquote>
+	                	<p>${activity.activityType} ${activity.content}</p>
+	                	<small>${activity.user_id.prename} ${activity.user_id.surname}</small>
+	                </blockquote>
 	            </c:forEach>
             </div>
             <div class="span-one-third">
