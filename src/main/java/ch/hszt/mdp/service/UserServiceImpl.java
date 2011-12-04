@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ch.hszt.mdp.dao.UserDao;
 import ch.hszt.mdp.domain.Activity;
 import ch.hszt.mdp.domain.Friendship;
+import ch.hszt.mdp.domain.Stream;
 import ch.hszt.mdp.domain.User;
 
 /**
@@ -98,27 +98,32 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	public List<Activity> getActivitiesFromFriends(String email) {
+	public Stream getActivitiesFromFriends(String email) {
 		List<Friendship> friends = getAccepteFriendships(email);
 
 		DateTime now = new DateTime();
-		
+
 		DateTime startOfToday = now.toDateMidnight().toInterval().getStart();
 		DateTime endOfToday = now.toDateMidnight().toInterval().getEnd();
-		
-		List<Activity> activitiesToday = new ArrayList<Activity>();
+		DateTime endOfYesterDay = now.minusDays(1).toDateMidnight().toInterval().getEnd();
+
+		Stream stream = new Stream();
 
 		for (Friendship friend : friends) {
 
 			for (Activity activity : friend.getSecondaryUser().getActivities()) {
 				if (activity.getTime().isAfter(startOfToday) && activity.getTime().isBefore(endOfToday)) {
-					activitiesToday.add(activity);
+					stream.addTodaysActivity(activity);
+				} else if (activity.getTime().isAfter(endOfYesterDay) && activity.getTime().isBefore(startOfToday)) {
+					stream.addYesterdaysActivities(activity);
+				} else {
+					stream.addPastActivities(activity);
 				}
 
 			}
 		}
 
-		return activitiesToday;
+		return stream;
 	}
 
 	@Override

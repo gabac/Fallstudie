@@ -1,7 +1,6 @@
 package ch.hszt.mdp.web;
 
 import java.security.Principal;
-import java.util.List;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ch.hszt.mdp.domain.Activity;
 import ch.hszt.mdp.service.UserService;
 
 @Controller
@@ -41,12 +39,9 @@ public class StreamController {
 		dt = dt.minusDays(1);
 		model.addAttribute("yesterday", dt);
 
-		dt = dt.minusDays(1);
-		model.addAttribute("dayBeforeYesterday", dt);
-
 		//todo remove if found out how to test the principal
 		if (principal != null) {
-			model.addAttribute("activities", userService.getActivitiesFromFriends(principal.getName()));
+			model.addAttribute("stream", userService.getActivitiesFromFriends(principal.getName()));
 		}
 
 		return "stream/list";

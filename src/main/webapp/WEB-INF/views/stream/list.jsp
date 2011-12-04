@@ -10,10 +10,10 @@
                 <div class="page-header">
                     <h2><joda:format value="${today}" style="L-" /></h2>
                 </div>
-                <c:forEach items="${activities}" var="activity">
+                <c:forEach items="${stream.todaysActivities}" var="todaysActivity">
                 	<blockquote>
-	                	<p class="${activity.activityType}">${activity.content}</p>
-	                	<small>${activity.user_id.prename} ${activity.user_id.surname} at <joda:format value="${activity.time}" style="-S" /></small>
+	                	<p class="${todaysActivity.activityType}">${todaysActivity.content}</p>
+	                	<small>${todaysActivity.user_id.prename} ${todaysActivity.user_id.surname} - <joda:format value="${todaysActivity.time}" style="F-" /></small>
 	                </blockquote>
 	            </c:forEach>
             </div>
@@ -21,23 +21,23 @@
                 <div class="page-header">
                     <h2><joda:format value="${yesterday}" style="L-" /></h2>
                 </div>
-                <blockquote>
-                    <p>Fabian Vogler and 5 others liked: Blim Blam Blum</p>
-                    <small>Hans Muster</small>
-                </blockquote>
+                <c:forEach items="${stream.yesterdaysActivities}" var="yesterdaysActivity">
+                	<blockquote>
+	                	<p class="${yesterdaysActivity.activityType}">${yesterdaysActivity.content}</p>
+	                	<small>${yesterdaysActivity.user_id.prename} ${yesterdaysActivity.user_id.surname} - <joda:format value="${yesterdaysActivity.time}" style="F-" /></small>
+	                </blockquote>
+	            </c:forEach>
             </div>
             <div class="span-one-third">
                 <div class="page-header">
-                    <h2><joda:format value="${dayBeforeYesterday}" style="L-" /></h2>
+                    <h2>Past</h2>
                 </div>
-                <blockquote>
-                    <p>Lives now in Baden</p>
-                    <small>Cyril Gabathuler</small>
-                </blockquote>
-                <blockquote>
-                    <p>Has a new profile pic</p>
-                    <small>Raphael Marques</small>
-                </blockquote>
+               <c:forEach items="${stream.pastActivities}" var="pastActivity">
+                	<blockquote>
+	                	<p class="${pastActivity.activityType}">${pastActivity.content}</p>
+	                	<small>${pastActivity.user_id.prename} ${pastActivity.user_id.surname} - <joda:format value="${pastActivity.time}" style="F-" /></small>
+	                </blockquote>
+	            </c:forEach>
             </div>
         </div>
     </jsp:body>
