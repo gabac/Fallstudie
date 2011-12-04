@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -45,7 +47,9 @@ public class Activity {
 	@GeneratedValue
 	private Integer activity_id;
 
-	private Integer user_id;
+	@OneToOne
+	@JoinColumn(name="user_id")
+	private User user_id;
 
 	@Column(name = "typ")
 	private String typValue;
@@ -73,19 +77,19 @@ public class Activity {
 		this.activity_id = activity_id;
 	}
 
-	public Integer getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
-	}
-
 	public String getContent() {
 		return content;
 	}
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public User getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(User user_id) {
+		this.user_id = user_id;
 	}
 }
