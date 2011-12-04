@@ -20,6 +20,15 @@
         <filter-name>userListener</filter-name>
         <url-pattern>/v1/*</url-pattern>
     </filter-mapping>
+    <filter>
+        <filter-name>Open Session in View Filter</filter-name>
+        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Open Session in View Filter</filter-name>
+        <url-pattern>/v1/*</url-pattern>
+    </filter-mapping>
+    
 
     <resource-ref id="DataSource_ResourceRef">
         <description>bla</description>
