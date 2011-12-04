@@ -1,7 +1,6 @@
 package ch.hszt.mdp.web;
 
 import java.security.Principal;
-import java.util.List;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ch.hszt.mdp.domain.Activity;
-import ch.hszt.mdp.service.ActivityService;
+import ch.hszt.mdp.service.UserService;
 
 @Controller
 @RequestMapping("/")
 public class StreamController {
 
 	@Autowired
-	private ActivityService activityService;
+	private UserService userService;
 
 	private DateTime dt;
 
@@ -26,8 +24,8 @@ public class StreamController {
 		dt = new DateTime();
 	}
 
-	public StreamController(ActivityService service, DateTime dt) {
-		this.activityService = service;
+	public StreamController(UserService service, DateTime dt) {
+		this.userService = service;
 		this.dt = dt;
 	}
 
@@ -41,7 +39,7 @@ public class StreamController {
 		dt = dt.minusDays(1);
 		model.addAttribute("dayBeforeYesterday", dt.toDate());
 
-		List<Activity> activities = activityService.getActivities();
+		model.addAttribute("activities", userService.getActivitiesFromFriends(principal.getName()));
 
 		return "stream/list";
 	}
