@@ -154,11 +154,13 @@ public class UserServiceImpl implements UserService {
 		}
 
              }
+             if(user.getPhoto().length!=0){
+                 origin.setPhoto(user.getPhoto());
+             }
              origin.setEmail(user.getEmail());
              origin.setPassword(user.getPassword());
              origin.setRepeat(user.getPassword());
              origin.setPrename(user.getPrename());
-             origin.setPhoto(user.getPhoto());
              origin.setSurname(user.getSurname());
              origin.setBirthdate(user.getBirthdate());
              origin.setCity(user.getCity());

@@ -25,6 +25,7 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import ch.hszt.mdp.domain.User;
 import ch.hszt.mdp.service.UserService;
 import ch.hszt.mdp.validation.DateTimePropertyEditor;
+import javax.servlet.http.HttpSession;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -133,7 +134,7 @@ public class UsersController {
 		return "redirect:/";
 	}
         @RequestMapping(value = "{id}/e", method = RequestMethod.POST)
-	public String update(@PathVariable("id") int id, @Valid User user, BindingResult result, Model model, Principal principal) {
+	public String update(@PathVariable("id") int id, @Valid User user, BindingResult result, Model model, Principal principal,HttpSession session) {
                 User origin = service.getUser(id);
 		if (result.hasErrors()) {
                         DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
@@ -143,11 +144,21 @@ public class UsersController {
 			return "/users/editprof";
                         
 		}
+                boolean auth =false;
+                if(user.getPassword().equals("changeit")){
+                    auth=true;
+                }
                 
                 
                 user = service.updateUser(origin, user);
 		
-                model.addAttribute("profile", user);
-		return "users/profile";
+               
+                if(auth){
+                     model.addAttribute("profile", user);
+                    return "redirect:users/profile";
+                }else{
+                    session.invalidate();
+                    return "redirect:auth/login";
+                }
 	}
 }
