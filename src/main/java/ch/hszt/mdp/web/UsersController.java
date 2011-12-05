@@ -155,10 +155,10 @@ public class UsersController {
                
                 if(auth){
                      model.addAttribute("profile", user);
-                    return "redirect:users/profile";
+                    return "redirect:/";
                 }else{
                     session.invalidate();
-                    return "redirect:auth/login";
+                    return "redirect:/auth/login";
                 }
 	}
 }
