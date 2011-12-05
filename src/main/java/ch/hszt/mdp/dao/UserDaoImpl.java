@@ -3,6 +3,8 @@ package ch.hszt.mdp.dao;
 import org.hibernate.Query;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
+import ch.hszt.mdp.domain.Activity;
+import ch.hszt.mdp.domain.Activity.ActivityType;
 import ch.hszt.mdp.domain.User;
 
 /**
@@ -46,6 +48,38 @@ public class UserDaoImpl extends HibernateTemplate implements UserDao {
 		long count = (Long) q.iterate().next();
 
 		return count > 0;
+	}
+	/**
+	 * Accept friend by clicking on the accept button in the GUI
+	 * Set accepted = 1 in the DB
+	 * @author Roger Bollmann
+	 */
+	@Override
+	public void acceptFriend(int friendId, int id) {
+		
+		Query q = getSession().createQuery("update Friendship set accepted = '1' where primary_user = :id and secondary_user = :friendId");
+		q.setParameter("id", id);
+		q.setParameter("friendId", friendId);	
+		q.executeUpdate();
+
+		System.out.println("done");
+	}
+	
+	/**
+	 * Accept friend by clicking on the ignore button in the GUI
+	 * Set accepted = 2 in the DB
+	 * @author Roger Bollmann
+	 */
+	@Override
+	public void ignoreFriend(int friendId, int id) {
+		
+		Query q = getSession().createQuery("update Friendship set accepted = '2' where primary_user = :id and secondary_user = :friendId");
+		q.setParameter("id", id);
+		q.setParameter("friendId", friendId);
+		
+		
+		q.executeUpdate();
+		System.out.println("done");
 	}
 
 }

@@ -6,6 +6,8 @@ import org.hibernate.Query;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import ch.hszt.mdp.domain.Activity;
+import ch.hszt.mdp.domain.Activity.ActivityType;
+import ch.hszt.mdp.domain.User;
 
 public class ActivityDaoImpl extends HibernateTemplate implements ActivityDao {
 

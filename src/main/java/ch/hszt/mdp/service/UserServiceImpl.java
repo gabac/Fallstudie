@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +23,13 @@ import ch.hszt.mdp.domain.User;
 public class UserServiceImpl implements UserService {
 
 	private UserDao userDao;
-
+	
+	private ActivityService activityService;
+	
+	public void setActivityService(ActivityService activityService) {
+		this.activityService = activityService;
+	}
+	
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
@@ -95,6 +102,22 @@ public class UserServiceImpl implements UserService {
 
 	}
 	
+	public List<Friendship> getUnaccepteFriendships(String email) {
+
+		User user = getUserByEmail(email);
+		List<Friendship> unacceptedFriends = new ArrayList<Friendship>();
+
+		for (Friendship friend : user.getFriendships()) {
+
+			if (friend.getAccepted() == 0) {
+				unacceptedFriends.add(friend);
+			}
+		}
+
+		return unacceptedFriends;
+
+	}
+	
 	public List<Activity> getActivitiesFromFriends(String email) {
 		List<Friendship> friends = getAccepteFriendships(email);
 		
@@ -113,5 +136,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUser(int id) {
 		return userDao.getUser(id);
+	}
+
+	@Override
+	public void acceptFriend(int friendId, int id) {
+		userDao.acceptFriend(friendId, id);
+		activityService.acceptFriendship(getUser(friendId), getUser(id));
+		
+	}
+
+	@Override
+	public void ignoreFriend(int friendId, int id) {
+		// TODO Auto-generated method stub
+		userDao.ignoreFriend(friendId, id);
 	}
 }

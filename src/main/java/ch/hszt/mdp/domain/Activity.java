@@ -9,6 +9,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 @Entity
 @Table(name = "activities")
 public class Activity {
@@ -53,6 +56,17 @@ public class Activity {
 
 	@Column(name = "typ")
 	private String typValue;
+	
+	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	private DateTime time;
+
+	public DateTime getTime() {
+		return time;
+	}
+
+	public void setTime(DateTime time) {
+		this.time = time;
+	}
 
 	@Transient
 	public ActivityType getActivityType() {
