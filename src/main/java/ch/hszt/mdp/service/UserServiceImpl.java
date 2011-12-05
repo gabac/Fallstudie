@@ -105,7 +105,8 @@ public class UserServiceImpl implements UserService {
 
 		DateTime startOfToday = now.toDateMidnight().toInterval().getStart();
 		DateTime endOfToday = now.toDateMidnight().toInterval().getEnd();
-		DateTime endOfYesterDay = now.minusDays(1).toDateMidnight().toInterval().getEnd();
+		DateTime startOfYesterDay = now.minusDays(1).toDateMidnight().toInterval().getStart();
+		System.out.println("foo"+startOfYesterDay);
 
 		Stream stream = new Stream();
 
@@ -114,7 +115,7 @@ public class UserServiceImpl implements UserService {
 			for (Activity activity : friend.getSecondaryUser().getActivities()) {
 				if (activity.getTime().isAfter(startOfToday) && activity.getTime().isBefore(endOfToday)) {
 					stream.addTodaysActivity(activity);
-				} else if (activity.getTime().isAfter(endOfYesterDay) && activity.getTime().isBefore(startOfToday)) {
+				} else if (activity.getTime().isBefore(startOfToday) && activity.getTime().isAfter(startOfYesterDay)) {
 					stream.addYesterdaysActivities(activity);
 				} else {
 					stream.addPastActivities(activity);
