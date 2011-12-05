@@ -24,6 +24,8 @@ import ch.hszt.mdp.domain.User;
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class UserServiceImpl implements UserService {
 
+   
+
 	private UserDao userDao;
 
 	public void setUserDao(UserDao userDao) {
@@ -130,4 +132,38 @@ public class UserServiceImpl implements UserService {
 	public User getUser(int id) {
 		return userDao.getUser(id);
 	}
+        
+         @Override
+        public User updateUser(User origin, User user) {
+             if(user.getPassword().equals("changeit")){
+                    user.setPassword(origin.getPassword());
+                    user.setRepeat(origin.getPassword());
+                }
+             else{
+                 try {
+                     String password = user.getPassword();
+          
+			// convert password to SHA1
+			password = sha1(password);
+
+			user.setPassword(password);
+			user.setRepeat(password);
+
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+
+             }
+             origin.setEmail(user.getEmail());
+             origin.setPassword(user.getPassword());
+             origin.setRepeat(user.getPassword());
+             origin.setPrename(user.getPrename());
+             origin.setPhoto(user.getPhoto());
+             origin.setSurname(user.getSurname());
+             origin.setBirthdate(user.getBirthdate());
+             origin.setCity(user.getCity());
+             userDao.save(origin);
+             return origin;
+            
+        }
 }

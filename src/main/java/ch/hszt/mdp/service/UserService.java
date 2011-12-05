@@ -21,5 +21,7 @@ public interface UserService {
 	User getUser(int id);
 	
 	Stream getActivitiesFromFriends(String email);
+        
+        public User updateUser(User origin, User user);
 
 }

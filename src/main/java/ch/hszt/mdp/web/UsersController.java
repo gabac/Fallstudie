@@ -25,6 +25,8 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import ch.hszt.mdp.domain.User;
 import ch.hszt.mdp.service.UserService;
 import ch.hszt.mdp.validation.DateTimePropertyEditor;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * 
@@ -81,10 +83,21 @@ public class UsersController {
 	public String getProfileForm(@PathVariable("id") int id, Model model, Principal principal) {
 
 		User user = service.getUser(id);
-
+                
 		model.addAttribute("profile", user);
 
 		return "users/profile";
+	}
+        @RequestMapping(value = "{id}/e", method = RequestMethod.GET)
+	public String getProfileFormEdit(@PathVariable("id") int id, Model model, Principal principal) {
+
+		User user = service.getUser(id);
+                DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+                String str = fmt.print(user.getBirthdate());
+                model.addAttribute("birthday", str);
+		model.addAttribute("profile", user);
+
+		return "users/editprof";
 	}
 
 	@RequestMapping(value = "{id}/image", method = RequestMethod.GET)
@@ -118,5 +131,23 @@ public class UsersController {
 		service.create(user);
 
 		return "redirect:/";
+	}
+        @RequestMapping(value = "{id}/e", method = RequestMethod.POST)
+	public String update(@PathVariable("id") int id, @Valid User user, BindingResult result, Model model, Principal principal) {
+                User origin = service.getUser(id);
+		if (result.hasErrors()) {
+                        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+                        String str = fmt.print(origin.getBirthdate());
+                        model.addAttribute("birthday", str);
+                        model.addAttribute("profile", origin);
+			return "/users/editprof";
+                        
+		}
+                
+                
+                user = service.updateUser(origin, user);
+		
+                model.addAttribute("profile", user);
+		return "users/profile";
 	}
 }
