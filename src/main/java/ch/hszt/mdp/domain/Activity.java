@@ -59,17 +59,6 @@ public class Activity {
 	
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime time;
-<<<<<<< HEAD
-
-	public DateTime getTime() {
-		return time;
-	}
-
-	public void setTime(DateTime time) {
-		this.time = time;
-	}
-=======
->>>>>>> d84b39346de3dfa1453f1180fce507420ac32628
 
 	@Transient
 	public ActivityType getActivityType() {

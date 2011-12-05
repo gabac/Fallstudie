@@ -5,11 +5,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
-=======
 import org.joda.time.DateTime;
->>>>>>> d84b39346de3dfa1453f1180fce507420ac32628
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -107,7 +104,6 @@ public class UserServiceImpl implements UserService {
 		return acceptedFriends;
 
 	}
-<<<<<<< HEAD
 	
 	public List<Friendship> getUnaccepteFriendships(String email) {
 
@@ -125,11 +121,8 @@ public class UserServiceImpl implements UserService {
 
 	}
 	
-	public List<Activity> getActivitiesFromFriends(String email) {
-=======
 
 	public Stream getActivitiesFromFriends(String email) {
->>>>>>> d84b39346de3dfa1453f1180fce507420ac32628
 		List<Friendship> friends = getAccepteFriendships(email);
 
 		DateTime now = new DateTime();
@@ -161,7 +154,7 @@ public class UserServiceImpl implements UserService {
 	public User getUser(int id) {
 		return userDao.getUser(id);
 	}
-<<<<<<< HEAD
+
 
 	@Override
 	public void acceptFriend(int friendId, int id) {
@@ -174,10 +167,10 @@ public class UserServiceImpl implements UserService {
 	public void ignoreFriend(int friendId, int id) {
 		// TODO Auto-generated method stub
 		userDao.ignoreFriend(friendId, id);
-=======
+	}
+
 	
 	public void saveUser(User user) {
 		userDao.save(user);
->>>>>>> d84b39346de3dfa1453f1180fce507420ac32628
 	}
 }
