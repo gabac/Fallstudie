@@ -109,7 +109,7 @@ public class User {
 	@OneToMany(mappedBy = "primaryUser")
 	private List<Friendship> friendships;
 
-	@OneToMany(mappedBy = "user_id")
+	@OneToMany(mappedBy = "user")
 	private List<Activity> activities;
 
 	public User() {
