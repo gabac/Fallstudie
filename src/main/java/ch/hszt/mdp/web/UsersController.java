@@ -89,6 +89,17 @@ public class UsersController {
 
 		return "users/profile";
 	}
+	
+	/**
+	 * Accept friend request by clicking on the accept button on the GUI.
+	 * Reload page by returning "redirect:/v1/users/"+id;
+	 * @author Roger Bollmann
+	 * @param id
+	 * @param friendId
+	 * @param model
+	 * @param principal
+	 * @return
+	 */
 
 	@RequestMapping(value = "{id}/accept/{friendId}", method = RequestMethod.GET)
 	public String getProfileForm(@PathVariable("id") int id, @PathVariable("friendId") int friendId, Model model, Principal principal) {
