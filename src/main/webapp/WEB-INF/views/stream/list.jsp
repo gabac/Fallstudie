@@ -11,10 +11,7 @@
                     <h2><joda:format value="${today}" style="L-" /></h2>
                 </div>
                 <c:forEach items="${stream.todaysActivities}" var="todaysActivity">
-                	<blockquote>
-	                	<p class="${todaysActivity.activityType}">${todaysActivity.content}</p>
-	                	<small>${todaysActivity.user_id.prename} ${todaysActivity.user_id.surname} - <joda:format value="${todaysActivity.time}" style="F-" /></small>
-	                </blockquote>
+                	<t:activity activity="${todaysActivity}" />
 	            </c:forEach>
             </div>
             <div class="span-one-third">
@@ -22,10 +19,7 @@
                     <h2><joda:format value="${yesterday}" style="L-" /></h2>
                 </div>
                 <c:forEach items="${stream.yesterdaysActivities}" var="yesterdaysActivity">
-                	<blockquote>
-	                	<p class="${yesterdaysActivity.activityType}">${yesterdaysActivity.content}</p>
-	                	<small>${yesterdaysActivity.user_id.prename} ${yesterdaysActivity.user_id.surname} - <joda:format value="${yesterdaysActivity.time}" style="F-" /></small>
-	                </blockquote>
+                	<t:activity activity="${yesterdaysActivity}" />
 	            </c:forEach>
             </div>
             <div class="span-one-third">
@@ -33,10 +27,7 @@
                     <h2>Past</h2>
                 </div>
                <c:forEach items="${stream.pastActivities}" var="pastActivity">
-                	<blockquote>
-	                	<p class="${pastActivity.activityType}">${pastActivity.content}</p>
-	                	<small>${pastActivity.user_id.prename} ${pastActivity.user_id.surname} - <joda:format value="${pastActivity.time}" style="F-" /></small>
-	                </blockquote>
+                	<t:activity activity="${pastActivity}" />
 	            </c:forEach>
             </div>
         </div>
