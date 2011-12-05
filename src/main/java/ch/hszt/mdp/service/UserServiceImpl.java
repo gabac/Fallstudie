@@ -106,7 +106,6 @@ public class UserServiceImpl implements UserService {
 		DateTime startOfToday = now.toDateMidnight().toInterval().getStart();
 		DateTime endOfToday = now.toDateMidnight().toInterval().getEnd();
 		DateTime startOfYesterDay = now.minusDays(1).toDateMidnight().toInterval().getStart();
-		System.out.println("foo"+startOfYesterDay);
 
 		Stream stream = new Stream();
 
@@ -130,5 +129,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUser(int id) {
 		return userDao.getUser(id);
+	}
+	
+	public void saveUser(User user) {
+		userDao.save(user);
 	}
 }
