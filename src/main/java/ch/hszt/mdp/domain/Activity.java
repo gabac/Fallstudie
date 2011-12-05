@@ -52,13 +52,14 @@ public class Activity {
 
 	@OneToOne
 	@JoinColumn(name="user_id")
-	private User user_id;
+	private User user;
 
 	@Column(name = "typ")
 	private String typValue;
 	
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime time;
+<<<<<<< HEAD
 
 	public DateTime getTime() {
 		return time;
@@ -67,6 +68,8 @@ public class Activity {
 	public void setTime(DateTime time) {
 		this.time = time;
 	}
+=======
+>>>>>>> d84b39346de3dfa1453f1180fce507420ac32628
 
 	@Transient
 	public ActivityType getActivityType() {
@@ -99,11 +102,19 @@ public class Activity {
 		this.content = content;
 	}
 
-	public User getUser_id() {
-		return user_id;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUser_id(User user_id) {
-		this.user_id = user_id;
+	public void setUser(User user_id) {
+		this.user = user_id;
+	}
+
+	public DateTime getTime() {
+		return time;
+	}
+
+	public void setTime(DateTime time) {
+		this.time = time;
 	}
 }

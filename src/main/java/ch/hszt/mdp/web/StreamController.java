@@ -19,9 +19,9 @@ public class StreamController {
 	private UserService userService;
 
 	private DateTime dt;
-
+	
 	public StreamController() {
-		dt = new DateTime();
+		
 	}
 
 	public StreamController(UserService service, DateTime dt) {
@@ -31,18 +31,16 @@ public class StreamController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model, Principal principal) {
-		model.addAttribute("today", dt.toDate());
+
+		dt = new DateTime();
+		
+		model.addAttribute("today", dt);
 
 		dt = dt.minusDays(1);
-		model.addAttribute("yesterday", dt.toDate());
-
-		dt = dt.minusDays(1);
-		model.addAttribute("dayBeforeYesterday", dt.toDate());
+		model.addAttribute("yesterday", dt);
 
 		//todo remove if found out how to test the principal
-		if (principal != null) {
-			model.addAttribute("activities", userService.getActivitiesFromFriends(principal.getName()));
-		}
+			model.addAttribute("stream", userService.getActivitiesFromFriends(principal.getName()));
 
 		return "stream/list";
 	}
