@@ -16,7 +16,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import ch.hszt.mdp.domain.Activity;
 import ch.hszt.mdp.domain.Activity.ActivityType;
-import ch.hszt.mdp.domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:mdp-test-daos.xml" })
