@@ -1,6 +1,6 @@
 <%@ tag description="Layout Tag" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ attribute name="title" required="true" %>
+<%@ attribute name="title" required="true" rtexprvalue="true"%>
 <%@ attribute name="header" fragment="true" %>
 <%@ attribute name="footer" fragment="true" %>
 <!DOCTYPE html>
@@ -29,7 +29,7 @@ body {
                 <p class="pull-right">
                     <input type="text" placeholder="Search">
                     <c:if test="${not empty pageContext.request.remoteUser}" scope="request" var="remoteUser">
-                        &nbsp; <a href="/v1/users/${user.id}"><c:out value="${user.prename} ${user.surname}" /></a>(<a href="/v1/users/${user.id}/e">edit</a>) – <a href="/v1/auth/logout">Logout</a>
+                        &nbsp; <a href="/v1/users/${user.id}"><c:out value="${user.prename} ${user.surname}" /></a>(<a href="/v1/users/${user.id}/edit">edit</a>) – <a href="/v1/auth/logout">Logout</a>
                     </c:if>
                 </p>
             </div>

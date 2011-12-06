@@ -4,9 +4,12 @@ import java.security.Principal;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,9 +28,6 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import ch.hszt.mdp.domain.User;
 import ch.hszt.mdp.service.UserService;
 import ch.hszt.mdp.validation.DateTimePropertyEditor;
-import javax.servlet.http.HttpSession;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 /**
  * 
@@ -91,21 +91,25 @@ public class UsersController {
 
 		return "users/profile";
 	}
-        @RequestMapping(value = "{id}/e", method = RequestMethod.GET)
+
+	@RequestMapping(value = "{id}/edit", method = RequestMethod.GET)
 	public String getProfileFormEdit(@PathVariable("id") int id, Model model, Principal principal) {
-
+		
 		User user = service.getUser(id);
-                DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
-                String str = fmt.print(user.getBirthdate());
-                model.addAttribute("birthday", str);
-		model.addAttribute("profile", user);
+		model.addAttribute("userid", user.getId());
+		
+		// TODO find nicer solution!!
+		DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+		String str = fmt.print(user.getBirthdate());
+		model.addAttribute("birthdate", str);
 
-		return "users/editprof";
+		return "users/edit";
 	}
-	
+
 	/**
-	 * Accept friend request by clicking on the accept button on the GUI.
-	 * Reload page by returning "redirect:/v1/users/"+id;
+	 * Accept friend request by clicking on the accept button on the GUI. Reload page by returning
+	 * "redirect:/v1/users/"+id;
+	 * 
 	 * @author Roger Bollmann
 	 * @param id
 	 * @param friendId
@@ -115,29 +119,21 @@ public class UsersController {
 	 */
 
 	@RequestMapping(value = "{id}/accept/{friendId}", method = RequestMethod.GET)
-	public String getProfileForm(@PathVariable("id") int id, @PathVariable("friendId") int friendId, Model model, Principal principal) {
+	public String getAcceptFriend(@PathVariable("id") int id, @PathVariable("friendId") int friendId, Model model, Principal principal) {
 
-		User user = service.getUser(id);
-		
 		service.acceptFriend(friendId, id);
-		
-		//System.out.println("foo" + friendId);
-		
-		return "redirect:/v1/users/"+id;
-	}
-	
-	@RequestMapping(value = "{id}/ignore/{friendId}", method = RequestMethod.GET)
-	public String getProfileForm1(@PathVariable("id") int id, @PathVariable("friendId") int friendId, Model model, Principal principal) {
 
-		User user = service.getUser(id);
-		
-		service.ignoreFriend(friendId, id);
-		
-		//System.out.println("foo" + friendId);
-		
-		return "redirect:/v1/users/"+id;
+		return "redirect:/v1/users/" + id;
 	}
-	
+
+	@RequestMapping(value = "{id}/ignore/{friendId}", method = RequestMethod.GET)
+	public String getIgnoreFriend(@PathVariable("id") int id, @PathVariable("friendId") int friendId, Model model, Principal principal) {
+
+		service.ignoreFriend(friendId, id);
+
+		return "redirect:/v1/users/" + id;
+	}
+
 	@RequestMapping(value = "{id}/image", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> image(@PathVariable("id") int id, Model model, Principal principal) {
 
@@ -170,33 +166,38 @@ public class UsersController {
 
 		return "redirect:/";
 	}
-        @RequestMapping(value = "{id}/e", method = RequestMethod.POST)
-	public String update(@PathVariable("id") int id, @Valid User user, BindingResult result, Model model, Principal principal,HttpSession session) {
-                User origin = service.getUser(id);
+
+	@RequestMapping(value = "{id}", method = RequestMethod.POST)
+	public String update(@PathVariable("id") int id, @Valid User user, BindingResult result, Model model, Principal principal,
+			HttpSession session) {
+
+		User origin = service.getUser(id);
+
 		if (result.hasErrors()) {
-                        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
-                        String str = fmt.print(origin.getBirthdate());
-                        model.addAttribute("birthday", str);
-                        model.addAttribute("profile", origin);
-			return "/users/editprof";
-                        
+			model.addAttribute("userid", origin.getId());
+			
+			// TODO find nicer solution!!
+			DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+			String str = fmt.print(origin.getBirthdate());
+			model.addAttribute("birthdate", str);
+			return "/users/edit";
+
 		}
-                boolean auth =false;
-                if(user.getPassword().equals("changeit")&&user.getEmail().equals(origin.getEmail())){
-                    auth=true;
-                }
-               
-                
-                
-                user = service.updateUser(origin, user);
-		
-               
-                if(auth){
-                     model.addAttribute("profile", user);
-                    return "redirect:/";
-                }else{
-                    session.invalidate();
-                    return "redirect:/auth/login";
-                }
+
+		boolean auth = false;
+		if (user.getPassword().equals("") && user.getEmail().equals(origin.getEmail())) {
+			auth = true;
+		}
+
+		//update user
+		service.updateUser(origin, user);
+
+		if (auth) {
+			model.addAttribute("profile", user);
+			return "redirect:/v1/users/" + id;
+		} else {
+			session.invalidate();
+			return "redirect:/";
+		}
 	}
 }

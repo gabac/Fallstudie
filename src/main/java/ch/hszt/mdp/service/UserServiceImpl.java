@@ -5,7 +5,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,16 +24,14 @@ import ch.hszt.mdp.domain.User;
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class UserServiceImpl implements UserService {
 
-   
-
 	private UserDao userDao;
-	
+
 	private ActivityService activityService;
-	
+
 	public void setActivityService(ActivityService activityService) {
 		this.activityService = activityService;
 	}
-	
+
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
@@ -106,7 +103,7 @@ public class UserServiceImpl implements UserService {
 		return acceptedFriends;
 
 	}
-	
+
 	public List<Friendship> getUnaccepteFriendships(String email) {
 
 		User user = getUserByEmail(email);
@@ -122,7 +119,6 @@ public class UserServiceImpl implements UserService {
 		return unacceptedFriends;
 
 	}
-	
 
 	public Stream getActivitiesFromFriends(String email) {
 		List<Friendship> friends = getAccepteFriendships(email);
@@ -157,50 +153,45 @@ public class UserServiceImpl implements UserService {
 		return userDao.getUser(id);
 	}
 
-        
-         @Override
-        public User updateUser(User origin, User user) {
-             if(user.getPassword().equals("changeit")){
-                    user.setPassword(origin.getPassword());
-                    user.setRepeat(origin.getPassword());
-                }
-             else{
-                 try {
-                     String password = user.getPassword();
-          
-			// convert password to SHA1
-			password = sha1(password);
+	@Override
+	public void updateUser(User origin, User user) {
 
-			user.setPassword(password);
-			user.setRepeat(password);
+		if (!user.getPassword().equals("")) { 
+			
+			String password = user.getPassword();
+			
+			try {
+				// convert password to SHA1
+				password = sha1(password);
 
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			} finally {
+				origin.setPassword(password);
+				origin.setRepeat(password);
+			}
 		}
 
-             }
-             if(user.getHasPhoto()&&user.getPhoto().length!=0){
-                 origin.setPhoto(user.getPhoto());
-             }
-             origin.setEmail(user.getEmail());
-             origin.setPassword(user.getPassword());
-             origin.setRepeat(user.getPassword());
-             origin.setPrename(user.getPrename());
-             origin.setSurname(user.getSurname());
-             origin.setBirthdate(user.getBirthdate());
-             origin.setCity(user.getCity());
-             userDao.save(origin);
-             return origin;
-            
-        }
+		if (user.getHasPhoto() && user.getPhoto().length != 0) {
+			origin.setPhoto(user.getPhoto());
+		}
+		
+		origin.setRepeat(origin.getPassword());
+		origin.setEmail(user.getEmail());
+		origin.setPrename(user.getPrename());
+		origin.setSurname(user.getSurname());
+		origin.setBirthdate(user.getBirthdate());
+		origin.setCity(user.getCity());
 
-
+		userDao.save(origin);
+	}
 
 	@Override
 	public void acceptFriend(int friendId, int id) {
 		userDao.acceptFriend(friendId, id);
 		activityService.acceptFriendship(getUser(friendId), getUser(id));
-		
+
 	}
 
 	@Override
@@ -209,7 +200,6 @@ public class UserServiceImpl implements UserService {
 		userDao.ignoreFriend(friendId, id);
 	}
 
-	
 	public void saveUser(User user) {
 		userDao.save(user);
 	}

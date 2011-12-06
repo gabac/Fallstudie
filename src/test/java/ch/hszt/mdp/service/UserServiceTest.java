@@ -2,6 +2,10 @@ package ch.hszt.mdp.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -12,8 +16,6 @@ import org.junit.runner.RunWith;
 
 import ch.hszt.mdp.dao.UserDao;
 import ch.hszt.mdp.domain.User;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 @RunWith(JMock.class)
 public class UserServiceTest {
@@ -58,78 +60,90 @@ public class UserServiceTest {
 
 		return user;
 	}
-        @Test
-        public void testPasswordNotUpdated(){
-            final UserDao dao = context.mock(UserDao.class);
-            final User user = getUser();
-            user.setPassword("changeit");
-            user.setRepeat("changeit");
-            User u2 = getUser();
-            u2.setPassword("changeit");
-            u2.setRepeat("changeit");
-            final User origin = getUser();
-            origin.setId(1);
-            context.checking(new Expectations() {
-			{
-				one(dao).save(origin);
-			}
-		});
-            service.setUserDao(dao);
-            service.create(origin);
-            context.checking(new Expectations() {
-			{
-				one(dao).save(origin);
-			}
-		});
-            User last =  service.updateUser(origin, user);
-            assertTrue(!last.getPassword().equals(u2.getPassword()));
-            
-        }
+
 	@Test
-        public void testPasswordUpdated(){
-            final UserDao dao = context.mock(UserDao.class);
-            final User user = getUser();
-            user.setPassword("456");
-            user.setRepeat("456");
-            final User u2 = getUser();
-            u2.setPassword("456");
-            try{
-                u2.setPassword(sha1(u2.getPassword()));
-                    }catch(Exception e){
-                        e.printStackTrace();
-                    }
-            
-            final User origin = getUser();
-            origin.setId(1);
-            context.checking(new Expectations() {
-			{
-				one(dao).save(origin);
-			}
-		});
-            service.setUserDao(dao);
-            service.create(origin);
-            context.checking(new Expectations() {
-			{
-				one(dao).save(origin);
-			}
-		});
-            User last =  service.updateUser(origin, user);
-            assertTrue(last.getPassword().equals(u2.getPassword()));
-            
-        }
-	private void getAcceptedFriends(){
-		UserServiceImpl userService = new UserServiceImpl();
+	public void testPasswordNotUpdated() {
+		final UserDao dao = context.mock(UserDao.class);
 		
-		if (userService.getAccepteFriendships("roger.bollmann@gmail.com").get(0).equals("Raphael Marques")){
+		final User user = getUser();
+		
+		user.setId(1);
+		user.setPassword("123");
+		user.setRepeat("123");
+		
+		User u2 = getUser();
+		u2.setPassword("");
+		u2.setRepeat("");
+		
+		context.checking(new Expectations() {
+			{
+				one(dao).save(user);
+			}
+		});
+		
+		service.setUserDao(dao);
+		service.create(user);
+		
+		final String sha1Pwd = user.getPassword();
+		
+		context.checking(new Expectations() {
+			{
+				one(dao).save(user);
+			}
+		});
+		
+		service.updateUser(user, u2);
+		assertTrue(user.getPassword().equals(sha1Pwd));
+	}
+
+	@Test
+	public void testPasswordUpdated() {
+final UserDao dao = context.mock(UserDao.class);
+		
+		final User user = getUser();
+		
+		user.setId(1);
+		user.setPassword("123");
+		user.setRepeat("123");
+		
+		User u2 = getUser();
+		u2.setPassword("456");
+		u2.setRepeat("456");
+		
+		context.checking(new Expectations() {
+			{
+				one(dao).save(user);
+			}
+		});
+		
+		service.setUserDao(dao);
+		service.create(user);
+		
+		final String sha1Pwd = user.getPassword();
+		
+		context.checking(new Expectations() {
+			{
+				one(dao).save(user);
+			}
+		});
+		
+		service.updateUser(user, u2);
+		assertTrue(!user.getPassword().equals(sha1Pwd));
+
+	}
+
+	private void getAcceptedFriends() {
+		UserServiceImpl userService = new UserServiceImpl();
+
+		if (userService.getAccepteFriendships("roger.bollmann@gmail.com").get(0).equals("Raphael Marques")) {
 			System.out.println("Test successfully");
-		}else{
+		} else {
 			System.out.println("TEST NOT SUCCESSFULLY!!!!!");
 		}
-		
-		
-		
+
 	}
-	 public String sha1(String password) throws NoSuchAlgorithmException {
+
+	public String sha1(String password) throws NoSuchAlgorithmException {
 
 		MessageDigest md = MessageDigest.getInstance("SHA1");
 		md.reset();
@@ -146,5 +160,5 @@ public class UserServiceTest {
 
 		return hexStr;
 	}
-	
+
 }
