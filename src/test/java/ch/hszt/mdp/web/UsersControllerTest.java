@@ -74,7 +74,7 @@ public class UsersControllerTest {
 
 		BindingResult result = validate(request);
 
-		assertEquals(8, result.getErrorCount());
+		assertEquals(6, result.getErrorCount());
 	}
 
 	@Test
