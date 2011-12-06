@@ -145,9 +145,10 @@ public class UsersController {
                         
 		}
                 boolean auth =false;
-                if(user.getPassword().equals("changeit")){
+                if(user.getPassword().equals("changeit")&&user.getEmail().equals(origin.getEmail())){
                     auth=true;
                 }
+               
                 
                 
                 user = service.updateUser(origin, user);

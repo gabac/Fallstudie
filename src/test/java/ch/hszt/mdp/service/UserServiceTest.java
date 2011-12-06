@@ -56,6 +56,28 @@ public class UserServiceTest {
 
 		return user;
 	}
+//        @Test
+//        public void testPasswordUpdate(){
+//            final UserDao dao = context.mock(UserDao.class);
+//            final UserDao dao2 = context.mock(UserDao.class);
+//            final User user = getUser();
+//            user.setPassword("changeit");
+//            user.setRepeat("changeit");
+//            final User origin = getUser();
+//            origin.setId(1);
+//            context.checking(new Expectations() {
+//			{
+//				one(dao).save(user);
+//                                one(dao2).save(origin);
+//			}
+//		});
+//            service.setUserDao(dao);
+//            service.create(origin);
+//            service.setUserDao(dao2);
+//            User last =  service.updateUser(origin, user);
+//            assertEquals(last, origin);
+//            
+//        }
 	
 	private void getAcceptedFriends(){
 		UserServiceImpl userService = new UserServiceImpl();

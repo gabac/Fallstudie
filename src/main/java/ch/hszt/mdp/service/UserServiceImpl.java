@@ -154,7 +154,7 @@ public class UserServiceImpl implements UserService {
 		}
 
              }
-             if(user.getPhoto().length!=0){
+             if(user.getHasPhoto()&&user.getPhoto().length!=0){
                  origin.setPhoto(user.getPhoto());
              }
              origin.setEmail(user.getEmail());
