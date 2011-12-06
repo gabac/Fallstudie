@@ -60,9 +60,8 @@ public class UserDaoImpl extends HibernateTemplate implements UserDao {
 		Query q = getSession().createQuery("update Friendship set accepted = '1' where primary_user = :id and secondary_user = :friendId");
 		q.setParameter("id", id);
 		q.setParameter("friendId", friendId);	
-		q.executeUpdate();
 
-		System.out.println("done");
+		q.executeUpdate();
 	}
 	
 	/**
@@ -77,9 +76,7 @@ public class UserDaoImpl extends HibernateTemplate implements UserDao {
 		q.setParameter("id", id);
 		q.setParameter("friendId", friendId);
 		
-		
 		q.executeUpdate();
-		System.out.println("done");
 	}
 
 }
