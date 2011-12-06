@@ -1,6 +1,10 @@
 package ch.hszt.mdp.service;
 
+import java.util.List;
+
 import ch.hszt.mdp.dao.UserDao;
+import ch.hszt.mdp.domain.Activity;
+import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.Stream;
 import ch.hszt.mdp.domain.User;
 
@@ -20,8 +24,15 @@ public interface UserService {
 
 	User getUser(int id);
 	
-	Stream getActivitiesFromFriends(String email);
-        
+	List<Friendship> getAccepteFriendships(String email);
+	List<Friendship> getUnaccepteFriendships(String email);
+
+	void acceptFriend(int friendId, int id);
+	
+	void ignoreFriend(int friendId, int id);
+	Stream getActivitiesFromFriends(String email);        
         public User updateUser(User origin, User user);
+	
+	void saveUser(User user);
 
 }

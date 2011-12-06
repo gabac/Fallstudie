@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,13 @@ public class UserServiceImpl implements UserService {
    
 
 	private UserDao userDao;
-
+	
+	private ActivityService activityService;
+	
+	public void setActivityService(ActivityService activityService) {
+		this.activityService = activityService;
+	}
+	
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
@@ -99,6 +106,23 @@ public class UserServiceImpl implements UserService {
 		return acceptedFriends;
 
 	}
+	
+	public List<Friendship> getUnaccepteFriendships(String email) {
+
+		User user = getUserByEmail(email);
+		List<Friendship> unacceptedFriends = new ArrayList<Friendship>();
+
+		for (Friendship friend : user.getFriendships()) {
+
+			if (friend.getAccepted() == 0) {
+				unacceptedFriends.add(friend);
+			}
+		}
+
+		return unacceptedFriends;
+
+	}
+	
 
 	public Stream getActivitiesFromFriends(String email) {
 		List<Friendship> friends = getAccepteFriendships(email);
@@ -107,7 +131,7 @@ public class UserServiceImpl implements UserService {
 
 		DateTime startOfToday = now.toDateMidnight().toInterval().getStart();
 		DateTime endOfToday = now.toDateMidnight().toInterval().getEnd();
-		DateTime endOfYesterDay = now.minusDays(1).toDateMidnight().toInterval().getEnd();
+		DateTime startOfYesterDay = now.minusDays(1).toDateMidnight().toInterval().getStart();
 
 		Stream stream = new Stream();
 
@@ -116,7 +140,7 @@ public class UserServiceImpl implements UserService {
 			for (Activity activity : friend.getSecondaryUser().getActivities()) {
 				if (activity.getTime().isAfter(startOfToday) && activity.getTime().isBefore(endOfToday)) {
 					stream.addTodaysActivity(activity);
-				} else if (activity.getTime().isAfter(endOfYesterDay) && activity.getTime().isBefore(startOfToday)) {
+				} else if (activity.getTime().isBefore(startOfToday) && activity.getTime().isAfter(startOfYesterDay)) {
 					stream.addYesterdaysActivities(activity);
 				} else {
 					stream.addPastActivities(activity);
@@ -132,6 +156,7 @@ public class UserServiceImpl implements UserService {
 	public User getUser(int id) {
 		return userDao.getUser(id);
 	}
+
         
          @Override
         public User updateUser(User origin, User user) {
@@ -168,4 +193,24 @@ public class UserServiceImpl implements UserService {
              return origin;
             
         }
+
+
+
+	@Override
+	public void acceptFriend(int friendId, int id) {
+		userDao.acceptFriend(friendId, id);
+		activityService.acceptFriendship(getUser(friendId), getUser(id));
+		
+	}
+
+	@Override
+	public void ignoreFriend(int friendId, int id) {
+		// TODO Auto-generated method stub
+		userDao.ignoreFriend(friendId, id);
+	}
+
+	
+	public void saveUser(User user) {
+		userDao.save(user);
+	}
 }

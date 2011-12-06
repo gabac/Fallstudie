@@ -22,4 +22,8 @@ public interface UserDao {
 
 	void delete(Object entity) throws DataAccessException;
 
+	void acceptFriend(int friendId, int id);
+
+	void ignoreFriend(int friendId, int id);
+
 }

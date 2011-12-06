@@ -1,5 +1,6 @@
 package ch.hszt.mdp.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -108,7 +109,7 @@ public class User {
 	@OneToMany(mappedBy = "primaryUser")
 	private List<Friendship> friendships;
 
-	@OneToMany(mappedBy = "user_id")
+	@OneToMany(mappedBy = "user")
 	private List<Activity> activities;
 
 	public User() {
@@ -206,7 +207,16 @@ public class User {
 	public void setActivities(List<Activity> activities) {
 		this.activities = activities;
 	}
-
+	
+	public void addActivity(Activity activity) {
+		if(activities == null) {
+			activities = new ArrayList<Activity>();
+		}
+		
+		activities.add(activity);
+			
+	}
+	
 	public void addSecondaryUser(User primaryUser, boolean accepted) {
 		Friendship friendship = new Friendship();
 		friendship.setPrimaryUser(primaryUser);

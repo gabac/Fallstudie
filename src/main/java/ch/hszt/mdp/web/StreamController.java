@@ -40,9 +40,7 @@ public class StreamController {
 		model.addAttribute("yesterday", dt);
 
 		//todo remove if found out how to test the principal
-		if (principal != null) {
 			model.addAttribute("stream", userService.getActivitiesFromFriends(principal.getName()));
-		}
 
 		return "stream/list";
 	}

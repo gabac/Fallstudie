@@ -84,8 +84,10 @@ public class UsersController {
 	public String getProfileForm(@PathVariable("id") int id, Model model, Principal principal) {
 
 		User user = service.getUser(id);
-                
+
 		model.addAttribute("profile", user);
+		model.addAttribute("accepedFriends", service.getAccepteFriendships(principal.getName()));
+		model.addAttribute("unaccepedFriends", service.getUnaccepteFriendships(principal.getName()));
 
 		return "users/profile";
 	}
@@ -100,7 +102,42 @@ public class UsersController {
 
 		return "users/editprof";
 	}
+	
+	/**
+	 * Accept friend request by clicking on the accept button on the GUI.
+	 * Reload page by returning "redirect:/v1/users/"+id;
+	 * @author Roger Bollmann
+	 * @param id
+	 * @param friendId
+	 * @param model
+	 * @param principal
+	 * @return
+	 */
 
+	@RequestMapping(value = "{id}/accept/{friendId}", method = RequestMethod.GET)
+	public String getProfileForm(@PathVariable("id") int id, @PathVariable("friendId") int friendId, Model model, Principal principal) {
+
+		User user = service.getUser(id);
+		
+		service.acceptFriend(friendId, id);
+		
+		//System.out.println("foo" + friendId);
+		
+		return "redirect:/v1/users/"+id;
+	}
+	
+	@RequestMapping(value = "{id}/ignore/{friendId}", method = RequestMethod.GET)
+	public String getProfileForm1(@PathVariable("id") int id, @PathVariable("friendId") int friendId, Model model, Principal principal) {
+
+		User user = service.getUser(id);
+		
+		service.ignoreFriend(friendId, id);
+		
+		//System.out.println("foo" + friendId);
+		
+		return "redirect:/v1/users/"+id;
+	}
+	
 	@RequestMapping(value = "{id}/image", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> image(@PathVariable("id") int id, Model model, Principal principal) {
 
