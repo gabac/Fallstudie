@@ -39,15 +39,14 @@ public class ActivityServiceImpl implements ActivityService {
 
 		// make a status for the user: You are now friends with "friend"
 		Activity activity = new Activity();
-		activity.setContent("You are now friends with " + friend.getPrename() + " " + friend.getSurname());
+		activity.setContent(getFriendshipContent(user, friend));
 		activity.setTyp(ActivityType.FRIEND);
 		activity.setUser(user);
 		activity.setTime(new DateTime());
 
 		// make a status for the friend: "friend" is now friends with "user"
 		Activity activity2 = new Activity();
-		activity2.setContent(friend.getPrename() + " " + friend.getSurname() + " is now friends with " + user.getPrename() + " "
-				+ user.getSurname());
+		activity2.setContent(getFriendshipContent(friend, user));
 		activity2.setTyp(ActivityType.FRIEND);
 		activity2.setUser(friend);
 		activity2.setTime(new DateTime());
@@ -58,4 +57,7 @@ public class ActivityServiceImpl implements ActivityService {
 
 	}
 
+	private String getFriendshipContent(User user1, User user2) {
+		return user1.getPrename() + " " + user1.getSurname() + " is now friends with " + user2.getPrename() + " " + user2.getSurname();
+	}
 }
