@@ -1,48 +1,42 @@
 package ch.hszt.mdp.util;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.joda.time.DateTime;
 
 public class IndentedLogging {
-	
+
 	private static int SPACING = 5;
-	private int indentationlevel = 0;
-	private static char SPACE = ' ';
-	
+	private int indentationLevel = 0;
+	private static String SPACE = " ";
+
 	public Object loggingOperation(ProceedingJoinPoint thisJoinPoint) throws Throwable {
-		
+
 		StringBuilder sb = new StringBuilder();
-        increase();
-        
-        for (int i = 0, spaces = indentationlevel; i < spaces; i++) {
-            sb.append(SPACE);
-        }
-        
-        beforeLog(sb.toString(), thisJoinPoint);
-        Object result;
-        try {
-            result = thisJoinPoint.proceed();
-        } finally {
-            afterLog(sb.toString(), thisJoinPoint);
-            decrease();
-        }
-		
+		indentationLevel++;
+
+		for (int i = 0, spaces = indentationLevel * SPACING; i < spaces; i++) {
+			sb.append(SPACE);
+		}
+
+		beforeLog(sb.toString(), thisJoinPoint);
+		Object result;
+		try {
+			result = thisJoinPoint.proceed();
+		} finally {
+			afterLog(sb.toString(), thisJoinPoint);
+			indentationLevel--;
+		}
+
 		return result;
 	}
-	
-	private void increase() {
-		indentationlevel += SPACING;
+
+	private void beforeLog(String indent, ProceedingJoinPoint thisJoinPoint) {
+		System.out.println(indent + "--> " + new DateTime().toString("HH:mm:ss, SSS") + " ["
+				+ thisJoinPoint.getSignature().getDeclaringTypeName() + "." + thisJoinPoint.getSignature().getName() + "]");
 	}
-	
-	private void decrease() {
-		indentationlevel -= SPACING;
+
+	private void afterLog(String indent, ProceedingJoinPoint thisJoinPoint) {
+		System.out.println(indent + "<-- " + new DateTime().toString("HH:mm:ss, SSS") + " ["
+				+ thisJoinPoint.getSignature().getDeclaringTypeName() + "." + thisJoinPoint.getSignature().getName() + "]");
 	}
-	
-	private void beforeLog(String spacing, ProceedingJoinPoint thisJoinPoint) {
-		System.out.println(spacing + thisJoinPoint.toString()+"->");
-	}
-	
-	private void afterLog(String spacing, ProceedingJoinPoint thisJoinPoint) {
-		//System.out.println(spacing + thisJoinPoint.toString());
-	}
-	
 }
