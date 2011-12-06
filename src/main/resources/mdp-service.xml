@@ -1,10 +1,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-3.0.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
     <context:annotation-config />
     <context:component-scan base-package="ch.hszt.mdp.domain" />
@@ -45,7 +46,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.show_sql">false</prop>
                 <prop key="hibernate.format_sql">true</prop>
                 <prop key="hibernate.use_sql_comments">true</prop>
                 <prop key="hibernate.cache.use_query_cache">false</prop>
@@ -62,5 +63,15 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
         <property name="jndiName" value="jdbc/JDBCDataSource"></property>
         <property name="resourceRef" value="true"></property>
     </bean>
+
+    <!-- aspect to display a call-tree on the console -->
+    <bean id="callTreeCollector" class="ch.hszt.mdp.util.IndentedLogging" />
+
+    <aop:config>
+        <aop:aspect id="callTreeHDHDataAop" ref="callTreeCollector">
+            <aop:pointcut id="callTreePointcutHDHData" expression="execution(* ch.hszt.mdp.service.*.*(..))" />
+            <aop:around pointcut-ref="callTreePointcutHDHData" method="loggingOperation" />
+        </aop:aspect>
+    </aop:config>
 
 </beans>
