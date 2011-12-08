@@ -26,12 +26,22 @@ body {
         <div class="fill">
             <div class="container">
                 <a class="brand" href="/">Next Social Network</a>
-                <p class="pull-right">
+                <c:if test="${not empty pageContext.request.remoteUser}" scope="request" var="remoteUser">
+                <div class="pull-right">
+                    <ul class="tabs">
+                        <li class="dropdown" data-dropdown="dropdown"><a href="/v1/users/${user.id}" class="dropdown-toggle"><c:out value="${user.prename} ${user.surname}" /></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/v1/users/${user.id}">View Profile</a></li>
+                                <li><a href="/v1/users/${user.id}/edit">Edit Profile</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/v1/auth/logout">Logout</a></li>
+                            </ul></li>
+                    </ul>
+                </div>
+                </c:if>
+                <form class="pull-right">
                     <input type="text" placeholder="Search">
-                    <c:if test="${not empty pageContext.request.remoteUser}" scope="request" var="remoteUser">
-                        &nbsp; <a href="/v1/users/${user.id}"><c:out value="${user.prename} ${user.surname}" /></a>(<a href="/v1/users/${user.id}/edit">edit</a>) – <a href="/v1/auth/logout">Logout</a>
-                    </c:if>
-                </p>
+                </form>
             </div>
         </div>
     </div>
@@ -49,6 +59,8 @@ body {
 
 
     <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
+    <script src="/resources/javascripts/jquery-1.7.1.min.js"></script>
+    <script src="/resources/bootstrap/js/bootstrap-dropdown.js"></script>
     <jsp:invoke fragment="footer" />
 </body>
 </html>
