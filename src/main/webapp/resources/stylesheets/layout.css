@@ -9,6 +9,10 @@
     padding-top: 40px;
 }
 
+.topbar .brand {
+    padding-top: 10px;
+}
+
 .topbar .tabs {
     border: 0;
     margin-left: 10px;
@@ -21,6 +25,13 @@
 .tabs > li > a:hover,
 .tabs .open.dropdown .dropdown-toggle {
     border-color: transparent;
+}
+
+.tabs .dropdown-menu {
+    top: 40px;
+    -webkit-border-radius: 0 0 6px 6px;
+    -moz-border-radius: 0 0 6px 6px;
+    border-radius: 0 0 6px 6px;
 }
 
 .dropdown-toggle:after {
