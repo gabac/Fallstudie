@@ -17,6 +17,7 @@ body {
 }
 </style>
 
+<link rel="shortcut icon" href="/favicon.ico" />
 <jsp:invoke fragment="header" />
 </head>
 

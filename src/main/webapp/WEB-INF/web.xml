@@ -62,6 +62,7 @@
         <web-resource-collection>
             <web-resource-name>Resources</web-resource-name>
             <url-pattern>/resources/*</url-pattern>
+            <url-pattern>/favicon.ico</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
         </web-resource-collection>
