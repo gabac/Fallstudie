@@ -5,6 +5,17 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:layout title="Next Social Network">
     <jsp:body>
+    	<div class="status">
+    		<form class="form-stacked" action="" method="POST">
+    			<div class="clearfix">
+		            <label for="textarea">Share status:</label>
+		            <div class="input">
+		              <textarea class="xxlarge" id="statusUpdate" name="statusUpdate" rows="3"></textarea>
+		            </div>
+		            <input type="submit" class="btn primary" value="Update status">
+	            </div>
+            </form>
+          </div>
         <div class="row">
             <div class="span-one-third">
                 <div class="page-header">

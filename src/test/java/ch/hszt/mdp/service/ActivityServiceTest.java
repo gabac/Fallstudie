@@ -11,9 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import ch.hszt.mdp.dao.ActivityDao;
-import ch.hszt.mdp.dao.UserDao;
 import ch.hszt.mdp.domain.Activity;
-import ch.hszt.mdp.domain.User;
 import ch.hszt.mdp.domain.Activity.ActivityType;
 
 @RunWith(JMock.class)
@@ -47,10 +45,37 @@ public class ActivityServiceTest {
 		assertEquals(ActivityType.PROFILE.toString(), activity.getActivityType().toString());
 	}
 
+	@Test
+	public void testUpdateSatus() {
+		final ActivityDao dao = context.mock(ActivityDao.class);
+		final Activity activity = getStatusActivity();
+
+		// define expectations
+		context.checking(new Expectations() {
+			{
+				one(dao).save(activity);
+			}
+		});
+
+		service.setActivityDao(dao);
+		service.create(activity);
+
+		assertEquals(ActivityType.STATUS.toString(), activity.getActivityType().toString());
+		assertEquals("Das ist ein Test", activity.getContent());
+	}
+
 	private Activity getActivity() {
 
 		Activity activity = new Activity();
 		activity.setTyp(ActivityType.PROFILE);
+
+		return activity;
+	}
+
+	private Activity getStatusActivity() {
+		Activity activity = new Activity();
+		activity.setTyp(ActivityType.STATUS);
+		activity.setContent("Das ist ein Test");
 
 		return activity;
 	}
