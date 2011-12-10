@@ -3,6 +3,7 @@ package ch.hszt.mdp.service;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -15,6 +16,7 @@ import ch.hszt.mdp.domain.Activity;
 import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.Stream;
 import ch.hszt.mdp.domain.User;
+import ch.hszt.mdp.util.ActivityComparator;
 
 /**
  * Implementation for UserService. This handles the registration on back-end side.
@@ -159,6 +161,11 @@ public class UserServiceImpl implements UserService {
 				}
 
 			}
+
+			// sort the activities descending
+			Collections.sort(stream.getTodaysActivities(), new ActivityComparator());
+			Collections.sort(stream.getYesterdaysActivities(), new ActivityComparator());
+			Collections.sort(stream.getPastActivities(), new ActivityComparator());
 		}
 
 		return stream;
@@ -172,14 +179,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void updateUser(User origin, User user) {
 
-		if (!user.getPassword().equals("")) { 
-			
+		if (!user.getPassword().equals("")) {
+
 			String password = user.getPassword();
-			
+
 			try {
 				// convert password to SHA1
 				password = sha1(password);
-
 
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
@@ -192,7 +198,7 @@ public class UserServiceImpl implements UserService {
 		if (user.getHasPhoto() && user.getPhoto().length != 0) {
 			origin.setPhoto(user.getPhoto());
 		}
-		
+
 		origin.setRepeat(origin.getPassword());
 		origin.setEmail(user.getEmail());
 		origin.setPrename(user.getPrename());

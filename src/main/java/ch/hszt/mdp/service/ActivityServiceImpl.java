@@ -56,6 +56,17 @@ public class ActivityServiceImpl implements ActivityService {
 		activityDao.save(activity2);
 
 	}
+	
+	public void updateSatus(User user, String status) {
+		
+		Activity activity = new Activity();
+		activity.setContent(status);
+		activity.setTime(new DateTime());
+		activity.setTyp(ActivityType.STATUS);
+		activity.setUser(user);
+		
+		activityDao.save(activity);
+	}
 
 	private String getFriendshipContent(User user1, User user2) {
 		return user1.getPrename() + " " + user1.getSurname() + " is now friends with " + user2.getPrename() + " " + user2.getSurname();

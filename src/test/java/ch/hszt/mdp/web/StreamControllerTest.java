@@ -1,7 +1,6 @@
 package ch.hszt.mdp.web;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.security.Principal;
 
@@ -20,6 +19,7 @@ import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAda
 import ch.hszt.mdp.domain.Activity;
 import ch.hszt.mdp.domain.Activity.ActivityType;
 import ch.hszt.mdp.domain.User;
+import ch.hszt.mdp.service.ActivityService;
 import ch.hszt.mdp.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,14 +35,17 @@ public class StreamControllerTest {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private ActivityService activityService;
+
 	@Before
 	public void setup() {
 
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
 		adapter = new AnnotationMethodHandlerAdapter();
-		streamController = new StreamController(userService, new DateTime());
-		
+		streamController = new StreamController(userService, activityService, new DateTime());
+
 		Principal principal = new Principal() {
 
 			@Override
@@ -50,25 +53,32 @@ public class StreamControllerTest {
 				return "gabathuler@gmail.com";
 			}
 		};
-		
+
 		request.setUserPrincipal(principal);
-		
-		createAndSaveUser();
+
 	}
 
 	@Test
-	public void testList() {
-		try {
-			request.setMethod("GET");
-			request.setRequestURI("/");
-			
-			ModelAndView mAv = adapter.handle(request, response, streamController);
+	public void testList() throws Exception {
+		createAndSaveUser();
+		
+		request.setMethod("GET");
+		request.setRequestURI("/");
 
-			assertEquals("stream/list", mAv.getViewName());
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+		ModelAndView mAv = adapter.handle(request, response, streamController);
+
+		assertEquals("stream/list", mAv.getViewName());
+	}
+
+	@Test
+	public void testUpdateStatus() throws Exception {
+		request.setMethod("POST");
+		request.setRequestURI("/");
+		request.setParameter("statusUpdate", "Das ist ein Test");
+		
+		ModelAndView mAv = adapter.handle(request, response, streamController);
+
+		assertEquals("stream/list", mAv.getViewName());
 	}
 	
 	private void createAndSaveUser() {
@@ -80,15 +90,15 @@ public class StreamControllerTest {
 		user.setRepeat("123");
 		user.setBirthdate(new DateTime(2000, 1, 1, 0, 0, 0, 0));
 		user.setCity("Baden");
-		
+
 		Activity activity = new Activity();
 		activity.setContent("test");
 		activity.setTime(new DateTime(2000, 1, 1, 0, 0, 0, 0));
 		activity.setTyp(ActivityType.PROFILE);
 		activity.setUser(user);
-		
+
 		user.addActivity(activity);
-		
+
 		userService.saveUser(user);
 	}
 }

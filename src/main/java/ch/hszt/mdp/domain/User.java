@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -22,7 +23,6 @@ import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import ch.hszt.mdp.validation.PasswordsEqual;
-import ch.hszt.mdp.validation.UniqueEmail;
 
 /**
  * This Class is used as a resource. It uses hibernate to saves everything inside of the table "User".
@@ -110,6 +110,7 @@ public class User {
 	private List<Friendship> friendships;
 
 	@OneToMany(mappedBy = "user")
+	@OrderBy("time DESC")
 	private List<Activity> activities;
 
 	public User() {

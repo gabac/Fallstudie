@@ -10,7 +10,7 @@ import ch.hszt.mdp.domain.Activity;
 public class ActivityDaoImpl extends HibernateTemplate implements ActivityDao {
 
 	public List<Activity> getActivities() {
-		Query q = getSession().createQuery("from Activity");
+		Query q = getSession().createQuery("from Activity activity order by activity.time desc");
 		return q.list();
 	}
 	
