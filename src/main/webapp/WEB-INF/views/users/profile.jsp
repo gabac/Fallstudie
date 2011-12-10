@@ -7,7 +7,9 @@
     <div class="page-header">
         <h1>
             ${profile.prename} ${profile.surname} <small>${profile.city}</small>
-            <a href="/v1/users/${unaccepedFriends.secondaryUser.id}/ask/${profile.id}"><button class="btn success" onclick="alert('Ask ${unaccepedFriends.secondaryUser.prename} ${unaccepedFriends.secondaryUser.surname} for a friendship');">Add friend</button></a>
+            <c:if items="${accepedFriends}" var="askFriends" test="/v1/users/${askFriends.secondaryUser.id}!=/v1/users/${profile.id}">
+              <a href="/v1/users/${askFriends.secondaryUser.id}/ask/${profile.id}"><button class="btn success" onclick="alert('Ask ${askFriends.secondaryUser.prename} ${askFriends.secondaryUser.surname} for a friendship');">Add friend</button></a>
+            </c:if>
         </h1>
     </div>
 
