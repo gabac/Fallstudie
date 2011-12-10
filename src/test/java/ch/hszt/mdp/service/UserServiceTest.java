@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -15,6 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import ch.hszt.mdp.dao.UserDao;
+import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
 
 @RunWith(JMock.class)
@@ -23,11 +26,13 @@ public class UserServiceTest {
 	private Mockery context;
 
 	private UserService service;
+	List<Friendship> friendships;
 
 	@Before
 	public void setUp() {
 		context = new JUnit4Mockery();
 		service = new UserServiceImpl();
+		friendships = getFriends();
 	}
 
 	@Test
@@ -57,8 +62,36 @@ public class UserServiceTest {
 		user.setSurname("Gabathuler");
 		user.setPassword("123");
 		user.setRepeat("123");
+		user.setFriendships(friendships);
 
 		return user;
+	}
+	private List<Friendship> getFriends(){
+		
+		friendships = new ArrayList<Friendship>();
+		User user1 = new User();
+		user1.setEmail("roger.bollmann@gmail.com");
+		user1.setPrename("Roger");
+		user1.setSurname("Bollmann");
+		user1.setPassword("1234");
+		user1.setRepeat("1234");
+		
+		User user2 = new User();
+		user2.setEmail("gabathuler@gmail.com");
+		user2.setPrename("Cyril");
+		user2.setSurname("Gabathuler");
+		user2.setPassword("123");
+		user2.setRepeat("123");
+		
+		Friendship friends = new Friendship();
+		friends.setPrimary_user(user1.getId());
+		friends.setSecondary_user(user2.getId());
+		friends.setAccepted(1);
+		
+		friendships.add(friends);
+			
+		return friendships;
+		
 	}
 
 	@Test
@@ -70,7 +103,6 @@ public class UserServiceTest {
 		user.setId(1);
 		user.setPassword("123");
 		user.setRepeat("123");
-		
 		User u2 = getUser();
 		u2.setPassword("");
 		u2.setRepeat("");
@@ -98,7 +130,7 @@ public class UserServiceTest {
 
 	@Test
 	public void testPasswordUpdated() {
-final UserDao dao = context.mock(UserDao.class);
+		final UserDao dao = context.mock(UserDao.class);
 		
 		final User user = getUser();
 		
@@ -132,17 +164,7 @@ final UserDao dao = context.mock(UserDao.class);
 
 	}
 
-	private void getAcceptedFriends() {
-		UserServiceImpl userService = new UserServiceImpl();
-
-		if (userService.getAccepteFriendships("roger.bollmann@gmail.com").get(0).equals("Raphael Marques")) {
-			System.out.println("Test successfully");
-		} else {
-			System.out.println("TEST NOT SUCCESSFULLY!!!!!");
-		}
-
-	}
-
+	
 	public String sha1(String password) throws NoSuchAlgorithmException {
 
 		MessageDigest md = MessageDigest.getInstance("SHA1");
@@ -159,6 +181,25 @@ final UserDao dao = context.mock(UserDao.class);
 		}
 
 		return hexStr;
+	}
+	
+	@Test
+	public void testAcceptedFriends(){
+		final UserDao dao = context.mock(UserDao.class);
+		final User user = getUser();
+
+		// define expectations
+		context.checking(new Expectations() {
+			{
+				one(dao).save(user);
+			}
+		});
+
+		service.setUserDao(dao);
+		service.create(user);
+		
+		assertTrue(service.getAccepteFriendships(getUser().getEmail()).size()>0);
+		
 	}
 
 }
