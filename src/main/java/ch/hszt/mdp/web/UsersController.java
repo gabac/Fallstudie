@@ -200,4 +200,15 @@ public class UsersController {
 			return "redirect:/";
 		}
 	}
+	
+	@RequestMapping(value = "{friendId}/ask/{id}", method = RequestMethod.GET)
+	public String getAskForFriend(@PathVariable("id") int id, @PathVariable("friendId") int friendId, Model model, Principal principal) {
+
+		User friend = service.getUser(friendId);
+		User user = service.getUser(id);
+		
+		service.askForFriendship(friend, user);
+
+		return "redirect:/v1/users/" + id;
+	}
 }

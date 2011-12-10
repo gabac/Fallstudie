@@ -60,4 +60,6 @@ public class ActivityServiceImpl implements ActivityService {
 	private String getFriendshipContent(User user1, User user2) {
 		return user1.getPrename() + " " + user1.getSurname() + " is now friends with " + user2.getPrename() + " " + user2.getSurname();
 	}
+	
+
 }

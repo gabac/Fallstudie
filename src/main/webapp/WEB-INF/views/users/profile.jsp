@@ -7,6 +7,7 @@
     <div class="page-header">
         <h1>
             ${profile.prename} ${profile.surname} <small>${profile.city}</small>
+            <a href="/v1/users/${unaccepedFriends.secondaryUser.id}/ask/${profile.id}"><button class="btn success" onclick="alert('Ask ${unaccepedFriends.secondaryUser.prename} ${unaccepedFriends.secondaryUser.surname} for a friendship');">Add friend</button></a>
         </h1>
     </div>
 

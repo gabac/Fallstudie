@@ -36,5 +36,7 @@ public interface UserService {
 	void updateUser(User origin, User user);
 
 	void saveUser(User user);
+	
+	public boolean askForFriendship(User friend, User user);
 
 }

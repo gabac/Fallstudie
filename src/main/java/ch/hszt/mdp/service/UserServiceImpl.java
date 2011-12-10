@@ -9,6 +9,7 @@ import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import ch.hszt.mdp.dao.FriendshipDao;
 import ch.hszt.mdp.dao.UserDao;
 import ch.hszt.mdp.domain.Activity;
 import ch.hszt.mdp.domain.Friendship;
@@ -27,6 +28,8 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	private ActivityService activityService;
+	
+	private FriendshipDao friendshipDao;
 
 	public void setActivityService(ActivityService activityService) {
 		this.activityService = activityService;
@@ -88,6 +91,19 @@ public class UserServiceImpl implements UserService {
 		return userDao.getUserByEmail(email);
 	}
 
+	@Override
+	public void acceptFriend(int friendId, int id) {
+		userDao.acceptFriend(friendId, id);
+		activityService.acceptFriendship(getUser(friendId), getUser(id));
+
+	}
+
+	@Override
+	public void ignoreFriend(int friendId, int id) {
+		// TODO Auto-generated method stub
+		userDao.ignoreFriend(friendId, id);
+	}
+	
 	public List<Friendship> getAccepteFriendships(String email) {
 
 		User user = getUserByEmail(email);
@@ -187,20 +203,28 @@ public class UserServiceImpl implements UserService {
 		userDao.save(origin);
 	}
 
-	@Override
-	public void acceptFriend(int friendId, int id) {
-		userDao.acceptFriend(friendId, id);
-		activityService.acceptFriendship(getUser(friendId), getUser(id));
 
-	}
-
-	@Override
-	public void ignoreFriend(int friendId, int id) {
-		// TODO Auto-generated method stub
-		userDao.ignoreFriend(friendId, id);
-	}
 
 	public void saveUser(User user) {
 		userDao.save(user);
+	}
+	
+	public boolean askForFriendship(User friend, User user){
+		
+		if (friendshipDao.checkFriendship(friend.getId(),user.getId()) == true){
+
+			return false;		
+			
+		}else{
+		
+			Friendship friendship = new Friendship();
+			friendship.setPrimary_user(user.getId());
+			friendship.setSecondary_user(friend.getId());
+			friendship.setAccepted(0);
+		
+			friendshipDao.save(friendship);
+			return true;
+		}
+		
 	}
 }
