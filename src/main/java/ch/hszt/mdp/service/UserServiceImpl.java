@@ -215,7 +215,7 @@ public class UserServiceImpl implements UserService {
 		userDao.save(user);
 	}
 	
-	public boolean askForFriendship(User friend, User user){
+	public boolean askForFriendship(User friend, User user) throws NullPointerException{
 		
 		if (friendshipDao.checkFriendship(friend.getId(),user.getId()) == true){
 

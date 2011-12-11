@@ -55,8 +55,10 @@ public class StreamController {
 	public String updateStatus(HttpServletRequest request, Model model, Principal principal) {
 		String status = request.getParameter("statusUpdate");
 		
-		activityService.updateSatus(userService.getUserByEmail(principal.getName()), status);
+		activityService.updateStatus(userService.getUserByEmail(principal.getName()), status);
 		
+		//return "redirect:/";
+
 		return list(model, principal);
 		
 	}

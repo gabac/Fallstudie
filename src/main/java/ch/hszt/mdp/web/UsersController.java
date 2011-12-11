@@ -207,8 +207,15 @@ public class UsersController {
 		User friend = service.getUser(friendId);
 		User user = service.getUser(id);
 		
-		service.askForFriendship(friend, user);
-
+		try{
+			service.askForFriendship(friend, user);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 		return "redirect:/v1/users/" + id;
+		
+		
 	}
 }
