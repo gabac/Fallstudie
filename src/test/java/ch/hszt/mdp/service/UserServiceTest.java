@@ -191,12 +191,12 @@ public class UserServiceTest {
 		// define expectations
 		context.checking(new Expectations() {
 			{
-				one(dao).save(user);
+				one(dao).getUserByEmail("gabathuler@gmail.com");
+				will(returnValue(user));
 			}
 		});
 
 		service.setUserDao(dao);
-		service.create(user);
 		
 		assertTrue(service.getAccepteFriendships(getUser().getEmail()).size()>0);
 		
