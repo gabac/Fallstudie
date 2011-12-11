@@ -63,6 +63,7 @@ body {
     <script src="/resources/javascripts/jquery-1.7.1.min.js"></script>
     <script src="/resources/javascripts/jquery.easydate.js"></script>
     <script src="/resources/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="/resources/bootstrap/js/bootstrap-modal.js"></script>
     <script>
     $(function () {
         $(".easydate").easydate();
