@@ -68,3 +68,9 @@ form .clearfix textarea.error:focus {
   -moz-box-shadow: 0 0 6px #f8b9b7;
   box-shadow: 0 0 6px #f8b9b7;
 }
+
+.form-stacked.share {
+    padding-left: 0;
+}
+
+
