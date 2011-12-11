@@ -15,6 +15,6 @@ public interface ActivityService {
 	
 	void acceptFriendship(User friend, User user);
 	
-	void updateSatus(User user, String status);
+	void updateStatus(User user, String status);
 	
 }

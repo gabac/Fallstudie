@@ -57,7 +57,7 @@ public class ActivityServiceImpl implements ActivityService {
 
 	}
 	
-	public void updateSatus(User user, String status) {
+	public void updateStatus(User user, String status) {
 		
 		Activity activity = new Activity();
 		activity.setContent(status);
