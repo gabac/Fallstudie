@@ -87,15 +87,15 @@ public class UsersControllerTest {
 
 	}
 	@Test
-	public void tesUpdateForm() throws Exception {
+	public void testUpdateForm() throws Exception {
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/users/1/edit");
 
 		ModelAndView mv = adapter.handle(request, response, controller);
-		
 
 		assertEquals("users/edit", mv.getViewName());
 
 	}
+	
 
 	private BindingResult validate(HttpServletRequest request) {
 

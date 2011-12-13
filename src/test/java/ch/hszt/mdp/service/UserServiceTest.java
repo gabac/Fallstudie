@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import ch.hszt.mdp.dao.UserDao;
 import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
+import domain.GetTestObjects;
 
 @RunWith(JMock.class)
 public class UserServiceTest {
@@ -26,20 +27,18 @@ public class UserServiceTest {
 	private Mockery context;
 
 	private UserService service;
-	List<Friendship> friendships;
-
 	@Before
 	public void setUp() {
 		context = new JUnit4Mockery();
 		service = new UserServiceImpl();
-		friendships = getFriends();
+
 	}
 
 	@Test
 	public void testCreate() {
 
 		final UserDao dao = context.mock(UserDao.class);
-		final User user = GetTestUser.getUser();
+		final User user = GetTestObjects.getUser();
 
 		// define expectations
 		context.checking(new Expectations() {
@@ -54,44 +53,18 @@ public class UserServiceTest {
 		assertEquals("40bd001563085fc35165329ea1ff5c5ecbdbbeef", user.getPassword());
 	}
 
-	private List<Friendship> getFriends(){
-		
-		friendships = new ArrayList<Friendship>();
-		User user1 = new User();
-		user1.setEmail("roger.bollmann@gmail.com");
-		user1.setPrename("Roger");
-		user1.setSurname("Bollmann");
-		user1.setPassword("1234");
-		user1.setRepeat("1234");
-		
-		User user2 = new User();
-		user2.setEmail("gabathuler@gmail.com");
-		user2.setPrename("Cyril");
-		user2.setSurname("Gabathuler");
-		user2.setPassword("123");
-		user2.setRepeat("123");
-		
-		Friendship friends = new Friendship();
-		friends.setPrimary_user(user1.getId());
-		friends.setSecondary_user(user2.getId());
-		friends.setAccepted(1);
-		
-		friendships.add(friends);
-			
-		return friendships;
-		
-	}
+	
 
 	@Test
 	public void testPasswordNotUpdated() {
 		final UserDao dao = context.mock(UserDao.class);
 		
-		final User user = GetTestUser.getUser();
+		final User user = GetTestObjects.getUser();
 		
 		user.setId(1);
 		user.setPassword("123");
 		user.setRepeat("123");
-		User u2 = GetTestUser.getUser();
+		User u2 = GetTestObjects.getUser();
 		u2.setPassword("");
 		u2.setRepeat("");
 		
@@ -120,13 +93,13 @@ public class UserServiceTest {
 	public void testPasswordUpdated() {
 		final UserDao dao = context.mock(UserDao.class);
 		
-		final User user = GetTestUser.getUser();
+		final User user = GetTestObjects.getUser();
 		
 		user.setId(1);
 		user.setPassword("123");
 		user.setRepeat("123");
 		
-		User u2 = GetTestUser.getUser();
+		User u2 = GetTestObjects.getUser();
 		u2.setPassword("456");
 		u2.setRepeat("456");
 		
@@ -174,7 +147,7 @@ public class UserServiceTest {
 	@Test
 	public void testAcceptedFriends(){
 		final UserDao dao = context.mock(UserDao.class);
-		final User user = GetTestUser.getUser();
+		final User user = GetTestObjects.getUser();
 
 		// define expectations
 		context.checking(new Expectations() {
@@ -186,7 +159,7 @@ public class UserServiceTest {
 
 		service.setUserDao(dao);
 		
-		assertTrue(service.getAccepteFriendships(GetTestUser.getUser().getEmail()).size()>0);
+		assertTrue(service.getAccepteFriendships(GetTestObjects.getUser().getEmail()).size()>0);
 		
 	}
 
