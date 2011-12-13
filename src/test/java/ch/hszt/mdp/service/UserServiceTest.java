@@ -39,7 +39,7 @@ public class UserServiceTest {
 	public void testCreate() {
 
 		final UserDao dao = context.mock(UserDao.class);
-		final User user = getUser();
+		final User user = GetTestUser.getUser();
 
 		// define expectations
 		context.checking(new Expectations() {
@@ -54,18 +54,6 @@ public class UserServiceTest {
 		assertEquals("40bd001563085fc35165329ea1ff5c5ecbdbbeef", user.getPassword());
 	}
 
-	private User getUser() {
-
-		User user = new User();
-		user.setEmail("gabathuler@gmail.com");
-		user.setPrename("Cyril");
-		user.setSurname("Gabathuler");
-		user.setPassword("123");
-		user.setRepeat("123");
-		user.setFriendships(friendships);
-
-		return user;
-	}
 	private List<Friendship> getFriends(){
 		
 		friendships = new ArrayList<Friendship>();
@@ -98,12 +86,12 @@ public class UserServiceTest {
 	public void testPasswordNotUpdated() {
 		final UserDao dao = context.mock(UserDao.class);
 		
-		final User user = getUser();
+		final User user = GetTestUser.getUser();
 		
 		user.setId(1);
 		user.setPassword("123");
 		user.setRepeat("123");
-		User u2 = getUser();
+		User u2 = GetTestUser.getUser();
 		u2.setPassword("");
 		u2.setRepeat("");
 		
@@ -132,13 +120,13 @@ public class UserServiceTest {
 	public void testPasswordUpdated() {
 		final UserDao dao = context.mock(UserDao.class);
 		
-		final User user = getUser();
+		final User user = GetTestUser.getUser();
 		
 		user.setId(1);
 		user.setPassword("123");
 		user.setRepeat("123");
 		
-		User u2 = getUser();
+		User u2 = GetTestUser.getUser();
 		u2.setPassword("456");
 		u2.setRepeat("456");
 		
@@ -186,7 +174,7 @@ public class UserServiceTest {
 	@Test
 	public void testAcceptedFriends(){
 		final UserDao dao = context.mock(UserDao.class);
-		final User user = getUser();
+		final User user = GetTestUser.getUser();
 
 		// define expectations
 		context.checking(new Expectations() {
@@ -198,7 +186,7 @@ public class UserServiceTest {
 
 		service.setUserDao(dao);
 		
-		assertTrue(service.getAccepteFriendships(getUser().getEmail()).size()>0);
+		assertTrue(service.getAccepteFriendships(GetTestUser.getUser().getEmail()).size()>0);
 		
 	}
 
