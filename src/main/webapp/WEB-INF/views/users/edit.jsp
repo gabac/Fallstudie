@@ -58,7 +58,7 @@
                     <form:label for="photo" path="photo" cssErrorClass="error">Photo</form:label>
                     <div class="input">
                         <c:if test="${user.hasPhoto}">
-                            <img src="/v1/users/${user.id}/image" width="300" />
+                            <img src="/v1/users/${user.id}/thumbnail" width="300" />
                         </c:if>
                         <c:if test="${not user.hasPhoto}">
                             <img src="/resources/images/user.png" width="300" height="300" />
