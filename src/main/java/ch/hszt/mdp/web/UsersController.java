@@ -175,14 +175,16 @@ public class UsersController {
 			thumbnail = Scalr.crop(thumbnail, size, size);
 		}
 
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.setContentType(MediaType.parseMediaType("image/png"));
-		// responseHeaders.setContentLength(user.getPhoto().length);
-
 		ByteArrayOutputStream bas = new ByteArrayOutputStream();
 		ImageIO.write(thumbnail, "png", bas);
 
-		return new ResponseEntity<byte[]>(bas.toByteArray(), responseHeaders, HttpStatus.OK);
+		byte[] bytes = bas.toByteArray();
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.parseMediaType("image/png"));
+		responseHeaders.setContentLength(bytes.length);
+
+		return new ResponseEntity<byte[]>(bytes, responseHeaders, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "{id}/thumbnail", method = RequestMethod.GET)
