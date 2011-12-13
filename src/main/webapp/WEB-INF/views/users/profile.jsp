@@ -35,7 +35,7 @@
             <div class="span-one-third">
                 <p>
                     <c:if test="${profile.hasPhoto}">
-                        <img src="/v1/users/${profile.id}/image" width="300" />
+                        <img src="/v1/users/${profile.id}/thumbnail" width="300" />
                     </c:if>
                     <c:if test="${not profile.hasPhoto}">
                         <img src="/resources/images/user.png" width="300" height="300" />

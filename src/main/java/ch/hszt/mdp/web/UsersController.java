@@ -1,12 +1,19 @@
 package ch.hszt.mdp.web;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.Principal;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.imgscalr.Scalr;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -94,10 +101,10 @@ public class UsersController {
 
 	@RequestMapping(value = "{id}/edit", method = RequestMethod.GET)
 	public String getProfileFormEdit(@PathVariable("id") int id, Model model, Principal principal) {
-		
+
 		User user = service.getUser(id);
 		model.addAttribute("userid", user.getId());
-		
+
 		// TODO find nicer solution!!
 		DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
 		String str = fmt.print(user.getBirthdate());
@@ -146,6 +153,43 @@ public class UsersController {
 		return new ResponseEntity<byte[]>(user.getPhoto(), responseHeaders, HttpStatus.OK);
 	}
 
+	private ResponseEntity<byte[]> getPhoto(int id, int size, boolean crop) throws IOException {
+
+		User user = service.getUser(id);
+
+		InputStream in = new ByteArrayInputStream(user.getPhoto());
+		BufferedImage image = ImageIO.read(in);
+
+		// portrait
+		Scalr.Mode mode = Scalr.Mode.FIT_TO_WIDTH;
+
+		if (crop && image.getWidth() > image.getHeight()) {
+
+			// landscape
+			mode = Scalr.Mode.FIT_TO_HEIGHT;
+		}
+
+		BufferedImage thumbnail = Scalr.resize(image, mode, size, Scalr.OP_BRIGHTER);
+
+		if (crop) {
+			thumbnail = Scalr.crop(thumbnail, size, size);
+		}
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.parseMediaType("image/png"));
+		// responseHeaders.setContentLength(user.getPhoto().length);
+
+		ByteArrayOutputStream bas = new ByteArrayOutputStream();
+		ImageIO.write(thumbnail, "png", bas);
+
+		return new ResponseEntity<byte[]>(bas.toByteArray(), responseHeaders, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "{id}/thumbnail", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> thumbnail(@PathVariable("id") int id, Model model, Principal principal) throws IOException {
+		return getPhoto(id, 300, false);
+	}
+
 	/**
 	 * 
 	 * The post request from the registration page. If there is no error the user object will be saved to the database
@@ -175,7 +219,7 @@ public class UsersController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("userid", origin.getId());
-			
+
 			// TODO find nicer solution!!
 			DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
 			String str = fmt.print(origin.getBirthdate());
@@ -189,7 +233,7 @@ public class UsersController {
 			auth = true;
 		}
 
-		//update user
+		// update user
 		service.updateUser(origin, user);
 
 		if (auth) {
@@ -200,22 +244,20 @@ public class UsersController {
 			return "redirect:/";
 		}
 	}
-	
+
 	@RequestMapping(value = "{friendId}/ask/{id}", method = RequestMethod.GET)
 	public String getAskForFriend(@PathVariable("id") int id, @PathVariable("friendId") int friendId, Model model, Principal principal) {
 
 		User friend = service.getUser(friendId);
 		User user = service.getUser(id);
-		
-		try{
+
+		try {
 			service.askForFriendship(friend, user);
-			
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return "redirect:/v1/users/" + id;
-		
-		
 	}
 }
