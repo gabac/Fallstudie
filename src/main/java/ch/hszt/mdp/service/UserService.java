@@ -37,6 +37,8 @@ public interface UserService {
 
 	void saveUser(User user);
 	
-	public boolean askForFriendship(User friend, User user);
+	public List<User> searchUser(String search);
+	
+
 
 }

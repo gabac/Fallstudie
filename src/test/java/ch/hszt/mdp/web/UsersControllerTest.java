@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 
 import ch.hszt.mdp.domain.User;
+import ch.hszt.mdp.service.FriendshipService;
 import ch.hszt.mdp.service.UserService;
 import ch.hszt.mdp.validation.DateTimePropertyEditor;
 
@@ -39,12 +40,14 @@ public class UsersControllerTest {
 	private MockHttpServletResponse response;
 
 	private UsersController controller;
+	
+	private FriendshipService friendshipService;
 
 	@Before
 	public void setup() {
 		adapter = new AnnotationMethodHandlerAdapter();
 		response = new MockHttpServletResponse();
-		controller = new UsersController(userService);
+		controller = new UsersController(userService, friendshipService);
 	}
 
 	@Test

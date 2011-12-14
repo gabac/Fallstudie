@@ -40,8 +40,9 @@ body {
                     </ul>
                 </div>
                 </c:if>
-                <form class="pull-right">
-                    <input type="text" placeholder="Search">
+                <form class="pull-right" action="/v1/users/search" method="POST">
+                    <input type="text" placeholder="Search" id="search" name="search">
+                    <input type="submit">
                 </form>
             </div>
         </div>

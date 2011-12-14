@@ -5,8 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -17,7 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import ch.hszt.mdp.dao.UserDao;
-import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
 import domain.GetTestObjects;
 

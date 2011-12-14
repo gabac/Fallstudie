@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import ch.hszt.mdp.domain.User;
+import ch.hszt.mdp.service.FriendshipService;
 import ch.hszt.mdp.service.UserService;
 import ch.hszt.mdp.validation.DateTimePropertyEditor;
 
@@ -50,10 +51,12 @@ import ch.hszt.mdp.validation.DateTimePropertyEditor;
 public class UsersController {
 
 	private UserService service;
+	private FriendshipService friendshipService;
 
 	@Autowired
-	public UsersController(UserService service) {
+	public UsersController(UserService service, FriendshipService friendshipService) {
 		this.service = service;
+		this.friendshipService = friendshipService;
 	}
 
 	/**
@@ -90,9 +93,18 @@ public class UsersController {
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	public String getProfileForm(@PathVariable("id") int id, Model model, Principal principal) {
 
+		//id = aufgerufenes profil
 		User user = service.getUser(id);
+		
+		//eingeloggter user = roger
+		User thatsMe = service.getUserByEmail(principal.getName());
+		
+		boolean alreadyfriends = friendshipService.checkForFriendship(user, thatsMe);
+		
+		
 
 		model.addAttribute("profile", user);
+		model.addAttribute("alreadyFriends", alreadyfriends);
 		model.addAttribute("accepedFriends", service.getAccepteFriendships(principal.getName()));
 		model.addAttribute("unaccepedFriends", service.getUnaccepteFriendships(principal.getName()));
 
@@ -254,12 +266,21 @@ public class UsersController {
 		User user = service.getUser(id);
 
 		try {
-			service.askForFriendship(friend, user);
+			friendshipService.askForFriendship(friend, user);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return "redirect:/v1/users/" + id;
+	}
+	
+	@RequestMapping(value = "search", method = RequestMethod.POST)
+	public String search(HttpServletRequest request, Model model, Principal principal, HttpSession session) {
+		
+		service.searchUser(request.getParameter("search"));
+		
+		
+		return "users/search";
 	}
 }

@@ -40,6 +40,8 @@ public class UserServiceImpl implements UserService {
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
+	
+	
 
 	/**
 	 * This method saves a user into the database.
@@ -215,22 +217,19 @@ public class UserServiceImpl implements UserService {
 		userDao.save(user);
 	}
 	
-	public boolean askForFriendship(User friend, User user) throws NullPointerException{
+	
+	public List<User> searchUser(String search){
+		List<User> users = new ArrayList<User>();
 		
-		if (friendshipDao.checkFriendship(friend.getId(),user.getId()) == true){
-
-			return false;		
-			
-		}else{
+		ArrayList<Integer> userid = userDao.searchUser(search);
 		
-			Friendship friendship = new Friendship();
-			friendship.setPrimary_user(user.getId());
-			friendship.setSecondary_user(friend.getId());
-			friendship.setAccepted(0);
-		
-			friendshipDao.save(friendship);
-			return true;
+		for (int i = 0; i < userid.size(); i++) {
+			users.add(getUser(userid.get(i)));	
 		}
 		
+		return users;
+		
 	}
+	
+
 }
