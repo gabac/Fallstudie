@@ -1,19 +1,13 @@
 package ch.hszt.mdp.web;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.Principal;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.imgscalr.Scalr;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -157,43 +151,21 @@ public class UsersController {
 		return new ResponseEntity<byte[]>(user.getPhoto(), responseHeaders, HttpStatus.OK);
 	}
 
-	private ResponseEntity<byte[]> getPhoto(int id, int size, boolean crop) throws IOException {
+	private ResponseEntity<byte[]> photo(int id, int size, boolean crop) throws IOException {
 
-		User user = service.getUser(id);
-
-		InputStream in = new ByteArrayInputStream(user.getPhoto());
-		BufferedImage image = ImageIO.read(in);
-
-		// portrait
-		Scalr.Mode mode = Scalr.Mode.FIT_TO_WIDTH;
-
-		if (crop && image.getWidth() > image.getHeight()) {
-
-			// landscape
-			mode = Scalr.Mode.FIT_TO_HEIGHT;
-		}
-
-		BufferedImage thumbnail = Scalr.resize(image, mode, size, Scalr.OP_BRIGHTER);
-
-		if (crop) {
-			thumbnail = Scalr.crop(thumbnail, size, size);
-		}
-
-		ByteArrayOutputStream bas = new ByteArrayOutputStream();
-		ImageIO.write(thumbnail, "png", bas);
-
-		byte[] bytes = bas.toByteArray();
+		byte[] photo = service.getPhoto(id, 300, false);
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.parseMediaType("image/png"));
-		responseHeaders.setContentLength(bytes.length);
+		responseHeaders.setContentLength(photo.length);
 
-		return new ResponseEntity<byte[]>(bytes, responseHeaders, HttpStatus.OK);
+		return new ResponseEntity<byte[]>(photo, responseHeaders, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "{id}/thumbnail", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> thumbnail(@PathVariable("id") int id, Model model, Principal principal) throws IOException {
-		return getPhoto(id, 300, false);
+
+		return photo(id, 300, false);
 	}
 
 	/**

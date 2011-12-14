@@ -1,5 +1,6 @@
 package ch.hszt.mdp.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import ch.hszt.mdp.dao.UserDao;
@@ -36,7 +37,8 @@ public interface UserService {
 	void updateUser(User origin, User user);
 
 	void saveUser(User user);
-	
+
 	public boolean askForFriendship(User friend, User user);
 
+	public byte[] getPhoto(int id, int size, boolean crop) throws IOException;
 }

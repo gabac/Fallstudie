@@ -1,11 +1,19 @@
 package ch.hszt.mdp.service;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
+import org.imgscalr.Scalr;
 import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +38,7 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	private ActivityService activityService;
-	
+
 	private FriendshipDao friendshipDao;
 
 	public void setActivityService(ActivityService activityService) {
@@ -105,7 +113,7 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		userDao.ignoreFriend(friendId, id);
 	}
-	
+
 	public List<Friendship> getAccepteFriendships(String email) {
 
 		User user = getUserByEmail(email);
@@ -209,28 +217,54 @@ public class UserServiceImpl implements UserService {
 		userDao.save(origin);
 	}
 
-
-
 	public void saveUser(User user) {
 		userDao.save(user);
 	}
-	
-	public boolean askForFriendship(User friend, User user) throws NullPointerException{
-		
-		if (friendshipDao.checkFriendship(friend.getId(),user.getId()) == true){
 
-			return false;		
-			
-		}else{
-		
+	public boolean askForFriendship(User friend, User user) throws NullPointerException {
+
+		if (friendshipDao.checkFriendship(friend.getId(), user.getId()) == true) {
+
+			return false;
+
+		} else {
+
 			Friendship friendship = new Friendship();
 			friendship.setPrimary_user(user.getId());
 			friendship.setSecondary_user(friend.getId());
 			friendship.setAccepted(0);
-		
+
 			friendshipDao.save(friendship);
 			return true;
 		}
-		
+
+	}
+
+	public byte[] getPhoto(int id, int size, boolean crop) throws IOException {
+
+		User user = getUser(id);
+
+		InputStream in = new ByteArrayInputStream(user.getPhoto());
+		BufferedImage image = ImageIO.read(in);
+
+		// portrait
+		Scalr.Mode mode = Scalr.Mode.FIT_TO_WIDTH;
+
+		if (crop && image.getWidth() > image.getHeight()) {
+
+			// landscape
+			mode = Scalr.Mode.FIT_TO_HEIGHT;
+		}
+
+		BufferedImage thumbnail = Scalr.resize(image, mode, size, Scalr.OP_BRIGHTER);
+
+		if (crop) {
+			thumbnail = Scalr.crop(thumbnail, size, size);
+		}
+
+		ByteArrayOutputStream bas = new ByteArrayOutputStream();
+		ImageIO.write(thumbnail, "png", bas);
+
+		return bas.toByteArray();
 	}
 }
