@@ -34,6 +34,7 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import ch.hszt.mdp.domain.User;
 import ch.hszt.mdp.service.UserService;
+import ch.hszt.mdp.util.Messages;
 import ch.hszt.mdp.validation.DateTimePropertyEditor;
 
 /**
@@ -50,6 +51,9 @@ import ch.hszt.mdp.validation.DateTimePropertyEditor;
 public class UsersController {
 
 	private UserService service;
+
+	@Autowired
+	public Messages messages;
 
 	@Autowired
 	public UsersController(UserService service) {
@@ -259,6 +263,8 @@ public class UsersController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		messages.addMessage(friend.getPrename() + " has been asked for a friendship.");
 
 		return "redirect:/v1/users/" + id;
 	}

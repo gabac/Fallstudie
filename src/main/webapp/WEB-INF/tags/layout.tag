@@ -49,6 +49,13 @@ body {
 
     <div class="container">
 
+        <c:forEach var="message" items="${sessionScope['scopedTarget.messages'].all}">
+            <div class="alert-message ${message.type}" data-alert="alert">
+                <a class="close" href="#">×</a>
+                <p>${message.text}</p>
+            </div>
+        </c:forEach>
+
         <jsp:doBody />
 
         <footer>
@@ -62,6 +69,7 @@ body {
     <!-- <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script> -->
     <script src="/resources/javascripts/jquery-1.7.1.min.js"></script>
     <script src="/resources/javascripts/jquery.easydate.js"></script>
+    <script src="/resources/bootstrap/js/bootstrap-alerts.js"></script>
     <script src="/resources/bootstrap/js/bootstrap-dropdown.js"></script>
     <script src="/resources/bootstrap/js/bootstrap-modal.js"></script>
     <script>

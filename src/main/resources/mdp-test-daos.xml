@@ -1,62 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
-	<!-- this bean will be injected into the HibernateTitleDaoTests class -->
+    <!-- this bean will be injected into the HibernateTitleDaoTests class -->
 
-	<context:annotation-config />
-	<context:component-scan base-package="ch.hszt.mdp.domain" />
+    <context:annotation-config />
+    <context:component-scan base-package="ch.hszt.mdp.domain" />
     <context:component-scan base-package="ch.hszt.mdp.web" />
 
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="annotatedClasses">
-			<list>
-				<value>ch.hszt.mdp.domain.User</value>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="annotatedClasses">
+            <list>
+                <value>ch.hszt.mdp.domain.User</value>
                 <value>ch.hszt.mdp.domain.Activity</value>
                 <value>ch.hszt.mdp.domain.Friendship</value>
-			</list>
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
-            <prop key="hibernate.hbm2ddl.auto">create</prop>
-			</props>
-		</property>
-		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
-	</bean>
-
-	
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName"><value>org.hsqldb.jdbcDriver</value></property>
-        <property name="url"><value>jdbc:hsqldb:mem:test</value></property>
-        <property name="username"><value>sa</value></property>
-        <property name="password"><value></value></property>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+            </props>
+        </property>
+        <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
     </bean>
 
-   <bean id="userService" class="ch.hszt.mdp.service.UserServiceImpl">
+    <bean id="messages" class="ch.hszt.mdp.util.Messages" scope="session">
+        <aop:scoped-proxy />
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName">
+            <value>org.hsqldb.jdbcDriver</value>
+        </property>
+        <property name="url">
+            <value>jdbc:hsqldb:mem:test</value>
+        </property>
+        <property name="username">
+            <value>sa</value>
+        </property>
+        <property name="password">
+            <value></value>
+        </property>
+    </bean>
+
+    <bean id="userService" class="ch.hszt.mdp.service.UserServiceImpl">
         <property name="userDao" ref="userDao" />
     </bean>
 
     <bean id="activityService" class="ch.hszt.mdp.service.ActivityServiceImpl">
         <property name="activityDao" ref="activityDao" />
     </bean>
-    
-	<bean id="userDao" class="ch.hszt.mdp.dao.UserDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-    
+
+    <bean id="userDao" class="ch.hszt.mdp.dao.UserDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
     <bean id="activityDao" class="ch.hszt.mdp.dao.ActivityDaoImpl">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-    
+
 </beans>
