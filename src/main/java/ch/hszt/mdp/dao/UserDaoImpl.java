@@ -1,9 +1,12 @@
 package ch.hszt.mdp.dao;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.hibernate.Query;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
-import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
 
 /**
@@ -74,8 +77,30 @@ public class UserDaoImpl extends HibernateTemplate implements UserDao {
 		Query q = getSession().createQuery("update Friendship set accepted = '1' where primary_user = :id and secondary_user = :friendId");
 		q.setParameter("id", id);
 		q.setParameter("friendId", friendId);	
+		
 
 		q.executeUpdate();
+	}
+	
+	public ArrayList<Integer> searchUser(String search){
+		
+		ArrayList<Integer> userids = new ArrayList<Integer>();
+		
+		String [] searchUser = (search.split(" "));
+		
+		for (int i = 0; i < searchUser.length; i++) {
+			Query q = getSession().createQuery("SELECT u.id FROM User u where u.email like '%:searchString%' or u.prename like '%:searchString%' or u.surname like '%:searchString%'");
+			q.setParameter("searchString", searchUser[i]);
+			Iterator iter = q.iterate();
+			
+			while (iter.hasNext()){
+				Integer userid = (Integer) iter.next();
+				userids.add(userid);
+			}
+		
+		}
+		
+		return userids;
 	}
 
 

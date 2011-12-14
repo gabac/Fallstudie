@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ch.hszt.mdp.dao.ActivityDao;
 import ch.hszt.mdp.domain.Activity;
-import ch.hszt.mdp.domain.User;
 import ch.hszt.mdp.domain.Activity.ActivityType;
+import ch.hszt.mdp.domain.User;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class ActivityServiceImpl implements ActivityService {

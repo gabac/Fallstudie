@@ -51,7 +51,7 @@
                 </c:forEach>
             </div>
             <div class="span-one-third">
-                <c:if test="${profile.id != user.id}">
+                <c:if test="${profile.id != user.id && !alreadyFriends} ">
                     <p><a class="btn primary" data-controls-modal="modal-friendship" data-backdrop="true" data-keyboard="true">Add as Friend</a></p>
                 </c:if>
     
