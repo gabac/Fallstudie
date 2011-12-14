@@ -1,20 +1,14 @@
 package ch.hszt.mdp.web;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.Principal;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.imgscalr.Scalr;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -36,6 +30,7 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import ch.hszt.mdp.domain.User;
 import ch.hszt.mdp.service.FriendshipService;
 import ch.hszt.mdp.service.UserService;
+import ch.hszt.mdp.util.Messages;
 import ch.hszt.mdp.validation.DateTimePropertyEditor;
 
 /**
@@ -55,7 +50,14 @@ public class UsersController {
 	private FriendshipService friendshipService;
 
 	@Autowired
+<<<<<<< HEAD
 	public UsersController(UserService service, FriendshipService friendshipService) {
+=======
+	public Messages messages;
+
+	@Autowired
+	public UsersController(UserService service) {
+>>>>>>> 1f9113badd5fcd2cd7058e26f4e8d08855a436ba
 		this.service = service;
 		this.friendshipService = friendshipService;
 	}
@@ -167,43 +169,21 @@ public class UsersController {
 		return new ResponseEntity<byte[]>(user.getPhoto(), responseHeaders, HttpStatus.OK);
 	}
 
-	private ResponseEntity<byte[]> getPhoto(int id, int size, boolean crop) throws IOException {
+	private ResponseEntity<byte[]> photo(int id, int size, boolean crop) throws IOException {
 
-		User user = service.getUser(id);
-
-		InputStream in = new ByteArrayInputStream(user.getPhoto());
-		BufferedImage image = ImageIO.read(in);
-
-		// portrait
-		Scalr.Mode mode = Scalr.Mode.FIT_TO_WIDTH;
-
-		if (crop && image.getWidth() > image.getHeight()) {
-
-			// landscape
-			mode = Scalr.Mode.FIT_TO_HEIGHT;
-		}
-
-		BufferedImage thumbnail = Scalr.resize(image, mode, size, Scalr.OP_BRIGHTER);
-
-		if (crop) {
-			thumbnail = Scalr.crop(thumbnail, size, size);
-		}
-
-		ByteArrayOutputStream bas = new ByteArrayOutputStream();
-		ImageIO.write(thumbnail, "png", bas);
-
-		byte[] bytes = bas.toByteArray();
+		byte[] photo = service.getPhoto(id, 300, false);
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.parseMediaType("image/png"));
-		responseHeaders.setContentLength(bytes.length);
+		responseHeaders.setContentLength(photo.length);
 
-		return new ResponseEntity<byte[]>(bytes, responseHeaders, HttpStatus.OK);
+		return new ResponseEntity<byte[]>(photo, responseHeaders, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "{id}/thumbnail", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> thumbnail(@PathVariable("id") int id, Model model, Principal principal) throws IOException {
-		return getPhoto(id, 300, false);
+
+		return photo(id, 300, false);
 	}
 
 	/**
@@ -275,6 +255,8 @@ public class UsersController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		messages.addMessage(friend.getPrename() + " has been asked for a friendship.");
 
 		return "redirect:/v1/users/" + id;
 	}
