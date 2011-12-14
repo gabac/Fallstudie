@@ -32,7 +32,7 @@ public class FriendshipServiceImpl implements FriendshipService {
 	}
 	
 	public boolean checkForFriendship(User friend, User user) {
-		return friendshipDao.checkFriendship(friend.getId(),user.getId());
+		return friendshipDao.checkFriendship(friend, user);
 	}
 
 }

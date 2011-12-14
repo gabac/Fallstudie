@@ -1,6 +1,6 @@
 package ch.hszt.mdp.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
@@ -28,6 +28,6 @@ public interface UserDao {
 
 	void ignoreFriend(int friendId, int id);
 	
-	public ArrayList<Integer> searchUser(String search);
+	public List<User> searchUser(String search);
 
 }

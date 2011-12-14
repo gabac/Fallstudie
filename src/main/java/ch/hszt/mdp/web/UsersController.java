@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -94,16 +95,17 @@ public class UsersController {
 	public String getProfileForm(@PathVariable("id") int id, Model model, Principal principal) {
 
 		//id = aufgerufenes profil
-		User user = service.getUser(id);
+		User friend = service.getUser(id);
 		
 		//eingeloggter user = roger
-		User thatsMe = service.getUserByEmail(principal.getName());
+		User myself = service.getUserByEmail(principal.getName());
 		
-		boolean alreadyfriends = friendshipService.checkForFriendship(user, thatsMe);
+
+		boolean alreadyfriends = friendshipService.checkForFriendship(friend, myself);
 		
 		
 
-		model.addAttribute("profile", user);
+		model.addAttribute("profile", friend);
 		model.addAttribute("alreadyFriends", alreadyfriends);
 		model.addAttribute("accepedFriends", service.getAccepteFriendships(principal.getName()));
 		model.addAttribute("unaccepedFriends", service.getUnaccepteFriendships(principal.getName()));
@@ -264,7 +266,9 @@ public class UsersController {
 
 		User friend = service.getUser(friendId);
 		User user = service.getUser(id);
+		
 
+		
 		try {
 			friendshipService.askForFriendship(friend, user);
 
@@ -278,8 +282,10 @@ public class UsersController {
 	@RequestMapping(value = "search", method = RequestMethod.POST)
 	public String search(HttpServletRequest request, Model model, Principal principal, HttpSession session) {
 		
-		service.searchUser(request.getParameter("search"));
 		
+		List<User> users = service.searchUser(request.getParameter("search"));
+		
+		model.addAttribute("users", users);
 		
 		return "users/search";
 	}

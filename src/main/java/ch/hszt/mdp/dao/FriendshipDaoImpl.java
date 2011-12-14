@@ -4,6 +4,7 @@ import org.hibernate.Query;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import ch.hszt.mdp.domain.Friendship;
+import ch.hszt.mdp.domain.User;
 
 public class FriendshipDaoImpl extends HibernateTemplate implements FriendshipDao {
 	
@@ -17,11 +18,11 @@ public class FriendshipDaoImpl extends HibernateTemplate implements FriendshipDa
 	}
 
 	@Override
-	public boolean checkFriendship(int friend_id, int user_id) {
+	public boolean checkFriendship(User friend, User user) {
 		
 		Query q = getSession().createQuery("SELECT COUNT(*) FROM Friendship fs where fs.primary_user = :user_id and fs.secondary_user = :friend_id");
-		q.setParameter("friend_id", friend_id);
-		q.setParameter("user_id", user_id);
+		q.setParameter("friend_id", friend.getId());
+		q.setParameter("user_id", user.getId());
 
 		long count = (Long) q.iterate().next();
 

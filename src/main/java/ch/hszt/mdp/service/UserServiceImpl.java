@@ -219,15 +219,8 @@ public class UserServiceImpl implements UserService {
 	
 	
 	public List<User> searchUser(String search){
-		List<User> users = new ArrayList<User>();
 		
-		ArrayList<Integer> userid = userDao.searchUser(search);
-		
-		for (int i = 0; i < userid.size(); i++) {
-			users.add(getUser(userid.get(i)));	
-		}
-		
-		return users;
+		return userDao.searchUser(search);
 		
 	}
 	
