@@ -89,8 +89,8 @@ public class UserDaoImpl extends HibernateTemplate implements UserDao {
 		String [] searchUser = (search.split(" "));
 		
 		for (int i = 0; i < searchUser.length; i++) {
-			Query q = getSession().createQuery("SELECT u.id FROM User u where u.email like '%:searchString%' or u.prename like '%:searchString%' or u.surname like '%:searchString%'");
-			q.setParameter("searchString", searchUser[i]);
+			Query q = getSession().createQuery("SELECT u.id FROM User u where u.email like :searchString or u.prename like :searchString or u.surname like :searchString");
+			q.setParameter("searchString", "%"+searchUser[i]+"%");
 			Iterator iter = q.iterate();
 			
 			while (iter.hasNext()){
