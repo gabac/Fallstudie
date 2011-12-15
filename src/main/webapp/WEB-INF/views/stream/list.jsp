@@ -59,8 +59,8 @@
                              </c:if>
                              <span class="name">${unaccepedFriends.secondaryUser.prename} ${unaccepedFriends.secondaryUser.surname}</span>
                          </a>
-                            <a href="/v1/users/${user.id}/accept/${unaccepedFriends.secondaryUser.id" class="accept-friendship" data-controls-modal="modal-friendship" data-backdrop="true" data-keyboard="true">Accept</a>, 
-                            <a href="/v1/users/${profile.id}/ignore/${unaccepedFriends.secondaryUser.id}" class="" onclick="alert('${unaccepedFriends.secondaryUser.prename} ${unaccepedFriends.secondaryUser.surname} as friend ignored');">Ignore</a>
+                            <a href="/v1/users/${user.id}/accept/${unaccepedFriends.secondaryUser.id}" class="accept-friendship" data-controls-modal="modal-friendship" data-backdrop="true" data-keyboard="true">Accept</a>, 
+                            <a href="/v1/users/${profile.id}/ignore/${unaccepedFriends.secondaryUser.id}" onclick="alert('${unaccepedFriends.secondaryUser.prename} ${unaccepedFriends.secondaryUser.surname} as friend ignored');">Ignore</a>
                         </li>
                     </c:forEach>
                 </ul>
