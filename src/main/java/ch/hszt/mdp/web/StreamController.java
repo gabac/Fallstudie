@@ -20,14 +20,14 @@ public class StreamController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private ActivityService activityService;
 
 	private DateTime dt;
-	
+
 	public StreamController() {
-		
+
 	}
 
 	public StreamController(UserService service, ActivityService activityService, DateTime dt) {
@@ -40,7 +40,7 @@ public class StreamController {
 	public String list(Model model, Principal principal) {
 
 		dt = new DateTime();
-		
+
 		model.addAttribute("today", dt);
 
 		dt = dt.minusDays(1);
@@ -48,18 +48,20 @@ public class StreamController {
 
 		model.addAttribute("stream", userService.getActivitiesFromFriends(principal.getName()));
 
+		model.addAttribute("unaccepedFriends", userService.getUnaccepteFriendships(principal.getName()));
+
 		return "stream/list";
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
 	public String updateStatus(HttpServletRequest request, Model model, Principal principal) {
 		String status = request.getParameter("statusUpdate");
-		
+
 		activityService.updateStatus(userService.getUserByEmail(principal.getName()), status);
-		
-		//return "redirect:/";
+
+		// return "redirect:/";
 
 		return list(model, principal);
-		
+
 	}
 }

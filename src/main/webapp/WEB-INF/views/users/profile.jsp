@@ -66,12 +66,6 @@
                         <li><a href="/v1/users/${accepedFriends.secondaryUser.id}">${accepedFriends.secondaryUser.prename} ${accepedFriends.secondaryUser.surname}</a></li>
                     </c:forEach>
                 </ul>
-                <h3>Open friend requests</h3>
-                <ul>
-                    <c:forEach items="${unaccepedFriends}" var="unaccepedFriends">
-                        <li><a href="/v1/users/${unaccepedFriends.secondaryUser.id}">${unaccepedFriends.secondaryUser.prename} ${unaccepedFriends.secondaryUser.surname} </a><a href="/v1/users/${profile.id}/accept/${unaccepedFriends.secondaryUser.id}"><button class="btn success" onclick="alert('${unaccepedFriends.secondaryUser.prename} ${unaccepedFriends.secondaryUser.surname} as friend accepted');">Accept</button></a>   <a href="/v1/users/${profile.id}/ignore/${unaccepedFriends.secondaryUser.id}"><button class="btn danger" onclick="alert('${unaccepedFriends.secondaryUser.prename} ${unaccepedFriends.secondaryUser.surname} as friend ignored');">Ignore</button></a></li></br>
-                    </c:forEach>
-                </ul>
             </div>
         </div>
     </jsp:body>

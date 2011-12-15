@@ -106,7 +106,6 @@ public class UsersController {
 		model.addAttribute("profile", friend);
 		model.addAttribute("alreadyFriends", alreadyfriends);
 		model.addAttribute("accepedFriends", service.getAccepteFriendships(principal.getName()));
-		model.addAttribute("unaccepedFriends", service.getUnaccepteFriendships(principal.getName()));
 
 		return "users/profile";
 	}
