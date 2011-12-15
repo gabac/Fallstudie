@@ -73,4 +73,43 @@ form .clearfix textarea.error:focus {
     padding-left: 0;
 }
 
+/* Custom */
 
+ul.results {
+    list-style-type: none;
+    margin-left: 0;
+}
+
+ul.results li {
+    border-top: 1px solid #DDD;
+    height: 70px;
+}
+
+ul.results li:first-child {
+    border-top: 0;
+}
+
+.user-preview {
+    color: #404040;
+    display: block;
+    text-decoration: none !important;
+}
+
+.user-preview img {
+    vertical-align: top;
+    float: left;
+    margin-right: 10px;
+}
+
+.user-preview span.name {
+    display: block;
+    padding-top: 8px;
+}
+
+.user-preview:hover span.name {
+    text-decoration: underline;
+}
+
+.user-preview span.city {
+    color: #ccc;
+}
