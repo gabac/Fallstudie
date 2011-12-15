@@ -186,11 +186,28 @@ public class UsersController {
 
 		return new ResponseEntity<byte[]>(photo, responseHeaders, HttpStatus.OK);
 	}
+	
+	private ResponseEntity<byte[]> photoPeople(int id, int size, boolean crop) throws IOException {
+
+		byte[] photo = service.getPhoto(id, 50, false);
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.parseMediaType("image/png"));
+		responseHeaders.setContentLength(photo.length);
+
+		return new ResponseEntity<byte[]>(photo, responseHeaders, HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "{id}/thumbnail", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> thumbnail(@PathVariable("id") int id, Model model, Principal principal) throws IOException {
 
 		return photo(id, 300, false);
+	}
+	
+	@RequestMapping(value = "{friendId}/thumbnailPeople", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> thumbnailPeople(@PathVariable("friendId") int friendId, Model model, Principal principal) throws IOException {
+
+		return photoPeople(friendId, 50, false);
 	}
 
 	/**

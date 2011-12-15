@@ -20,7 +20,7 @@ public class FriendshipDaoImpl extends HibernateTemplate implements FriendshipDa
 	@Override
 	public boolean checkFriendship(User friend, User user) {
 		
-		Query q = getSession().createQuery("SELECT COUNT(*) FROM Friendship fs where fs.primary_user = :friend_id and fs.secondary_user = :user_id");
+		Query q = getSession().createQuery("SELECT COUNT(*) FROM Friendship fs where fs.primary_user = :user_id and fs.secondary_user = :friend_id");
 		q.setParameter("friend_id", friend.getId());
 		q.setParameter("user_id", user.getId());
 
