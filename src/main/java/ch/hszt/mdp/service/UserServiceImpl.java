@@ -222,18 +222,19 @@ public class UserServiceImpl implements UserService {
 	public void saveUser(User user) {
 		userDao.save(user);
 	}
-<<<<<<< HEAD
+
 	
 	
 	public List<User> searchUser(String search){
 		
 		return userDao.searchUser(search);
+	}
 		
-=======
+
 
 	public boolean askForFriendship(User friend, User user) throws NullPointerException {
 
-		if (friendshipDao.checkFriendship(friend.getId(), user.getId()) == true) {
+		if (friendshipDao.checkFriendship(friend, user) == true) {
 
 			return false;
 
@@ -276,7 +277,6 @@ public class UserServiceImpl implements UserService {
 		ImageIO.write(thumbnail, "png", bas);
 
 		return bas.toByteArray();
->>>>>>> 1f9113badd5fcd2cd7058e26f4e8d08855a436ba
 	}
 	
 

@@ -49,15 +49,14 @@ public class UsersController {
 	private UserService service;
 	private FriendshipService friendshipService;
 
-	@Autowired
-<<<<<<< HEAD
-	public UsersController(UserService service, FriendshipService friendshipService) {
-=======
+
 	public Messages messages;
+	
+	
 
 	@Autowired
-	public UsersController(UserService service) {
->>>>>>> 1f9113badd5fcd2cd7058e26f4e8d08855a436ba
+	public UsersController(UserService service, FriendshipService friendshipService) {
+
 		this.service = service;
 		this.friendshipService = friendshipService;
 	}
