@@ -19,8 +19,9 @@ public interface UserService {
 
 	public void create(User user);
 
+	void setUserDao(UserDao userDao);
+
 	public void setActivityService(ActivityService activityService);
-	public void setFriendshipDao(FriendshipDao friendshipDao);
 
 	User getUserByEmail(String email);
 
