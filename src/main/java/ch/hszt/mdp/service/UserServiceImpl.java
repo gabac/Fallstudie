@@ -39,8 +39,6 @@ public class UserServiceImpl implements UserService {
 
 	private ActivityService activityService;
 
-	private FriendshipDao friendshipDao;
-
 	public void setActivityService(ActivityService activityService) {
 		this.activityService = activityService;
 	}
@@ -225,26 +223,6 @@ public class UserServiceImpl implements UserService {
 	public List<User> searchUser(String search) {
 
 		return userDao.searchUser(search);
-	}
-
-
-	public boolean askForFriendship(User friend, User user) throws NullPointerException {
-
-		if (friendshipDao.checkFriendship(friend, user) == true) {
-
-			return false;
-
-		} else {
-
-			Friendship friendship = new Friendship();
-			friendship.setPrimary_user(user.getId());
-			friendship.setSecondary_user(friend.getId());
-			friendship.setAccepted(0);
-
-			friendshipDao.save(friendship);
-			return true;
-		}
-
 	}
 
 	public byte[] getPhoto(int id, int size, boolean crop) throws IOException {

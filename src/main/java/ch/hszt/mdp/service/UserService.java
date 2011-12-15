@@ -40,7 +40,5 @@ public interface UserService {
 
 	public List<User> searchUser(String search);
 
-	public boolean askForFriendship(User friend, User user);
-
 	public byte[] getPhoto(int id, int size, boolean crop) throws IOException;
 }
