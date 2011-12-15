@@ -37,15 +37,10 @@ public interface UserService {
 	void updateUser(User origin, User user);
 
 	void saveUser(User user);
-<<<<<<< HEAD
-	
-	public List<User> searchUser(String search);
-	
 
-=======
+	public List<User> searchUser(String search);
 
 	public boolean askForFriendship(User friend, User user);
->>>>>>> 1f9113badd5fcd2cd7058e26f4e8d08855a436ba
 
 	public byte[] getPhoto(int id, int size, boolean crop) throws IOException;
 }
