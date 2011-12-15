@@ -75,17 +75,17 @@ form .clearfix textarea.error:focus {
 
 /* Custom */
 
-ul.results {
+ul.flat {
     list-style-type: none;
     margin-left: 0;
 }
 
-ul.results li {
+ul.flat li {
     border-top: 1px solid #DDD;
     height: 70px;
 }
 
-ul.results li:first-child {
+ul.flat li:first-child {
     border-top: 0;
 }
 

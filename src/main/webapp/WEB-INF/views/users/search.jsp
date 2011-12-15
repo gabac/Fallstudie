@@ -12,7 +12,7 @@
                 <div class="page-header">
                     <h1>Users</h1>
                 </div>
-                <ul class="results">
+                <ul class="flat">
                     <c:forEach items="${users}" var="profile">
                         <li>
                          <a href="/v1/users/${profile.id}" class="user-preview">
