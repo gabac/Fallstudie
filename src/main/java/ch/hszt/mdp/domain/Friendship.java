@@ -12,16 +12,14 @@ import javax.persistence.Table;
 @Table(name = "friendship")
 public class Friendship implements Serializable {
 
-	@Id
-	private Integer primary_user;
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	private Integer secondary_user;
-
 	@ManyToOne
 	@JoinColumn(name = "primary_user", updatable = false, insertable = false)
 	private User primaryUser;
-	
+
+	@Id
 	@ManyToOne
 	@JoinColumn(name = "secondary_user", updatable = false, insertable = false)
 	private User secondaryUser;
@@ -50,21 +48,5 @@ public class Friendship implements Serializable {
 
 	public void setAccepted(Integer accepted) {
 		this.accepted = accepted;
-	}
-
-	public Integer getPrimary_user() {
-		return primary_user;
-	}
-
-	public void setPrimary_user(Integer primary_user) {
-		this.primary_user = primary_user;
-	}
-
-	public Integer getSecondary_user() {
-		return secondary_user;
-	}
-
-	public void setSecondary_user(Integer secondary_user) {
-		this.secondary_user = secondary_user;
 	}
 }
