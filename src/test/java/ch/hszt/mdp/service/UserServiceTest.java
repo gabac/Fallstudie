@@ -15,8 +15,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import ch.hszt.mdp.dao.UserDao;
+import ch.hszt.mdp.domain.TestObjects;
 import ch.hszt.mdp.domain.User;
-import domain.GetTestObjects;
 
 @RunWith(JMock.class)
 public class UserServiceTest {
@@ -24,6 +24,7 @@ public class UserServiceTest {
 	private Mockery context;
 
 	private UserService service;
+
 	@Before
 	public void setUp() {
 		context = new JUnit4Mockery();
@@ -35,7 +36,7 @@ public class UserServiceTest {
 	public void testCreate() {
 
 		final UserDao dao = context.mock(UserDao.class);
-		final User user = GetTestObjects.getUser();
+		final User user = TestObjects.getUser();
 
 		// define expectations
 		context.checking(new Expectations() {
@@ -50,38 +51,36 @@ public class UserServiceTest {
 		assertEquals("40bd001563085fc35165329ea1ff5c5ecbdbbeef", user.getPassword());
 	}
 
-	
-
 	@Test
 	public void testPasswordNotUpdated() {
 		final UserDao dao = context.mock(UserDao.class);
-		
-		final User user = GetTestObjects.getUser();
-		
+
+		final User user = TestObjects.getUser();
+
 		user.setId(1);
 		user.setPassword("123");
 		user.setRepeat("123");
-		User u2 = GetTestObjects.getUser();
+		User u2 = TestObjects.getUser();
 		u2.setPassword("");
 		u2.setRepeat("");
-		
+
 		context.checking(new Expectations() {
 			{
 				one(dao).save(user);
 			}
 		});
-		
+
 		service.setUserDao(dao);
 		service.create(user);
-		
+
 		final String sha1Pwd = user.getPassword();
-		
+
 		context.checking(new Expectations() {
 			{
 				one(dao).save(user);
 			}
 		});
-		
+
 		service.updateUser(user, u2);
 		assertTrue(user.getPassword().equals(sha1Pwd));
 	}
@@ -89,40 +88,39 @@ public class UserServiceTest {
 	@Test
 	public void testPasswordUpdated() {
 		final UserDao dao = context.mock(UserDao.class);
-		
-		final User user = GetTestObjects.getUser();
-		
+
+		final User user = TestObjects.getUser();
+
 		user.setId(1);
 		user.setPassword("123");
 		user.setRepeat("123");
-		
-		User u2 = GetTestObjects.getUser();
+
+		User u2 = TestObjects.getUser();
 		u2.setPassword("456");
 		u2.setRepeat("456");
-		
+
 		context.checking(new Expectations() {
 			{
 				one(dao).save(user);
 			}
 		});
-		
+
 		service.setUserDao(dao);
 		service.create(user);
-		
+
 		final String sha1Pwd = user.getPassword();
-		
+
 		context.checking(new Expectations() {
 			{
 				one(dao).save(user);
 			}
 		});
-		
+
 		service.updateUser(user, u2);
 		assertTrue(!user.getPassword().equals(sha1Pwd));
 
 	}
 
-	
 	public String sha1(String password) throws NoSuchAlgorithmException {
 
 		MessageDigest md = MessageDigest.getInstance("SHA1");
@@ -140,11 +138,11 @@ public class UserServiceTest {
 
 		return hexStr;
 	}
-	
+
 	@Test
-	public void testAcceptedFriends(){
+	public void testAcceptedFriends() {
 		final UserDao dao = context.mock(UserDao.class);
-		final User user = GetTestObjects.getUser();
+		final User user = TestObjects.getUser();
 
 		// define expectations
 		context.checking(new Expectations() {
@@ -155,9 +153,9 @@ public class UserServiceTest {
 		});
 
 		service.setUserDao(dao);
-		
-		assertTrue(service.getAccepteFriendships(GetTestObjects.getUser().getEmail()).size()>0);
-		
+
+		assertTrue(service.getAccepteFriendships(TestObjects.getUser().getEmail()).size() > 0);
+
 	}
 
 }
