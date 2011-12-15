@@ -37,14 +37,9 @@ public interface UserService {
 	void updateUser(User origin, User user);
 
 	void saveUser(User user);
-<<<<<<< HEAD
-	
-	public List<User> searchUser(String search);
-=======
 
 	public List<User> searchUser(String search);
 
->>>>>>> 764d33e9164b287745d17764d0a7b5232ef583dd
 	public boolean askForFriendship(User friend, User user);
 
 	public byte[] getPhoto(int id, int size, boolean crop) throws IOException;

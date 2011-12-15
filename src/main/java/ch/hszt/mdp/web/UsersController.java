@@ -49,21 +49,14 @@ public class UsersController {
 	private UserService service;
 	private FriendshipService friendshipService;
 
-<<<<<<< HEAD
-
-=======
 	@Autowired
->>>>>>> 764d33e9164b287745d17764d0a7b5232ef583dd
 	public Messages messages;
 	
 	
 
 	@Autowired
 	public UsersController(UserService service, FriendshipService friendshipService) {
-<<<<<<< HEAD
 
-=======
->>>>>>> 764d33e9164b287745d17764d0a7b5232ef583dd
 		this.service = service;
 		this.friendshipService = friendshipService;
 	}
