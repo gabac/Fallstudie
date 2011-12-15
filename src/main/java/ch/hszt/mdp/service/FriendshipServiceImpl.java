@@ -21,8 +21,8 @@ public class FriendshipServiceImpl implements FriendshipService {
 		}else{
 		
 			Friendship friendship = new Friendship();
-			friendship.setPrimary_user(user.getId());
-			friendship.setSecondary_user(friend.getId());
+			friendship.setPrimary_user(friend.getId());
+			friendship.setSecondary_user(user.getId());
 			friendship.setAccepted(0);
 		
 			friendshipDao.save(friendship);

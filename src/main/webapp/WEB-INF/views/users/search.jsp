@@ -8,7 +8,13 @@
     	<h3>Search result</h3>
                 <ul>
                     <c:forEach items="${users}" var="users">
-                        <li><a href="/v1/users/${users.id}">${users.surname} ${users.prename}</a></li></br>
+                    	<li><c:if test="${profile.hasPhoto}">
+                        	<img src="/v1/users/${profile.id}/thumbnail" width="50" />
+                    	</c:if>
+                    	<c:if test="${not profile.hasPhoto}">
+                        	<img src="/resources/images/user.png" width="50" height="50" />
+                    	</c:if>
+                        <a href="/v1/users/${users.id}">${users.surname} ${users.prename}</a></li></br>
                     </c:forEach>
                 </ul>
     </jsp:attribute>
