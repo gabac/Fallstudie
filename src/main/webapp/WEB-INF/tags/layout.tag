@@ -40,7 +40,7 @@ body {
                     </ul>
                 </div>
                 </c:if>
-                <form class="pull-right" action="/v1/users/search" method="POST">
+                <form class="pull-right" action="/v1/users/search" method="get">
                     <input type="text" placeholder="Search" id="search" name="search">
                     <input type="submit">
                 </form>

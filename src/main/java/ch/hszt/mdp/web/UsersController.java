@@ -282,7 +282,7 @@ public class UsersController {
 		return "redirect:/v1/users/" + id;
 	}
 
-	@RequestMapping(value = "search", method = RequestMethod.POST)
+	@RequestMapping(value = "search", method = RequestMethod.GET)
 	public String search(HttpServletRequest request, Model model, Principal principal, HttpSession session) {
 
 		List<User> users = service.searchUser(request.getParameter("search"));
