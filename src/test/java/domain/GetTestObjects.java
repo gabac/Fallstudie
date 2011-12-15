@@ -40,8 +40,8 @@ public class GetTestObjects {
 		user2.setRepeat("123");
 		
 		Friendship friends = new Friendship();
-		friends.setPrimary_user(user1.getId());
-		friends.setSecondary_user(user2.getId());
+		friends.setPrimaryUser(user1);
+		friends.setSecondaryUser(user2);
 		friends.setAccepted(1);
 		
 		friendships.add(friends);
