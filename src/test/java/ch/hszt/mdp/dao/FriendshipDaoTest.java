@@ -25,9 +25,6 @@ public class FriendshipDaoTest {
 	@Before
 	public void setup() {
 		friendship = new Friendship();
-		friendship.setPrimary_user(1);
-		friendship.setSecondary_user(2);
-		friendship.setAccepted(1);
 	}
 
 	@Test
