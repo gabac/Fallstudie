@@ -189,7 +189,7 @@ public class UsersController {
 	
 	private ResponseEntity<byte[]> photoPeople(int id, int size, boolean crop) throws IOException {
 
-		byte[] photo = service.getPhoto(id, 50, false);
+		byte[] photo = service.getPhoto(id, size, crop);
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.parseMediaType("image/png"));
@@ -204,10 +204,10 @@ public class UsersController {
 		return photo(id, 300, false);
 	}
 	
-	@RequestMapping(value = "{friendId}/thumbnailPeople", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> thumbnailPeople(@PathVariable("friendId") int friendId, Model model, Principal principal) throws IOException {
+	@RequestMapping(value = "{id}/preview", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> preview(@PathVariable("id") int id, Model model, Principal principal) throws IOException {
 
-		return photoPeople(friendId, 50, false);
+		return photoPeople(id, 50, true);
 	}
 
 	/**
