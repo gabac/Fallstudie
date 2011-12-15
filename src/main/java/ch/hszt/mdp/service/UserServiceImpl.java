@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 
 import org.imgscalr.Scalr;
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +39,9 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	private ActivityService activityService;
+	
+	@Autowired
+	private FriendshipDao friendshipDao;
 
 	public void setActivityService(ActivityService activityService) {
 		this.activityService = activityService;
@@ -45,6 +49,10 @@ public class UserServiceImpl implements UserService {
 
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+	
+	public void setFriendshipDao(FriendshipDao friendshipDao) {
+		this.friendshipDao = friendshipDao;
 	}
 
 	/**
@@ -103,6 +111,17 @@ public class UserServiceImpl implements UserService {
 	public void acceptFriend(int friendId, int id) {
 		userDao.acceptFriend(friendId, id);
 		activityService.acceptFriendship(getUser(friendId), getUser(id));
+		
+//		User friend1 = getUser(friendId);
+//		User user1 = getUser(id);
+		
+			
+		Friendship friendship = new Friendship();
+		friendship.setPrimaryUser(getUser(friendId));
+		friendship.setSecondaryUser(getUser(id));
+		friendship.setAccepted(1);
+
+		friendshipDao.save(friendship);
 
 	}
 

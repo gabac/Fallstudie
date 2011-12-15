@@ -3,6 +3,7 @@ package ch.hszt.mdp.service;
 import java.io.IOException;
 import java.util.List;
 
+import ch.hszt.mdp.dao.FriendshipDao;
 import ch.hszt.mdp.dao.UserDao;
 import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.Stream;
@@ -18,7 +19,8 @@ public interface UserService {
 
 	public void create(User user);
 
-	void setUserDao(UserDao userDao);
+	public void setActivityService(ActivityService activityService);
+	public void setFriendshipDao(FriendshipDao friendshipDao);
 
 	User getUserByEmail(String email);
 

@@ -48,6 +48,7 @@ public class UsersController {
 
 	private UserService service;
 	private FriendshipService friendshipService;
+	
 
 	@Autowired
 	public Messages messages;

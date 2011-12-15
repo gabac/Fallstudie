@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
+import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
 
 /**
@@ -80,6 +81,7 @@ public class UserDaoImpl extends HibernateTemplate implements UserDao {
 		
 
 		q.executeUpdate();
+	
 	}
 	
 	public List<User> searchUser(String search){
