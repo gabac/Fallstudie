@@ -22,6 +22,10 @@
     color: #ccc;
 }
 
+.topbar form .submit {
+    display: none;
+}
+
 .tabs > li > a:hover,
 .tabs .open.dropdown .dropdown-toggle {
     border-color: transparent;
