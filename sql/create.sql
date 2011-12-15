@@ -93,11 +93,11 @@ INSERT INTO friendship(primary_user, secondary_user, accepted)
   VALUES(3, 4, 1);
   
 INSERT INTO users(id, email, password, prename, surname, birthdate, city, photo)
-  VALUES(1, 'raphi.rm@gmail.com', '2ecb44da5fdeda0a2307f1c6ae8dcf4df476e588', 'Raphael', 'Marques', '1988-09-16', 'Zrich', '');
+  VALUES(1, 'raphi.rm@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Raphael', 'Marques', '1988-09-16', 'Zürich', '');
 INSERT INTO users(id, email, password, prename, surname, birthdate, city, photo)
-  VALUES(2, 'roger_bollmann#@gmail.com', 'a61a1add71dadc74037ae5e44ee30713db9a7451', 'Roger', 'Bollmann', '1922-12-31', 'Zrich', '');
+  VALUES(2, 'roger.bollmann@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Roger', 'Bollmann', '1922-12-31', 'Uster', '');
 INSERT INTO users(id, email, password, prename, surname, birthdate, city, photo)
-  VALUES(3, 'c_i*ril1988@bluewineriani.do', '46c0ec0a40c76d7f8a7ba9519171bcc2e60efa51', 'C_i)ril', 'G2Ba', '1711-09-30', 'Baden baden bden', '');
+  VALUES(3, 'gabathuler@bluewineriani.do', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Cyril', 'Gaba', '1711-09-30', 'Baden', '');
 INSERT INTO users(id, email, password, prename, surname, birthdate, city, photo)
   VALUES(4, 'fabian.vogler@bluewin.ch', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Fabian', 'Vogler', '1989-01-01', 'Baden', '');
 
