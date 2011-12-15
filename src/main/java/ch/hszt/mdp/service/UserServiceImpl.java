@@ -48,8 +48,6 @@ public class UserServiceImpl implements UserService {
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
-	
-	
 
 	/**
 	 * This method saves a user into the database.
@@ -223,6 +221,7 @@ public class UserServiceImpl implements UserService {
 		userDao.save(user);
 	}
 
+<<<<<<< HEAD
 	
 	
 	public List<User> searchUser(String search){
@@ -231,6 +230,12 @@ public class UserServiceImpl implements UserService {
 	}
 		
 
+=======
+	public List<User> searchUser(String search) {
+
+		return userDao.searchUser(search);
+	}
+>>>>>>> 764d33e9164b287745d17764d0a7b5232ef583dd
 
 	public boolean askForFriendship(User friend, User user) throws NullPointerException {
 
@@ -278,6 +283,5 @@ public class UserServiceImpl implements UserService {
 
 		return bas.toByteArray();
 	}
-	
 
 }

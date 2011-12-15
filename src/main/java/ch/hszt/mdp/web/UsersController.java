@@ -49,14 +49,21 @@ public class UsersController {
 	private UserService service;
 	private FriendshipService friendshipService;
 
+<<<<<<< HEAD
 
+=======
+	@Autowired
+>>>>>>> 764d33e9164b287745d17764d0a7b5232ef583dd
 	public Messages messages;
 	
 	
 
 	@Autowired
 	public UsersController(UserService service, FriendshipService friendshipService) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 764d33e9164b287745d17764d0a7b5232ef583dd
 		this.service = service;
 		this.friendshipService = friendshipService;
 	}
@@ -95,16 +102,13 @@ public class UsersController {
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	public String getProfileForm(@PathVariable("id") int id, Model model, Principal principal) {
 
-		//id = aufgerufenes profil
+		// id = aufgerufenes profil
 		User friend = service.getUser(id);
-		
-		//eingeloggter user = roger
+
+		// eingeloggter user = roger
 		User myself = service.getUserByEmail(principal.getName());
-		
 
 		boolean alreadyfriends = friendshipService.checkForFriendship(friend, myself);
-		
-		
 
 		model.addAttribute("profile", friend);
 		model.addAttribute("alreadyFriends", alreadyfriends);
@@ -245,9 +249,7 @@ public class UsersController {
 
 		User friend = service.getUser(friendId);
 		User user = service.getUser(id);
-		
 
-		
 		try {
 			friendshipService.askForFriendship(friend, user);
 
@@ -259,15 +261,14 @@ public class UsersController {
 
 		return "redirect:/v1/users/" + id;
 	}
-	
+
 	@RequestMapping(value = "search", method = RequestMethod.POST)
 	public String search(HttpServletRequest request, Model model, Principal principal, HttpSession session) {
-		
-		
+
 		List<User> users = service.searchUser(request.getParameter("search"));
-		
+
 		model.addAttribute("users", users);
-		
+
 		return "users/search";
 	}
 }

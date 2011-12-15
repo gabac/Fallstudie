@@ -60,6 +60,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
     <bean id="activityService" class="ch.hszt.mdp.service.ActivityServiceImpl">
         <property name="activityDao" ref="activityDao" />
     </bean>
+<<<<<<< HEAD
     
     <bean id="friendshipService" class="ch.hszt.mdp.service.FriendshipServiceImpl">
         <property name="friendshipDao" ref="friendshipDao" />
@@ -74,9 +75,19 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
     </bean>
     
     <bean id="friendshipDao" class="ch.hszt.mdp.dao.FriendshipDaoImpl">
+=======
+
+    <bean id="friendshipService" class="ch.hszt.mdp.service.FriendshipServiceImpl">
+        <property name="friendshipDao" ref="friendshipDao" />
+    </bean>
+
+    <bean id="userDao" class="ch.hszt.mdp.dao.UserDaoImpl">
+>>>>>>> 764d33e9164b287745d17764d0a7b5232ef583dd
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
 
->>>>>>> 1f9113badd5fcd2cd7058e26f4e8d08855a436ba
+    <bean id="friendshipDao" class="ch.hszt.mdp.dao.FriendshipDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
 </beans>
