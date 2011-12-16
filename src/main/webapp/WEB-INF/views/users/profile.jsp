@@ -63,7 +63,9 @@
                 <h3>Friends</h3>
                 <ul>
                     <c:forEach items="${accepedFriends}" var="accepedFriends">
-                        <li><a href="/v1/users/${accepedFriends.secondaryUser.id}">${accepedFriends.secondaryUser.prename} ${accepedFriends.secondaryUser.surname}</a></li>
+                        <li><a href="/v1/users/${accepedFriends.secondaryUser.id}">${accepedFriends.secondaryUser.prename} ${accepedFriends.secondaryUser.surname}</a></br>
+                        ${accepedFriends.secondaryUser.age}. Birthday on <joda:format value="${accepedFriends.secondaryUser.birthdate}" style="F-" pattern="dd.MMMM" /> 
+                        </li>
                     </c:forEach>
                 </ul>
             </div>

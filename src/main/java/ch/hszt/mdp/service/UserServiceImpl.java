@@ -130,7 +130,7 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		userDao.ignoreFriend(friendId, id);
 	}
-
+	
 	public List<Friendship> getAccepteFriendships(String email) {
 
 		User user = getUserByEmail(email);
@@ -146,7 +146,7 @@ public class UserServiceImpl implements UserService {
 		return acceptedFriends;
 
 	}
-
+	
 	public List<Friendship> getUnaccepteFriendships(String email) {
 
 		User user = getUserByEmail(email);

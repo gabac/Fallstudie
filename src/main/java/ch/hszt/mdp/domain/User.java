@@ -1,6 +1,8 @@
 package ch.hszt.mdp.domain;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -20,6 +22,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.DateTime.Property;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import ch.hszt.mdp.validation.PasswordsEqual;
@@ -226,5 +229,16 @@ public class User {
 		friendship.setAccepted(accepted ? 1 : 0);
 
 		this.friendships.add(friendship);
+	}
+	
+	public int getAge(){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date()); 
+		int yearToday = cal.get(Calendar.YEAR);
+		
+		int yearFriend = getBirthdate().getYear();
+		
+		return yearToday-yearFriend;
+		
 	}
 }

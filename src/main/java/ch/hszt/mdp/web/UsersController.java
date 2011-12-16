@@ -2,6 +2,7 @@ package ch.hszt.mdp.web;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
+import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
 import ch.hszt.mdp.service.FriendshipService;
 import ch.hszt.mdp.service.UserService;
@@ -101,9 +103,16 @@ public class UsersController {
 
 		// eingeloggter user = roger
 		User myself = service.getUserByEmail(principal.getName());
+		
+		List<Friendship> birthday = service.getAccepteFriendships(principal.getName());
+		List<User> birthdayUser = new ArrayList<User>();
+		
+		for (int i = 0; i < birthday.size(); i++) {
+			birthdayUser.add(service.getUser(birthday.get(i).getSecondaryUser().getId()));
+		}
+		
 
 		boolean alreadyfriends = friendshipService.checkForFriendship(friend, myself);
-
 		model.addAttribute("profile", friend);
 		model.addAttribute("alreadyFriends", alreadyfriends);
 		model.addAttribute("accepedFriends", service.getAccepteFriendships(principal.getName()));
@@ -234,7 +243,7 @@ public class UsersController {
 	@RequestMapping(value = "{id}", method = RequestMethod.POST)
 	public String update(@PathVariable("id") int id, @Valid User user, BindingResult result, Model model, Principal principal,
 			HttpSession session) {
-
+		
 		User origin = service.getUser(id);
 
 		if (result.hasErrors()) {
