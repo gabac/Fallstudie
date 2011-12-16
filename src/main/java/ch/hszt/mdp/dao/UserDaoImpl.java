@@ -84,7 +84,7 @@ public class UserDaoImpl extends HibernateTemplate implements UserDao {
 	
 	}
 	
-	public List<User> searchUser(String search){
+	public List<User> searchUser(String search, int id){
 		
 		//ArrayList<Integer> userids = new ArrayList<Integer>();
 		Query q = null;
@@ -92,8 +92,9 @@ public class UserDaoImpl extends HibernateTemplate implements UserDao {
 		String [] searchUser = (search.split(" "));
 		
 		for (int i = 0; i < searchUser.length; i++) {
-			q = getSession().createQuery("FROM User u where u.email like :searchString or u.prename like :searchString or u.surname like :searchString");
+			q = getSession().createQuery("FROM User u where (u.email like :searchString or u.prename like :searchString or u.surname like :searchString) and u.id not in (:id)");
 			q.setParameter("searchString", "%"+searchUser[i]+"%");
+			q.setParameter("id", id);
 			Iterator<User> iter = q.iterate();
 			
 			

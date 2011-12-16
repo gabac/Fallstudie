@@ -239,9 +239,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 
-	public List<User> searchUser(String search) {
+	public List<User> searchUser(String search, User user) {
 
-		return userDao.searchUser(search);
+		return userDao.searchUser(search, user.getId());
 	}
 
 	public byte[] getPhoto(int id, int size, boolean crop) throws IOException {

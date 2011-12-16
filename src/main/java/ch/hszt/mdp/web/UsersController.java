@@ -285,8 +285,10 @@ public class UsersController {
 
 	@RequestMapping(value = "search", method = RequestMethod.GET)
 	public String search(HttpServletRequest request, Model model, Principal principal, HttpSession session) {
+		
+		User user = service.getUserByEmail(principal.getName());
 
-		List<User> users = service.searchUser(request.getParameter("search"));
+		List<User> users = service.searchUser(request.getParameter("search"), user);
 
 		model.addAttribute("users", users);
 

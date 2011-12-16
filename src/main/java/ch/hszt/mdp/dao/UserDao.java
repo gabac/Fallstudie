@@ -28,6 +28,6 @@ public interface UserDao {
 
 	void ignoreFriend(int friendId, int id);
 	
-	public List<User> searchUser(String search);
+	public List<User> searchUser(String search, int id);
 
 }
