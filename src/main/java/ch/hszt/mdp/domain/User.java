@@ -239,11 +239,9 @@ public class User {
 		int yearFriend = getBirthdate().getYear();
 		
 		if ((getBirthdate().getDayOfYear() <= cal.get(Calendar.DAY_OF_YEAR))){
-			System.out.println("kleiner"+(yearToday-yearFriend+1));
 			return yearToday-yearFriend+1;
 			
 		} else{
-			System.out.println("grösser"+(yearToday-yearFriend));
 			return yearToday-yearFriend;
 			
 		}

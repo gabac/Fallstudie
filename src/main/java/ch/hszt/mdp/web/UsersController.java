@@ -104,13 +104,13 @@ public class UsersController {
 		// eingeloggter user = roger
 		User myself = service.getUserByEmail(principal.getName());
 		
-		List<Friendship> birthday = service.getAccepteFriendships(principal.getName());
-		List<User> birthdayUser = new ArrayList<User>();
-		
-		for (int i = 0; i < birthday.size(); i++) {
-			birthdayUser.add(service.getUser(birthday.get(i).getSecondaryUser().getId()));
-		}
-		
+//		List<Friendship> birthday = service.getAccepteFriendships(principal.getName());
+//		List<Integer> birthdayUser = new ArrayList<Integer>();
+//		
+//		for (int i = 0; i < birthday.size(); i++) {
+//			birthdayUser.add(birthday.get(i).getSecondaryUser().getAge());
+//		}
+//		
 
 		boolean alreadyfriends = friendshipService.checkForFriendship(friend, myself);
 		model.addAttribute("profile", friend);
