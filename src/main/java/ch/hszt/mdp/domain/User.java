@@ -230,7 +230,7 @@ public class User {
 
 		this.friendships.add(friendship);
 	}
-	
+
 	public int getAge(){
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date()); 
