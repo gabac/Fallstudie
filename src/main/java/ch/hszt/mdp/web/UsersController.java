@@ -2,7 +2,6 @@ package ch.hszt.mdp.web;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -28,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
-import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
 import ch.hszt.mdp.service.FriendshipService;
 import ch.hszt.mdp.service.UserService;
@@ -50,12 +48,9 @@ public class UsersController {
 
 	private UserService service;
 	private FriendshipService friendshipService;
-	
 
 	@Autowired
 	public Messages messages;
-	
-	
 
 	@Autowired
 	public UsersController(UserService service, FriendshipService friendshipService) {
@@ -103,14 +98,14 @@ public class UsersController {
 
 		// eingeloggter user = roger
 		User myself = service.getUserByEmail(principal.getName());
-		
-//		List<Friendship> birthday = service.getAccepteFriendships(principal.getName());
-//		List<Integer> birthdayUser = new ArrayList<Integer>();
-//		
-//		for (int i = 0; i < birthday.size(); i++) {
-//			birthdayUser.add(birthday.get(i).getSecondaryUser().getAge());
-//		}
-//		
+
+		// List<Friendship> birthday = service.getAccepteFriendships(principal.getName());
+		// List<Integer> birthdayUser = new ArrayList<Integer>();
+		//
+		// for (int i = 0; i < birthday.size(); i++) {
+		// birthdayUser.add(birthday.get(i).getSecondaryUser().getAge());
+		// }
+		//
 
 		boolean alreadyfriends = friendshipService.checkForFriendship(friend, myself);
 		model.addAttribute("profile", friend);
@@ -153,7 +148,7 @@ public class UsersController {
 
 		return "redirect:/v1/users/" + id;
 	}
-	
+
 	/**
 	 * Ignore friend request by clicking on the ignore button on the GUI. Reload page by returning
 	 * "redirect:/v1/users/"+id;
@@ -195,7 +190,7 @@ public class UsersController {
 
 		return new ResponseEntity<byte[]>(photo, responseHeaders, HttpStatus.OK);
 	}
-	
+
 	private ResponseEntity<byte[]> photoPeople(int id, int size, boolean crop) throws IOException {
 
 		byte[] photo = service.getPhoto(id, size, crop);
@@ -212,7 +207,7 @@ public class UsersController {
 
 		return photo(id, 300, false);
 	}
-	
+
 	@RequestMapping(value = "{id}/preview", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> preview(@PathVariable("id") int id, Model model, Principal principal) throws IOException {
 
@@ -243,7 +238,7 @@ public class UsersController {
 	@RequestMapping(value = "{id}", method = RequestMethod.POST)
 	public String update(@PathVariable("id") int id, @Valid User user, BindingResult result, Model model, Principal principal,
 			HttpSession session) {
-		
+
 		User origin = service.getUser(id);
 
 		if (result.hasErrors()) {
@@ -294,7 +289,7 @@ public class UsersController {
 
 	@RequestMapping(value = "search", method = RequestMethod.GET)
 	public String search(HttpServletRequest request, Model model, Principal principal, HttpSession session) {
-		
+
 		User user = service.getUserByEmail(principal.getName());
 
 		List<User> users = service.searchUser(request.getParameter("search"), user);
