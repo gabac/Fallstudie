@@ -319,8 +319,6 @@ public class UsersController {
 	@RequestMapping(value = "{id}/privacy", method = RequestMethod.POST)
 	public String savePrivacy(@Validated({ User.Privacy.class }) User user, BindingResult result, RedirectAttributes redirectAttributes) {
 
-		System.out.println("FOO");
-
 		if (result.hasErrors()) {
 			return "users/privacy";
 		}
