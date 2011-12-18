@@ -49,6 +49,8 @@ CREATE TABLE users  (
 	birthdate	datetime NOT NULL,
 	city     	varchar(255) NOT NULL,
 	photo    	longblob NULL,
+    privacy_profile  enum('everyone','friends') NOT NULL DEFAULT 'friends',
+    privacy_email    enum('everyone','friends') NOT NULL DEFAULT 'friends',
 	PRIMARY KEY(id)
 )
 ENGINE = InnoDB
@@ -93,7 +95,7 @@ INSERT INTO friendship(primary_user, secondary_user, accepted)
   VALUES(3, 4, 1);
   
 INSERT INTO users(id, email, password, prename, surname, birthdate, city, photo)
-  VALUES(1, 'raphi.rm@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Raphael', 'Marques', '1988-09-16', 'Zürich', '');
+  VALUES(1, 'raphi.rm@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Raphael', 'Marques', '1988-09-16', 'Zï¿½rich', '');
 INSERT INTO users(id, email, password, prename, surname, birthdate, city, photo)
   VALUES(2, 'roger.bollmann@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Roger', 'Bollmann', '1922-12-31', 'Uster', '');
 INSERT INTO users(id, email, password, prename, surname, birthdate, city, photo)

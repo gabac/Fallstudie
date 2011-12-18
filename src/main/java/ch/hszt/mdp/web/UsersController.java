@@ -2,7 +2,9 @@ package ch.hszt.mdp.web;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,12 +22,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ch.hszt.mdp.domain.User;
 import ch.hszt.mdp.service.FriendshipService;
@@ -297,5 +302,41 @@ public class UsersController {
 		model.addAttribute("users", users);
 
 		return "users/search";
+	}
+
+	@ModelAttribute("privacies")
+	public Map<String, String> populatePrivacies() {
+
+		HashMap<String, String> privacies = new HashMap<String, String>();
+		privacies.put("everyone", "Everyone");
+		privacies.put("friends", "Just friends");
+
+		return privacies;
+	}
+
+	@RequestMapping(value = "{id}/privacy", method = RequestMethod.GET)
+	public String privacy(@PathVariable("id") int id, Model model, Principal principal) {
+
+		User user = service.getUser(id);
+		model.addAttribute("profile", user);
+
+		return "users/privacy";
+	}
+
+	@RequestMapping(value = "{id}/privacy", method = RequestMethod.POST)
+	public String savePrivacy(@Validated({ User.Privacy.class }) User user, BindingResult result, RedirectAttributes redirectAttributes) {
+
+		System.out.println("FOO");
+		
+		if (result.hasErrors()) {
+			return "users/privacy";
+		}
+
+		// update user
+		service.updatePrivacy(user);
+
+		redirectAttributes.addFlashAttribute("message", "Privacy settings have been saved.");
+
+		return "redirect:/v1/users/" + user.getId() + "/privacy";
 	}
 }

@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	private ActivityService activityService;
-	
+
 	@Autowired
 	private FriendshipDao friendshipDao;
 
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
-	
+
 	public void setFriendshipDao(FriendshipDao friendshipDao) {
 		this.friendshipDao = friendshipDao;
 	}
@@ -111,11 +111,10 @@ public class UserServiceImpl implements UserService {
 	public void acceptFriend(int friendId, int id) {
 		userDao.acceptFriend(friendId, id);
 		activityService.acceptFriendship(getUser(friendId), getUser(id));
-		
-//		User friend1 = getUser(friendId);
-//		User user1 = getUser(id);
-		
-			
+
+		// User friend1 = getUser(friendId);
+		// User user1 = getUser(id);
+
 		Friendship friendship = new Friendship();
 		friendship.setPrimaryUser(getUser(friendId));
 		friendship.setSecondaryUser(getUser(id));
@@ -130,7 +129,7 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		userDao.ignoreFriend(friendId, id);
 	}
-	
+
 	public List<Friendship> getAccepteFriendships(String email) {
 
 		User user = getUserByEmail(email);
@@ -146,7 +145,7 @@ public class UserServiceImpl implements UserService {
 		return acceptedFriends;
 
 	}
-	
+
 	public List<Friendship> getUnaccepteFriendships(String email) {
 
 		User user = getUserByEmail(email);
@@ -238,7 +237,6 @@ public class UserServiceImpl implements UserService {
 		userDao.save(user);
 	}
 
-
 	public List<User> searchUser(String search, User user) {
 
 		return userDao.searchUser(search, user.getId());
@@ -270,6 +268,17 @@ public class UserServiceImpl implements UserService {
 		ImageIO.write(thumbnail, "png", bas);
 
 		return bas.toByteArray();
+	}
+
+	@Override
+	public void updatePrivacy(User user) {
+
+		User origin = getUser(user.getId());
+
+		origin.setPrivacyProfile(user.getPrivacyProfile());
+		origin.setPrivacyEmail(user.getPrivacyEmail());
+
+		saveUser(origin);
 	}
 
 }

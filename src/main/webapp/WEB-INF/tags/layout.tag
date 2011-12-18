@@ -34,6 +34,7 @@ body {
                             <ul class="dropdown-menu">
                                 <li><a href="/v1/users/${user.id}">View Profile</a></li>
                                 <li><a href="/v1/users/${user.id}/edit">Edit Profile</a></li>
+                                <li><a href="/v1/users/${user.id}/privacy">Privacy Settings</a></li>
                                 <li class="divider"></li>
                                 <li><a href="/v1/auth/logout">Logout</a></li>
                             </ul></li>
@@ -49,13 +50,12 @@ body {
     </div>
 
     <div class="container">
-
-        <c:forEach var="message" items="${sessionScope['scopedTarget.messages'].all}">
-            <div class="alert-message ${message.type}" data-alert="alert">
+        <c:if test="${message != null}">
+            <div class="alert-message success" data-alert="alert">
                 <a class="close" href="#">×</a>
-                <p>${message.text}</p>
+                <p>${message}</p>
             </div>
-        </c:forEach>
+        </c:if>
 
         <jsp:doBody />
 

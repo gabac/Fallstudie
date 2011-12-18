@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-import org.joda.time.DateTime.Property;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import ch.hszt.mdp.validation.PasswordsEqual;
@@ -65,8 +65,12 @@ import ch.hszt.mdp.validation.PasswordsEqual;
  */
 @Entity
 @Table(name = "users")
-@PasswordsEqual(message = "passwords are not equal")
+// @PasswordsEqual(message = "passwords are not equal")
 public class User {
+
+	public interface Privacy {
+
+	}
 
 	@Id
 	@GeneratedValue
@@ -115,6 +119,14 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	@OrderBy("time DESC")
 	private List<Activity> activities;
+
+	@Column(name = "privacy_profile")
+	@NotNull(groups = { Privacy.class })
+	private String privacyProfile;
+
+	@Column(name = "privacy_email")
+	@NotNull(groups = { Privacy.class })
+	private String privacyEmail;
 
 	public User() {
 
@@ -196,6 +208,22 @@ public class User {
 		return this.photo != null;
 	}
 
+	public String getPrivacyProfile() {
+		return privacyProfile;
+	}
+
+	public void setPrivacyProfile(String privacyProfile) {
+		this.privacyProfile = privacyProfile;
+	}
+
+	public String getPrivacyEmail() {
+		return privacyEmail;
+	}
+
+	public void setPrivacyEmail(String privacyEmail) {
+		this.privacyEmail = privacyEmail;
+	}
+
 	public List<Friendship> getFriendships() {
 		return friendships;
 	}
@@ -231,20 +259,20 @@ public class User {
 		this.friendships.add(friendship);
 	}
 
-	public int getAge(){
+	public int getAge() {
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date()); 
+		cal.setTime(new Date());
 		int yearToday = cal.get(Calendar.YEAR);
-		
+
 		int yearFriend = getBirthdate().getYear();
-		
-		if ((getBirthdate().getDayOfYear() <= cal.get(Calendar.DAY_OF_YEAR))){
-			return yearToday-yearFriend+1;
-			
-		} else{
-			return yearToday-yearFriend;
-			
+
+		if ((getBirthdate().getDayOfYear() <= cal.get(Calendar.DAY_OF_YEAR))) {
+			return yearToday - yearFriend + 1;
+
+		} else {
+			return yearToday - yearFriend;
+
 		}
-		
+
 	}
 }
