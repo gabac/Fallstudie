@@ -34,10 +34,6 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
         <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
     </bean>
 
-    <bean id="messages" class="ch.hszt.mdp.util.Messages" scope="session">
-        <aop:scoped-proxy />
-    </bean>
-
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName">
             <value>org.hsqldb.jdbcDriver</value>

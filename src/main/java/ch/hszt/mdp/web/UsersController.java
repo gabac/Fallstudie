@@ -35,7 +35,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ch.hszt.mdp.domain.User;
 import ch.hszt.mdp.service.FriendshipService;
 import ch.hszt.mdp.service.UserService;
-import ch.hszt.mdp.util.Messages;
 import ch.hszt.mdp.validation.DateTimePropertyEditor;
 
 /**
@@ -53,9 +52,6 @@ public class UsersController {
 
 	private UserService service;
 	private FriendshipService friendshipService;
-
-	@Autowired
-	public Messages messages;
 
 	@Autowired
 	public UsersController(UserService service, FriendshipService friendshipService) {
@@ -242,17 +238,11 @@ public class UsersController {
 
 	@RequestMapping(value = "{id}", method = RequestMethod.POST)
 	public String update(@PathVariable("id") int id, @Valid User user, BindingResult result, Model model, Principal principal,
-			HttpSession session) {
+			HttpSession session, RedirectAttributes redirectAttributes) {
 
 		User origin = service.getUser(id);
 
 		if (result.hasErrors()) {
-			model.addAttribute("userid", origin.getId());
-
-			// TODO find nicer solution!!
-			DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
-			String str = fmt.print(origin.getBirthdate());
-			model.addAttribute("birthdate", str);
 			return "/users/edit";
 
 		}
@@ -265,6 +255,8 @@ public class UsersController {
 		// update user
 		service.updateUser(origin, user);
 
+		redirectAttributes.addFlashAttribute("message", "Your profile has been updated.");
+
 		if (auth) {
 			model.addAttribute("profile", user);
 			return "redirect:/v1/users/" + id;
@@ -275,7 +267,8 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "{friendId}/ask/{id}", method = RequestMethod.GET)
-	public String getAskForFriend(@PathVariable("id") int id, @PathVariable("friendId") int friendId, Model model, Principal principal) {
+	public String getAskForFriend(@PathVariable("id") int id, @PathVariable("friendId") int friendId, Model model, Principal principal,
+			RedirectAttributes redirectAttributes) {
 
 		User friend = service.getUser(friendId);
 		User user = service.getUser(id);
@@ -287,7 +280,7 @@ public class UsersController {
 			e.printStackTrace();
 		}
 
-		messages.addMessage(friend.getPrename() + " has been asked for a friendship.");
+		redirectAttributes.addFlashAttribute("message", friend.getPrename() + " has been asked for a friendship.");
 
 		return "redirect:/v1/users/" + id;
 	}
@@ -327,7 +320,7 @@ public class UsersController {
 	public String savePrivacy(@Validated({ User.Privacy.class }) User user, BindingResult result, RedirectAttributes redirectAttributes) {
 
 		System.out.println("FOO");
-		
+
 		if (result.hasErrors()) {
 			return "users/privacy";
 		}
