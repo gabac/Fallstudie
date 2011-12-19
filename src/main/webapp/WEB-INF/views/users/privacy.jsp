@@ -16,7 +16,7 @@
                 <p>Something about privacy settings.</p>
             </div>
             <div class="span-two-thirds">
-              <form:form modelAttribute="user" action="/v1/users/${profile.id}/privacy" method="post">
+              <form:form modelAttribute="profile" action="/v1/users/${profile.id}/privacy" method="post">
                 <spring:hasBindErrors name="user">
                     <div class="alert-message error">
                         <p><strong>We're not kidding, please fix the errors!</strong> <form:errors /></p>

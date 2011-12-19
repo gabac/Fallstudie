@@ -12,8 +12,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -120,12 +118,7 @@ public class UsersController {
 	public String getProfileFormEdit(@PathVariable("id") int id, Model model, Principal principal) {
 
 		User user = service.getUser(id);
-		model.addAttribute("userid", user.getId());
-
-		// TODO find nicer solution!!
-		DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
-		String str = fmt.print(user.getBirthdate());
-		model.addAttribute("birthdate", str);
+		model.addAttribute("profile", user);
 
 		return "users/edit";
 	}
@@ -236,14 +229,15 @@ public class UsersController {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "{id}", method = RequestMethod.POST)
-	public String update(@PathVariable("id") int id, @Valid User user, BindingResult result, Model model, Principal principal,
-			HttpSession session, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "{id}/edit", method = RequestMethod.POST)
+	public String update(@PathVariable("id") int id, @Valid @ModelAttribute("profile") User user, BindingResult result,
+			RedirectAttributes redirectAttributes, HttpSession session) {
 
 		User origin = service.getUser(id);
 
 		if (result.hasErrors()) {
-			return "/users/edit";
+
+			return "users/edit";
 
 		}
 
@@ -258,7 +252,6 @@ public class UsersController {
 		redirectAttributes.addFlashAttribute("message", "Your profile has been updated.");
 
 		if (auth) {
-			model.addAttribute("profile", user);
 			return "redirect:/v1/users/" + id;
 		} else {
 			session.invalidate();
@@ -317,9 +310,11 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "{id}/privacy", method = RequestMethod.POST)
-	public String savePrivacy(@Validated({ User.Privacy.class }) User user, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String savePrivacy(@Validated({ User.Privacy.class }) @ModelAttribute("profile") User user, Model model, BindingResult result,
+			RedirectAttributes redirectAttributes) {
 
 		if (result.hasErrors()) {
+
 			return "users/privacy";
 		}
 
