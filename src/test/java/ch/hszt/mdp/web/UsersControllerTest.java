@@ -1,118 +1,56 @@
 package ch.hszt.mdp.web;
 
-import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.server.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.server.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.server.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
+import org.springframework.test.web.server.MockMvc;
 
-import ch.hszt.mdp.domain.User;
 import ch.hszt.mdp.service.FriendshipService;
 import ch.hszt.mdp.service.UserService;
-import ch.hszt.mdp.validation.DateTimePropertyEditor;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:mdp-test-daos.xml" })
 public class UsersControllerTest {
 
 	@Autowired
-	private Validator validator;
-
-	@Autowired
 	private UserService userService;
 
-	private AnnotationMethodHandlerAdapter adapter;
-
-	private MockHttpServletResponse response;
-
-	private UsersController controller;
-	
 	private FriendshipService friendshipService;
+
+	private MockMvc mvc;
 
 	@Before
 	public void setup() {
-		adapter = new AnnotationMethodHandlerAdapter();
-		response = new MockHttpServletResponse();
-		controller = new UsersController(userService, friendshipService);
+		mvc = standaloneSetup(new UsersController(userService, friendshipService)).build();
 	}
 
 	@Test
 	public void testRegister() throws Exception {
 
-		// http://blog.vergiss-blackjack.de/2010/04/unit-testing-a-spring-controller/
-
-		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/users");
-
-		request.setParameter("email", "gabathuler@gmail.com");
-		request.setParameter("prename", "Cyril");
-		request.setParameter("surname", "Gabathuler");
-		request.setParameter("password", "123");
-		request.setParameter("repeat", "123");
-		request.setParameter("birthdate", "2011-12-01");
-		request.setParameter("city", "Baden");
-
-		ModelAndView mv = adapter.handle(request, response, controller);
-
-		assertEquals("redirect:/", mv.getViewName());
+		mvc.perform(
+				post("/users").param("email", "gabathuler@gmail.com").param("prename", "Cyril").param("surname", "Gabathuler")
+						.param("password", "123").param("repeat", "123").param("birthdate", "2011-12-01").param("city", "Baden"))
+				.andExpect(view().name("redirect:/"));
 	}
 
 	@Test
 	public void testRegisterError() throws Exception {
 
-		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/users");
-
-		BindingResult result = validate(request);
-
-		assertEquals(6, result.getErrorCount());
+		mvc.perform(post("/users")).andExpect(model().attributeHasErrors("user"));
 	}
 
 	@Test
 	public void testRegistrationForm() throws Exception {
-		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/users");
 
-		ModelAndView mv = adapter.handle(request, response, controller);
-
-		assertEquals("users/registration", mv.getViewName());
-
-	}
-//	@Test
-//	public void testUpdateForm() throws Exception {
-//		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/users/1/edit");
-//
-//		ModelAndView mv = adapter.handle(request, response, controller);
-//
-//		assertEquals("users/edit", mv.getViewName());
-//
-//	}
-	
-
-	private BindingResult validate(HttpServletRequest request) {
-
-		User user = new User();
-
-		WebDataBinder binder = new WebDataBinder(user);
-
-		binder.setValidator(validator); // use the validator from the context
-		binder.registerCustomEditor(DateTime.class, null, new DateTimePropertyEditor("yyyy-MM-dd"));
-
-		binder.bind(new MutablePropertyValues(request.getParameterMap()));
-
-		// validation must be triggered manually
-		binder.getValidator().validate(binder.getTarget(), binder.getBindingResult());
-		return binder.getBindingResult();
+		mvc.perform(get("/users")).andExpect(view().name("users/registration"));
 	}
 }

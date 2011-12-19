@@ -65,7 +65,7 @@ import ch.hszt.mdp.validation.PasswordsEqual;
  */
 @Entity
 @Table(name = "users")
-// @PasswordsEqual(message = "passwords are not equal")
+@PasswordsEqual(message = "passwords are not equal")
 public class User {
 
 	public interface Privacy {

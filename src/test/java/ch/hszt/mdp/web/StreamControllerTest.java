@@ -1,6 +1,9 @@
 package ch.hszt.mdp.web;
 
-import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.server.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.server.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
 
 import java.security.Principal;
 
@@ -9,12 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
+import org.springframework.test.web.server.MockMvc;
 
 import ch.hszt.mdp.domain.Activity;
 import ch.hszt.mdp.domain.Activity.ActivityType;
@@ -26,10 +26,6 @@ import ch.hszt.mdp.service.UserService;
 @ContextConfiguration(locations = { "classpath:mdp-test-daos.xml" })
 public class StreamControllerTest {
 
-	private MockHttpServletRequest request;
-	private MockHttpServletResponse response;
-	private AnnotationMethodHandlerAdapter adapter;
-	private StreamController streamController;
 	private User user;
 
 	@Autowired
@@ -38,49 +34,35 @@ public class StreamControllerTest {
 	@Autowired
 	private ActivityService activityService;
 
+	private MockMvc mvc;
+
+	private Principal principal;
+
 	@Before
 	public void setup() {
+		mvc = standaloneSetup(new StreamController(userService, activityService, new DateTime())).build();
 
-		request = new MockHttpServletRequest();
-		response = new MockHttpServletResponse();
-		adapter = new AnnotationMethodHandlerAdapter();
-		streamController = new StreamController(userService, activityService, new DateTime());
-
-		Principal principal = new Principal() {
+		principal = new Principal() {
 
 			@Override
 			public String getName() {
 				return "gabathuler@gmail.com";
 			}
 		};
-
-		request.setUserPrincipal(principal);
-
 	}
 
 	@Test
 	public void testList() throws Exception {
 		createAndSaveUser();
-		
-		request.setMethod("GET");
-		request.setRequestURI("/");
 
-		ModelAndView mAv = adapter.handle(request, response, streamController);
-
-		assertEquals("stream/list", mAv.getViewName());
+		mvc.perform(get("/").principal(principal)).andExpect(view().name("stream/list"));
 	}
 
 	@Test
 	public void testUpdateStatus() throws Exception {
-		request.setMethod("POST");
-		request.setRequestURI("/");
-		request.setParameter("statusUpdate", "Das ist ein Test");
-		
-		ModelAndView mAv = adapter.handle(request, response, streamController);
-
-		assertEquals("stream/list", mAv.getViewName());
+		mvc.perform(post("/").principal(principal).param("statusUpdate", "Das ist ein Test")).andExpect(view().name("stream/list"));
 	}
-	
+
 	private void createAndSaveUser() {
 		user = new User();
 		user.setEmail("gabathuler@gmail.com");
