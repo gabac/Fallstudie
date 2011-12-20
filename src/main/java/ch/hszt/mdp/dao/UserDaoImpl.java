@@ -84,6 +84,12 @@ public class UserDaoImpl extends HibernateTemplate implements UserDao {
 	
 	}
 	
+	/**
+	 * Searching Members of the social network
+	 * @param String search and int id (User ID)
+	 * @return list of Users
+	 */
+	
 	public List<User> searchUser(String search, int id){
 		
 		//ArrayList<Integer> userids = new ArrayList<Integer>();
