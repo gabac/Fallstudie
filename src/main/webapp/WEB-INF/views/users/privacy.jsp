@@ -27,6 +27,7 @@
                     <form:label for="privacyProfile" path="privacyProfile" cssErrorClass="error">Personal information</form:label>
                     <div class="input">
                        <form:select path="privacyProfile" items="${privacies}" cssErrorClass="error" />
+                       <span class="help-block">Who can see profile information like photo, city and birthdate.</span>
                       <span class="help-block error"><form:errors path="privacyProfile" /></span>
                     </div>
                   </div>
@@ -34,6 +35,7 @@
                     <form:label for="privacyEmail" path="privacyEmail" cssErrorClass="error">E-Mail address</form:label>
                     <div class="input">
                        <form:select path="privacyEmail" items="${privacies}" cssErrorClass="error" />
+                       <span class="help-block">Who can see your E-Mail address.</span>
                       <span class="help-block error"><form:errors path="privacyEmail" /></span>
                     </div>
                   </div>
