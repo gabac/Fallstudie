@@ -323,6 +323,6 @@ public class UsersController {
 
 		redirectAttributes.addFlashAttribute("message", "Privacy settings have been saved.");
 
-		return "redirect:/v1/users/" + user.getId() + "/privacy";
+		return "redirect:/v1/";
 	}
 }
