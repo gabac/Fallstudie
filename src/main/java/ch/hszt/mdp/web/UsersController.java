@@ -295,7 +295,7 @@ public class UsersController {
 
 		HashMap<String, String> privacies = new HashMap<String, String>();
 		privacies.put("everyone", "Everyone");
-		privacies.put("friends", "Just friends");
+		privacies.put("friends", "Friends");
 
 		return privacies;
 	}

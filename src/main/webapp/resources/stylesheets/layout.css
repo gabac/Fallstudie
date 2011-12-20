@@ -79,6 +79,16 @@ form .clearfix textarea.error:focus {
 
 /* Custom */
 
+section {
+    margin-top: 40px;
+}
+
+.share .btn.primary {
+    float: right;
+    margin-top: -2px;
+    margin-right: 80px;
+}
+
 ul.flat {
     list-style-type: none;
     margin-left: 0;

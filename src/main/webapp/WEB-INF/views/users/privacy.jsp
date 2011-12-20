@@ -26,16 +26,16 @@
                   <div class="clearfix">
                     <form:label for="privacyProfile" path="privacyProfile" cssErrorClass="error">Personal information</form:label>
                     <div class="input">
-                       <form:select path="privacyProfile" items="${privacies}" cssErrorClass="error" />
-                       <span class="help-block">Who can see profile information like photo, city and birthdate.</span>
+                       <form:select path="privacyProfile" items="${privacies}" cssClass="small" cssErrorClass="small error" />
+                       <span class="help-inline">Who can see profile information like photo, city and birthdate.</span>
                       <span class="help-block error"><form:errors path="privacyProfile" /></span>
                     </div>
                   </div>
                   <div class="clearfix">
                     <form:label for="privacyEmail" path="privacyEmail" cssErrorClass="error">E-Mail address</form:label>
                     <div class="input">
-                       <form:select path="privacyEmail" items="${privacies}" cssErrorClass="error" />
-                       <span class="help-block">Who can see your E-Mail address.</span>
+                       <form:select path="privacyEmail" items="${privacies}" cssClass="small" cssErrorClass="small error" />
+                       <span class="help-inline">Who can see your E-Mail address.</span>
                       <span class="help-block error"><form:errors path="privacyEmail" /></span>
                     </div>
                   </div>

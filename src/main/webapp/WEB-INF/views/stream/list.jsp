@@ -29,23 +29,26 @@
     </jsp:attribute>
     <jsp:body>
         <div class="row">
-        <div class="span-two-third status">
+        <div class="span-two-thirds status">
     		<form class="form-stacked share" action="" method="POST">
+                <fieldset>
     			<div class="clearfix">
-		            <label for="textarea">Share status:</label>
-		            <div class="input">
-		              <textarea class="xxlarge" id="statusUpdate" name="statusUpdate" rows="3"></textarea>
-		            </div>
-	            </div>
-                <div class="clearfix">
-                    <input type="submit" class="btn primary" value="Update status">
+                    <div class="input">
+                      <textarea class="xxlarge" id="statusUpdate" name="statusUpdate" rows="3" placeholder="Share your status…"></textarea>
+                    </div>
                 </div>
+                <div class="clearfix">
+                    <div class="input">
+                      <select class="small"><option>Friends</option><option>Everyone</option></select>
+                      <span class="help-inline">Who should be able to see it?</span>
+                      <input type="submit" class="btn primary" value="Update status">
+                    </div>
+	            </div>
+                </fieldset>
             </form>
           </div>
           <div class="span-one-third">
-                <div class="page-header">
-                    <h2>Friend Requests</h2>
-                </div>
+                    <h3>Friend Requests</h3>
                 <ul class="flat">
                     <c:forEach items="${unaccepedFriends}" var="unaccepedFriends">
                         <li>
@@ -66,6 +69,7 @@
                 </ul>
           </div>
           </div>
+          <section>
         <div class="row">
             <div class="span-one-third">
                 <div class="page-header">
@@ -96,5 +100,6 @@
 	            </c:forEach>
             </div>
         </div>
+        </section>
     </jsp:body>
 </t:layout>
