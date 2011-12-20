@@ -132,6 +132,14 @@ public class User {
 
 	}
 
+	public boolean accessProfile(User someone) {
+		return getFriendships().contains(someone) || getPrivacyProfile().equals("everyone");
+	}
+
+	public boolean accessEmail(User someone) {
+		return getFriendships().contains(someone) || getPrivacyEmail().equals("everyone");
+	}
+
 	public Integer getId() {
 		return id;
 	}

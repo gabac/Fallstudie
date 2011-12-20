@@ -27,19 +27,21 @@
     <jsp:body>
         <div class="page-header">
             <h1>
-                ${profile.prename} ${profile.surname} <small>${profile.city}</small>
+                ${profile.prename} ${profile.surname}<c:if test="${profile.accessProfile(user)}"> <small>${profile.city}</small></c:if>
             </h1>
         </div>
     
         <div class="row">
             <div class="span-one-third">
                 <p>
-                    <c:if test="${profile.hasPhoto}">
-                        <img src="/v1/users/${profile.id}/thumbnail" width="300" />
-                    </c:if>
-                    <c:if test="${not profile.hasPhoto}">
-                        <img src="/resources/images/user.png" width="300" height="300" />
-                    </c:if>
+                    <c:choose>
+                        <c:when test="${profile.hasPhoto and profile.accessProfile(user)}">
+                            <img src="/v1/users/${profile.id}/thumbnail" width="300" />
+                        </c:when>
+                        <c:otherwise>
+                            <img src="/resources/images/user.png" width="300" height="300" />
+                        </c:otherwise>
+                    </c:choose>
                 </p>
             </div>
             <div class="span-one-third">
@@ -56,18 +58,20 @@
                 </c:if>
     
                 <p>
-                    E-Mail: <a href="mailto:${profile.email}">${profile.email}</a><br /> born
-                    <joda:format value="${profile.birthdate}" style="F-" />
+                    <c:if test="${profile.accessEmail(user)}">E-Mail: <a href="mailto:${profile.email}">${profile.email}</a><br /></c:if>
+                    <c:if test="${profile.accessProfile(user)}">born <joda:format value="${profile.birthdate}" style="F-" /></c:if>
                 </p>
     
-                <h3>Friends</h3>
-                <ul>
-                    <c:forEach items="${accepedFriends}" var="accepedFriends">
-                        <li><a href="/v1/users/${accepedFriends.secondaryUser.id}">${accepedFriends.secondaryUser.prename} ${accepedFriends.secondaryUser.surname}</a></br>
-                        ${accepedFriends.secondaryUser.age}. Birthday on <joda:format value="${accepedFriends.secondaryUser.birthdate}" style="F-" pattern="dd.MMMM" /> 
-                        </li>
-                    </c:forEach>
-                </ul>
+                <c:if test="${profile.accessProfile(user)}">
+                    <h3>Friends</h3>
+                    <ul>
+                        <c:forEach items="${accepedFriends}" var="accepedFriends">
+                            <li><a href="/v1/users/${accepedFriends.secondaryUser.id}">${accepedFriends.secondaryUser.prename} ${accepedFriends.secondaryUser.surname}</a></br>
+                            ${accepedFriends.secondaryUser.age}. Birthday on <joda:format value="${accepedFriends.secondaryUser.birthdate}" style="F-" pattern="dd.MMMM" /> 
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </c:if>
             </div>
         </div>
     </jsp:body>
