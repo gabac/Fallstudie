@@ -1,16 +1,23 @@
 package ch.hszt.mdp.web;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import ch.hszt.mdp.domain.Activity;
+import ch.hszt.mdp.domain.User;
+import ch.hszt.mdp.domain.Activity.ActivityType;
 import ch.hszt.mdp.service.ActivityService;
 import ch.hszt.mdp.service.UserService;
 
@@ -36,6 +43,16 @@ public class StreamController {
 		this.dt = dt;
 	}
 
+	@ModelAttribute("privacies")
+	public Map<String, String> populatePrivacies() {
+
+		HashMap<String, String> privacies = new HashMap<String, String>();
+		privacies.put("everyone", "Everyone");
+		privacies.put("friends", "Friends");
+
+		return privacies;
+	}
+
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model, Principal principal) {
 
@@ -50,18 +67,20 @@ public class StreamController {
 
 		model.addAttribute("unaccepedFriends", userService.getUnaccepteFriendships(principal.getName()));
 
+		model.addAttribute(new Activity());
+
 		return "stream/list";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String updateStatus(HttpServletRequest request, Model model, Principal principal) {
-		String status = request.getParameter("statusUpdate");
+	public String updateStatus(@Valid Activity activity, Principal principal) {
 
-		activityService.updateStatus(userService.getUserByEmail(principal.getName()), status);
+		activity.setTyp(ActivityType.STATUS);
+		activity.setTime(new DateTime());
+		activity.setUser(userService.getUserByEmail(principal.getName()));
 
-		// return "redirect:/";
+		activityService.updateStatus(activity);
 
-		return list(model, principal);
-
+		return "redirect:/v1/";
 	}
 }

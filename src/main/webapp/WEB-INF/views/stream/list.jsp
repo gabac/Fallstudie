@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:layout title="Next Social Network">
@@ -30,22 +31,21 @@
     <jsp:body>
         <div class="row">
         <div class="span-two-thirds status">
-    		<form class="form-stacked share" action="" method="POST">
+            <form:form cssClass="form-stacked share" modelAttribute="activity" action="" method="post" enctype="multipart/form-data">
                 <fieldset>
     			<div class="clearfix">
                     <div class="input">
-                      <textarea class="xxlarge" id="statusUpdate" name="statusUpdate" rows="3" placeholder="Share your status…"></textarea>
+                      <textarea class="xxlarge" id="content" name="content" rows="3" placeholder="Share your status…"></textarea>
                     </div>
                 </div>
                 <div class="clearfix">
                     <div class="input">
-                      <select class="small"><option>Friends</option><option>Everyone</option></select>
-                      <span class="help-inline">Who should be able to see it?</span>
+                       <form:select path="privacy" items="${privacies}" cssClass="small" cssErrorClass="small error" />
                       <input type="submit" class="btn primary" value="Update status">
                     </div>
 	            </div>
                 </fieldset>
-            </form>
+            </form:form>
           </div>
           <div class="span-one-third">
                     <h3>Friend Requests</h3>

@@ -57,14 +57,8 @@ public class ActivityServiceImpl implements ActivityService {
 
 	}
 	
-	public void updateStatus(User user, String status) {
-		
-		Activity activity = new Activity();
-		activity.setContent(status);
-		activity.setTime(new DateTime());
-		activity.setTyp(ActivityType.STATUS);
-		activity.setUser(user);
-		
+	public void updateStatus(Activity activity) {
+
 		activityDao.save(activity);
 	}
 

@@ -11,6 +11,7 @@ CREATE TABLE activities  (
 	parent     	int(11) NULL,
 	time       	datetime NOT NULL,
 	content    	text NULL,
+    privacy     enum('everyone','friends') NOT NULL DEFAULT 'friends',
 	PRIMARY KEY(activity_id)
 )
 ENGINE = InnoDB

@@ -8,9 +8,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+
+import ch.hszt.mdp.domain.User.Privacy;
 
 @Entity
 @Table(name = "activities")
@@ -60,6 +63,9 @@ public class Activity {
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime time;
 
+	@NotNull
+	private String privacy;
+
 	@Transient
 	public ActivityType getActivityType() {
 		return ActivityType.fromValue(typValue);
@@ -105,5 +111,13 @@ public class Activity {
 
 	public void setTime(DateTime time) {
 		this.time = time;
+	}
+
+	public String getPrivacy() {
+		return privacy;
+	}
+
+	public void setPrivacy(String privacy) {
+		this.privacy = privacy;
 	}
 }
