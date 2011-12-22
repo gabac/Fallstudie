@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.joda.time.DateTime;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ch.hszt.mdp.domain.Activity;
-import ch.hszt.mdp.domain.User;
 import ch.hszt.mdp.domain.Activity.ActivityType;
 import ch.hszt.mdp.service.ActivityService;
 import ch.hszt.mdp.service.UserService;

@@ -13,8 +13,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
-import ch.hszt.mdp.domain.User.Privacy;
-
 @Entity
 @Table(name = "activities")
 public class Activity {
@@ -54,12 +52,12 @@ public class Activity {
 	private Integer activity_id;
 
 	@OneToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
 
 	@Column(name = "typ")
 	private String typValue;
-	
+
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime time;
 
