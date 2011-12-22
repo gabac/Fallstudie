@@ -310,7 +310,7 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "{id}/privacy", method = RequestMethod.POST)
-	public String savePrivacy(@Validated({ User.Privacy.class }) @ModelAttribute("profile") User user, Model model, BindingResult result,
+	public String savePrivacy(@Validated(User.Privacy.class) @ModelAttribute("profile") User user, Model model, BindingResult result,
 			RedirectAttributes redirectAttributes) {
 
 		if (result.hasErrors()) {
