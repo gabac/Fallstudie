@@ -23,6 +23,10 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     
     <bean id="friendshipService" class="ch.hszt.mdp.service.FriendshipServiceImpl">
         <property name="friendshipDao" ref="friendshipDao" />
+        <property name="pushNotifictioniOSService" ref="pushNotifictioniOSService" />
+    </bean>
+    
+    <bean id="pushNotifictioniOSService" class="ch.hszt.mdp.service.PushNotificationiOSServiceImpl">
     </bean>
 
     <bean id="userDao" class="ch.hszt.mdp.dao.UserDaoImpl">

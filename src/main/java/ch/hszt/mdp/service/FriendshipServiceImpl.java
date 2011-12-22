@@ -7,11 +7,18 @@ import ch.hszt.mdp.domain.User;
 public class FriendshipServiceImpl implements FriendshipService {
 
 	private FriendshipDao friendshipDao;
+	
+	private PushNotificationService pushNotifictioniOSService;
 
 	public void setFriendshipDao(FriendshipDao friendshipDao) {
 		this.friendshipDao = friendshipDao;
 	}
 
+	
+	public void setPushNotifictioniOSService(PushNotificationService pushNotifictioniOSService) {
+		this.pushNotifictioniOSService = pushNotifictioniOSService;
+	}
+	
 	public boolean askForFriendship(User friend, User user) throws NullPointerException {
 
 		if (checkForFriendship(friend, user) == true) {
@@ -26,6 +33,8 @@ public class FriendshipServiceImpl implements FriendshipService {
 			friendship.setAccepted(0);
 
 			friendshipDao.save(friendship);
+			
+			pushNotifictioniOSService.addAsFriend(friend);
 
 			return true;
 		}
