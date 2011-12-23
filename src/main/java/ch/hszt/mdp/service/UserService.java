@@ -27,7 +27,7 @@ public interface UserService {
 
 	User getUser(int id);
 
-	List<Friendship> getAccepteFriendships(String email);
+	List<Friendship> getAccepteFriendships(User user);
 
 	List<Friendship> getUnaccepteFriendships(String email);
 

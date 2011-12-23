@@ -41,6 +41,7 @@ public class ActivityDaoTest {
 		//activity.setUser_id(new User());
 		activity.setContent("test");
 		activity.setTyp(ActivityType.STATUS);
+		activity.setPrivacy("friends");
 	}
 
 	@After

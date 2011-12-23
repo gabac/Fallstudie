@@ -60,7 +60,7 @@ public class StreamControllerTest {
 
 	@Test
 	public void testUpdateStatus() throws Exception {
-		mvc.perform(post("/").principal(principal).param("statusUpdate", "Das ist ein Test")).andExpect(view().name("stream/list"));
+		mvc.perform(post("/").principal(principal).param("statusUpdate", "Das ist ein Test").param("privacy", "friends")).andExpect(view().name("redirect:/v1/"));
 	}
 
 	private void createAndSaveUser() {

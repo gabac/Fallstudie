@@ -106,10 +106,12 @@ public class UsersController {
 		// }
 		//
 
+		User user = service.getUserByEmail(principal.getName());
+
 		boolean alreadyfriends = friendshipService.checkForFriendship(friend, myself);
 		model.addAttribute("profile", friend);
 		model.addAttribute("alreadyFriends", alreadyfriends);
-		model.addAttribute("accepedFriends", service.getAccepteFriendships(principal.getName()));
+		model.addAttribute("accepedFriends", service.getAccepteFriendships(user));
 
 		return "users/profile";
 	}
