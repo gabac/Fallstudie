@@ -156,6 +156,11 @@
             <name>Spring Framework Maven Snapshot Repository</name>
             <url>http://maven.springframework.org/snapshot</url>
         </repository>
+        <repository>
+            <id>maven.farnsworth.ch</id>
+            <name>Farnsworth</name>
+            <url>http://maven.farnsworth.ch/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -366,6 +371,12 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>1.7.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.farnsworth.urbanairship</groupId>
+            <artifactId>urbanairship-java</artifactId>
+            <version>0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
