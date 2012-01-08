@@ -40,14 +40,14 @@ public class ActivityServiceImpl implements ActivityService {
 		// make a status for the user: You are now friends with "friend"
 		Activity activity = new Activity();
 		activity.setContent(getFriendshipContent(user, friend));
-		activity.setTyp(ActivityType.FRIEND);
+		activity.setType(ActivityType.FRIEND);
 		activity.setUser(user);
 		activity.setTime(new DateTime());
 
 		// make a status for the friend: "friend" is now friends with "user"
 		Activity activity2 = new Activity();
 		activity2.setContent(getFriendshipContent(friend, user));
-		activity2.setTyp(ActivityType.FRIEND);
+		activity2.setType(ActivityType.FRIEND);
 		activity2.setUser(friend);
 		activity2.setTime(new DateTime());
 

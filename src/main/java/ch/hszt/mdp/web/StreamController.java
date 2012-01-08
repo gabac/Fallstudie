@@ -73,7 +73,7 @@ public class StreamController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String updateStatus(@Valid Activity activity, Principal principal) {
 
-		activity.setTyp(ActivityType.STATUS);
+		activity.setType(ActivityType.STATUS);
 		activity.setTime(new DateTime());
 		activity.setUser(userService.getUserByEmail(principal.getName()));
 

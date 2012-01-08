@@ -76,7 +76,7 @@ public class StreamControllerTest {
 		Activity activity = new Activity();
 		activity.setContent("test");
 		activity.setTime(new DateTime(2000, 1, 1, 0, 0, 0, 0));
-		activity.setTyp(ActivityType.PROFILE);
+		activity.setType(ActivityType.PROFILE);
 		activity.setUser(user);
 
 		user.addActivity(activity);

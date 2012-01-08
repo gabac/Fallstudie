@@ -70,12 +70,12 @@ public class Activity {
 	private String privacy;
 
 	@Transient
-	public ActivityType getActivityType() {
+	public ActivityType getType() {
 		return ActivityType.fromValue(typValue);
 	}
 
-	public void setTyp(ActivityType typ) {
-		this.typValue = typ.toValue();
+	public void setType(ActivityType type) {
+		this.typValue = type.toValue();
 	}
 
 	private String content;

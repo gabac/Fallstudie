@@ -40,7 +40,7 @@ public class ActivityDaoTest {
 		// activity.setTyp(ActivityType.PROFILE);
 		//activity.setUser_id(new User());
 		activity.setContent("test");
-		activity.setTyp(ActivityType.STATUS);
+		activity.setType(ActivityType.STATUS);
 		activity.setPrivacy("friends");
 	}
 
@@ -67,6 +67,6 @@ public class ActivityDaoTest {
 
 		Activity test = activities.get(0);
 
-		assertEquals(ActivityType.STATUS, test.getActivityType());
+		assertEquals(ActivityType.STATUS, test.getType());
 	}
 }
