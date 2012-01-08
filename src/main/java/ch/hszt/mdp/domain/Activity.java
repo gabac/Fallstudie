@@ -52,8 +52,9 @@ public class Activity {
 	}
 
 	@Id
+	@Column(name = "activity_id")
 	@GeneratedValue
-	private Integer activity_id;
+	private Integer id;
 
 	@OneToOne
 	@JoinColumn(name = "user_id")
@@ -83,12 +84,12 @@ public class Activity {
 
 	}
 
-	public Integer getActivity_id() {
-		return activity_id;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setActivity_id(Integer activity_id) {
-		this.activity_id = activity_id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getContent() {
@@ -104,8 +105,8 @@ public class Activity {
 		return user;
 	}
 
-	public void setUser(User user_id) {
-		this.user = user_id;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@JsonSerialize(using = ISODateSerializer.class)
