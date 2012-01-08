@@ -11,8 +11,11 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+
+import ch.hszt.mdp.util.ISODateSerializer;
 
 @Entity
 @Table(name = "activities")
@@ -105,6 +108,7 @@ public class Activity {
 		this.user = user_id;
 	}
 
+	@JsonSerialize(using = ISODateSerializer.class)
 	public DateTime getTime() {
 		return time;
 	}
