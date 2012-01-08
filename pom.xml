@@ -372,6 +372,11 @@
             <artifactId>gson</artifactId>
             <version>1.7.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.3</version>
+        </dependency>
 
         <dependency>
             <groupId>ch.farnsworth.urbanairship</groupId>

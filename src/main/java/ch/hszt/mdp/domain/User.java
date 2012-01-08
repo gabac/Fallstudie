@@ -21,6 +21,8 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -156,6 +158,7 @@ public class User {
 		this.email = email;
 	}
 
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -164,6 +167,7 @@ public class User {
 		this.password = password;
 	}
 
+	@JsonIgnore
 	public String getRepeat() {
 		return repeat;
 	}
@@ -204,6 +208,7 @@ public class User {
 		this.city = city;
 	}
 
+	@JsonIgnore
 	public byte[] getPhoto() {
 		return photo;
 	}
@@ -232,6 +237,7 @@ public class User {
 		this.privacyEmail = privacyEmail;
 	}
 
+	@JsonIgnore
 	public List<Friendship> getFriendships() {
 		return friendships;
 	}
@@ -240,6 +246,7 @@ public class User {
 		this.friendships = friendships;
 	}
 
+	@JsonManagedReference
 	public List<Activity> getActivities() {
 		return activities;
 	}

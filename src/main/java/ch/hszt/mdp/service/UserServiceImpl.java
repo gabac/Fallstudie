@@ -177,6 +177,7 @@ public class UserServiceImpl implements UserService {
 		Collections.sort(stream.getTodaysActivities(), new ActivityComparator());
 		Collections.sort(stream.getYesterdaysActivities(), new ActivityComparator());
 		Collections.sort(stream.getPastActivities(), new ActivityComparator());
+		Collections.sort(stream.getActivities(), new ActivityComparator());
 
 		return stream;
 	}
