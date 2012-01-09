@@ -47,7 +47,7 @@
             <div class="span-one-third">
                 <c:forEach items="${profile.activities}" var="activity">
                     <blockquote>
-                        <p class="${activity.activityType}">${activity.content}</p>
+                        <p class="${activity.type}">${activity.content}</p>
                         <small><joda:format value="${activity.time}" style="FS" /></small>
                     </blockquote>
                 </c:forEach>

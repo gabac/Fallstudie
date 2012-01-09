@@ -13,20 +13,20 @@
 <blockquote>
 
 <c:choose>
-	<c:when test="${profile eq activity.activityType}">
-		<p class="${activity.activityType}">${activity.content}</p>
+	<c:when test="${profile eq activity.type}">
+		<p class="${activity.type}">${activity.content}</p>
 	</c:when>
-	<c:when test="${status eq activity.activityType}">
-		<p class="${activity.activityType}">${activity.content}</p>
+	<c:when test="${status eq activity.type}">
+		<p class="${activity.type}">${activity.content}</p>
 	</c:when>
-	<c:when test="${friend eq activity.activityType}">
-		<p class="${activity.activityType}">${activity.content}</p>
+	<c:when test="${friend eq activity.type}">
+		<p class="${activity.type}">${activity.content}</p>
 	</c:when>
-	<c:when test="${like eq activity.activityType}">
-		<p class="${activity.activityType}">${activity.content}</p>
+	<c:when test="${like eq activity.type}">
+		<p class="${activity.type}">${activity.content}</p>
 	</c:when>
-	<c:when test="${dislike eq activity.activityType}">
-		<p class="${activity.activityType}">${activity.content}</p>
+	<c:when test="${dislike eq activity.type}">
+		<p class="${activity.type}">${activity.content}</p>
 	</c:when>
 </c:choose>
 <small>${activity.user.prename} ${activity.user.surname} - <span class="easydate" title="<joda:format value="${activity.time}" style="FS" />"><joda:format value="${activity.time}" style="FS" /></span></small>
