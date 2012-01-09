@@ -130,6 +130,10 @@ public class User {
 	@NotNull(groups = { Privacy.class })
 	private String privacyEmail;
 
+	@Column(name = "api_key")
+	@NotNull
+	private String apiKey = "";
+
 	public User() {
 
 	}
@@ -235,6 +239,14 @@ public class User {
 
 	public void setPrivacyEmail(String privacyEmail) {
 		this.privacyEmail = privacyEmail;
+	}
+
+	public String getApiKey() {
+		return apiKey;
+	}
+
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
 	}
 
 	@JsonIgnore

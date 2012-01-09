@@ -52,6 +52,7 @@ CREATE TABLE users  (
 	photo    	longblob NULL,
     privacy_profile  enum('everyone','friends') NOT NULL DEFAULT 'friends',
     privacy_email    enum('everyone','friends') NOT NULL DEFAULT 'friends',
+    api_key     varchar(255) NOT NULL,
 	PRIMARY KEY(id)
 )
 ENGINE = InnoDB
