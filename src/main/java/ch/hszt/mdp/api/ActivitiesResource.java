@@ -11,17 +11,17 @@ import ch.hszt.mdp.domain.Stream;
 import ch.hszt.mdp.service.UserService;
 
 @Controller
-@RequestMapping("/api/activity")
-public class ActivityController {
+@RequestMapping("/api/activities")
+public class ActivitiesResource {
 
 	@Autowired
 	private UserService userService;
 
-	public ActivityController() {
+	public ActivitiesResource() {
 
 	}
 
-	public ActivityController(UserService service) {
+	public ActivitiesResource(UserService service) {
 		this.userService = service;
 	}
 
