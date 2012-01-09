@@ -69,6 +69,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${maven.eclipse.war.plugin.version}</version>
+                <configuration>
+                    <packagingExcludes>META-INF/context.xml</packagingExcludes>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
