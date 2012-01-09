@@ -23,10 +23,12 @@ import javax.validation.constraints.Size;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import ch.hszt.mdp.util.ISODateSerializer;
 import ch.hszt.mdp.validation.PasswordsEqual;
 
 /**
@@ -196,6 +198,7 @@ public class User {
 		this.surname = surname;
 	}
 
+	@JsonSerialize(using = ISODateSerializer.class)
 	public DateTime getBirthdate() {
 		return birthdate;
 	}
@@ -225,6 +228,7 @@ public class User {
 		return this.photo != null;
 	}
 
+	@JsonIgnore
 	public String getPrivacyProfile() {
 		return privacyProfile;
 	}
@@ -233,6 +237,7 @@ public class User {
 		this.privacyProfile = privacyProfile;
 	}
 
+	@JsonIgnore
 	public String getPrivacyEmail() {
 		return privacyEmail;
 	}
@@ -241,6 +246,7 @@ public class User {
 		this.privacyEmail = privacyEmail;
 	}
 
+	@JsonIgnore
 	public String getApiKey() {
 		return apiKey;
 	}
