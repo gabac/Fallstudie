@@ -1,34 +1,28 @@
 package ch.hszt.mdp.api;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ch.hszt.mdp.domain.Stream;
-import ch.hszt.mdp.service.UserService;
+import ch.hszt.mdp.domain.User;
 
 @Controller
 @RequestMapping("/api/activities")
-public class ActivitiesResource {
-
-	@Autowired
-	private UserService userService;
-
-	public ActivitiesResource() {
-
-	}
-
-	public ActivitiesResource(UserService service) {
-		this.userService = service;
-	}
+public class ActivitiesResource extends Resource {
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public Stream list(Model model) {
+	public Object list(@RequestParam("api_key") String apiKey) {
 
-		return userService.getActivitiesFromFriends("fabian.vogler@bluewin.ch");
+		try {
+			User user = getUser(apiKey);
+
+			return userService.getActivitiesFromFriends(user.getEmail());
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
 	}
 }
