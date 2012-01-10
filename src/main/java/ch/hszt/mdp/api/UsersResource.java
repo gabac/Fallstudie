@@ -27,9 +27,24 @@ public class UsersResource {
 		this.userService = service;
 	}
 
+	@RequestMapping(method = RequestMethod.GET)
+	@ResponseBody
+	public Object list(Principal principal) {
+
+		try {
+
+			User user = userService.getUserByEmail(principal.getName());
+
+			return user.getFriends();
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public Object list(@PathVariable("id") int id, Principal principal) {
+	public Object get(@PathVariable("id") int id, Principal principal) {
 
 		try {
 

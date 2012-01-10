@@ -259,6 +259,18 @@ public class User {
 		return friendships;
 	}
 
+	@JsonIgnore
+	public List<User> getFriends() {
+
+		ArrayList<User> friends = new ArrayList<User>();
+
+		for (Friendship friendship : friendships) {
+			friends.add(friendship.getSecondaryUser());
+		}
+
+		return friends;
+	}
+
 	public void setFriendships(List<Friendship> friendships) {
 		this.friendships = friendships;
 	}
