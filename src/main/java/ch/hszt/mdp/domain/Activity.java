@@ -5,11 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -65,8 +67,12 @@ public class Activity {
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime time;
 
+	@ManyToOne
+	@JoinColumn(name = "parent")
+	private Activity parent;
+
 	@NotNull
-	private String privacy;
+	private String privacy = "everyone";
 
 	@Transient
 	public ActivityType getType() {
@@ -114,6 +120,15 @@ public class Activity {
 
 	public void setTime(DateTime time) {
 		this.time = time;
+	}
+
+	@JsonIgnore
+	public Activity getParent() {
+		return parent;
+	}
+
+	public void setParent(Activity parent) {
+		this.parent = parent;
 	}
 
 	public String getPrivacy() {

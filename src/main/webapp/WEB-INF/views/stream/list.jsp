@@ -26,6 +26,15 @@
         $('.accept-friendship').click(function () {
             $('#modal-friendship a').attr('href', $(this).attr('href'));
         });
+        $('.like').live('click', function () {
+            $(this).html('<a href="" class="unlike">Unlike</a>');
+            $.post('/v1/activity/' + $(this).data('id') + '/like');
+            return false;
+        });
+        $('.unlike').live('click', function () {
+            $(this).html('<a href="" class="like">Like</a>');
+            return false;
+        });
         </script>
     </jsp:attribute>
     <jsp:body>

@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ch.hszt.mdp.domain.Activity;
 import ch.hszt.mdp.service.ActivityService;
@@ -77,5 +79,14 @@ public class StreamController {
 		activityService.updateStatus(activity);
 
 		return "redirect:/v1/";
+	}
+
+	@RequestMapping(value = "activity/{id}/like", method = RequestMethod.POST)
+	@ResponseBody
+	public void like(@PathVariable("id") int id, Principal principal) {
+
+		Activity activity = activityService.getActivity(id);
+
+		activityService.like(userService.getUserByEmail(principal.getName()), activity);
 	}
 }

@@ -23,12 +23,18 @@
 		<p class="${activity.type}">${activity.content}</p>
 	</c:when>
 	<c:when test="${like eq activity.type}">
-		<p class="${activity.type}">${activity.content}</p>
+		<p class="${activity.type}">Likes «${activity.content}»</p>
 	</c:when>
 	<c:when test="${dislike eq activity.type}">
 		<p class="${activity.type}">${activity.content}</p>
 	</c:when>
 </c:choose>
-<small>${activity.user.prename} ${activity.user.surname} - <span class="easydate" title="<joda:format value="${activity.time}" style="FS" />"><joda:format value="${activity.time}" style="FS" /></span></small>
+<small>
+    <c:if test="${like ne activity.type}"><a href="" class="like" data-id="${activity.id}">Like</a> -</c:if> 
+    <span class="easydate" title="<joda:format value="${activity.time}" style="FS" />">
+        <joda:format value="${activity.time}" style="FS" />
+    </span> -
+    ${activity.user.prename} ${activity.user.surname}
+</small>
 
 </blockquote>
