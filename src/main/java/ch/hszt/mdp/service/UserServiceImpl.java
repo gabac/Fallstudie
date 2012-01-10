@@ -108,6 +108,10 @@ public class UserServiceImpl implements UserService {
 		return userDao.getUserByEmail(email);
 	}
 
+	public List<User> getUsers() {
+		return userDao.getUsers();
+	}
+
 	@Override
 	public void acceptFriend(int friendId, int id) {
 		userDao.acceptFriend(friendId, id);

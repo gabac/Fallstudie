@@ -30,4 +30,6 @@ public interface UserDao {
 	
 	public List<User> searchUser(String search, int id);
 
+	public List<User> getUsers();
+
 }

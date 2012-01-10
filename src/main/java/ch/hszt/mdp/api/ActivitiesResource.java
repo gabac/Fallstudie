@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ch.hszt.mdp.domain.Stream;
 import ch.hszt.mdp.service.UserService;
 
 @Controller
@@ -27,14 +28,8 @@ public class ActivitiesResource {
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public Object list(Principal principal) {
+	public Stream list(Principal principal) {
 
-		try {
-
-			return userService.getActivitiesFromFriends(principal.getName());
-
-		} catch (Exception e) {
-			return e.getMessage();
-		}
+		return userService.getActivitiesFromFriends(principal.getName());
 	}
 }

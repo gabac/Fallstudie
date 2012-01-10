@@ -1,6 +1,10 @@
 package ch.hszt.mdp.api;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,31 +33,29 @@ public class UsersResource {
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public Object list(Principal principal) {
+	public ArrayList<HashMap<String, String>> list(HttpServletRequest request, Principal principal) {
 
-		try {
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 
-			User user = userService.getUserByEmail(principal.getName());
+		for (User user : userService.getUsers()) {
 
-			return user.getFriends();
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("prename", user.getPrename());
+			map.put("surname", user.getSurname());
+			map.put("id", user.getId() + "");
 
-		} catch (Exception e) {
-			return e.getMessage();
+			list.add(map);
 		}
+
+		return list;
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public Object get(@PathVariable("id") int id, Principal principal) {
+	public User get(@PathVariable("id") int id, Principal principal) {
 
-		try {
+		User user = userService.getUser(id);
 
-			User user = userService.getUser(id);
-
-			return user;
-
-		} catch (Exception e) {
-			return e.getMessage();
-		}
+		return user;
 	}
 }

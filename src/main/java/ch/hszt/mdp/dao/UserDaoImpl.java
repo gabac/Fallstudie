@@ -1,13 +1,11 @@
 package ch.hszt.mdp.dao;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
-import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
 
 /**
@@ -52,69 +50,73 @@ public class UserDaoImpl extends HibernateTemplate implements UserDao {
 
 		return count > 0;
 	}
-	
+
 	/**
-	 * Accept friend by clicking on the ignore button in the GUI
-	 * Set accepted = 2 in the DB
+	 * Accept friend by clicking on the ignore button in the GUI Set accepted = 2 in the DB
+	 * 
 	 * @author Roger Bollmann
 	 */
 	public void ignoreFriend(int friendId, int id) {
-		
+
 		Query q = getSession().createQuery("update Friendship set accepted = '2' where primary_user = :id and secondary_user = :friendId");
 		q.setParameter("id", id);
 		q.setParameter("friendId", friendId);
-		
-		q.executeUpdate();
-	}
-	
-	/**
-	 * Accept friend by clicking on the accept button in the GUI
-	 * Set accepted = 1 in the DB
-	 * @author Roger Bollmann
-	 */
-	
-	public void acceptFriend(int friendId, int id) {
-		
-		Query q = getSession().createQuery("update Friendship set accepted = '1' where primary_user = :id and secondary_user = :friendId");
-		q.setParameter("id", id);
-		q.setParameter("friendId", friendId);	
-		
 
 		q.executeUpdate();
-	
 	}
-	
+
+	/**
+	 * Accept friend by clicking on the accept button in the GUI Set accepted = 1 in the DB
+	 * 
+	 * @author Roger Bollmann
+	 */
+
+	public void acceptFriend(int friendId, int id) {
+
+		Query q = getSession().createQuery("update Friendship set accepted = '1' where primary_user = :id and secondary_user = :friendId");
+		q.setParameter("id", id);
+		q.setParameter("friendId", friendId);
+
+		q.executeUpdate();
+
+	}
+
 	/**
 	 * Searching Members of the social network
-	 * @param String search and int id (User ID)
+	 * 
+	 * @param String
+	 *            search and int id (User ID)
 	 * @return list of Users
 	 */
-	
-	public List<User> searchUser(String search, int id){
-		
-		//ArrayList<Integer> userids = new ArrayList<Integer>();
+	@SuppressWarnings("unchecked")
+	public List<User> searchUser(String search, int id) {
+
+		// ArrayList<Integer> userids = new ArrayList<Integer>();
 		Query q = null;
-		
-		String [] searchUser = (search.split(" "));
-		
+
+		String[] searchUser = (search.split(" "));
+
 		for (int i = 0; i < searchUser.length; i++) {
-			q = getSession().createQuery("FROM User u where (u.email like :searchString or u.prename like :searchString or u.surname like :searchString) and u.id not in (:id)");
-			q.setParameter("searchString", "%"+searchUser[i]+"%");
+			q = getSession()
+					.createQuery(
+							"FROM User u where (u.email like :searchString or u.prename like :searchString or u.surname like :searchString) and u.id not in (:id)");
+			q.setParameter("searchString", "%" + searchUser[i] + "%");
 			q.setParameter("id", id);
 			Iterator<User> iter = q.iterate();
-			
-			
-//			while (iter.hasNext()){
-//				Integer userid = iter.next();
-//				userids.add(userid);
-//			}
-		
+
+			// while (iter.hasNext()){
+			// Integer userid = iter.next();
+			// userids.add(userid);
+			// }
+
 		}
 		return q.list();
 
 	}
 
-
-
-
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<User> getUsers() {
+		return getSession().createQuery("from User u").list();
+	}
 }

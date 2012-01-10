@@ -46,4 +46,6 @@ public interface UserService {
 	public byte[] getPhoto(int id, int size, boolean crop) throws IOException;
 
 	public void updatePrivacy(User user);
+
+	public List<User> getUsers();
 }
