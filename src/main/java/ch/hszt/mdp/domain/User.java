@@ -22,7 +22,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -264,7 +263,7 @@ public class User {
 		this.friendships = friendships;
 	}
 
-	@JsonManagedReference
+	@JsonIgnore
 	public List<Activity> getActivities() {
 		return activities;
 	}

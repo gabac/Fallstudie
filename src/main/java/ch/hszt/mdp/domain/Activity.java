@@ -10,7 +10,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -100,7 +99,6 @@ public class Activity {
 		this.content = content;
 	}
 
-	@JsonBackReference
 	public User getUser() {
 		return user;
 	}
