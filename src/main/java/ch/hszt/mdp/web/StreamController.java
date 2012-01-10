@@ -89,4 +89,13 @@ public class StreamController {
 
 		activityService.like(userService.getUserByEmail(principal.getName()), activity);
 	}
+
+	@RequestMapping(value = "activity/{id}/unlike", method = RequestMethod.POST)
+	@ResponseBody
+	public void unlike(@PathVariable("id") int id, Principal principal) {
+
+		Activity activity = activityService.getActivity(id);
+
+		activityService.unlike(userService.getUserByEmail(principal.getName()), activity);
+	}
 }

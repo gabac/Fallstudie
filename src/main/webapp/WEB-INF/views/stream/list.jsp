@@ -33,6 +33,7 @@
         });
         $('.unlike').live('click', function () {
             $(this).text('Like').attr('class', 'like');
+            $.post('/v1/activity/' + $(this).parent().data('id') + '/unlike');
             return false;
         });
         </script>

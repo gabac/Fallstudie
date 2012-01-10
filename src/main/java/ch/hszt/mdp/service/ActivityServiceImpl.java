@@ -87,6 +87,15 @@ public class ActivityServiceImpl implements ActivityService {
 		activityDao.save(activity);
 	}
 
+	public void unlike(User user, Activity parent) {
+
+		Activity activity = activityDao.getActivityByParent(parent, user);
+
+		if (activity != null) {
+			activityDao.delete(activity);
+		}
+	}
+
 	private String getFriendshipContent(User user1, User user2) {
 		return user1.getPrename() + " " + user1.getSurname() + " is now friends with " + user2.getPrename() + " " + user2.getSurname();
 	}

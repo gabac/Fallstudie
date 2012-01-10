@@ -20,4 +20,6 @@ public interface ActivityService {
 	Activity getActivity(int id);
 
 	void like(User user, Activity parent);
+
+	void unlike(User user, Activity parent);
 }
