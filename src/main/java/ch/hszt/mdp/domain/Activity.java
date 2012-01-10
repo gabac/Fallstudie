@@ -1,11 +1,14 @@
 package ch.hszt.mdp.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -70,6 +73,9 @@ public class Activity {
 	@ManyToOne
 	@JoinColumn(name = "parent")
 	private Activity parent;
+
+	@OneToMany(mappedBy = "parent")
+	private List<Activity> likes;
 
 	@NotNull
 	private String privacy = "everyone";
@@ -137,5 +143,14 @@ public class Activity {
 
 	public void setPrivacy(String privacy) {
 		this.privacy = privacy;
+	}
+
+	@JsonIgnore
+	public List<Activity> getLikes() {
+		return likes;
+	}
+
+	public void setLikes(List<Activity> likes) {
+		this.likes = likes;
 	}
 }

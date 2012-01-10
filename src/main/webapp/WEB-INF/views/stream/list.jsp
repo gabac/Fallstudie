@@ -27,12 +27,12 @@
             $('#modal-friendship a').attr('href', $(this).attr('href'));
         });
         $('.like').live('click', function () {
-            $(this).html('<a href="" class="unlike">Unlike</a>');
-            $.post('/v1/activity/' + $(this).data('id') + '/like');
+            $(this).text('Unlike').attr('class', 'unlike');
+            $.post('/v1/activity/' + $(this).parent().data('id') + '/like');
             return false;
         });
         $('.unlike').live('click', function () {
-            $(this).html('<a href="" class="like">Like</a>');
+            $(this).text('Like').attr('class', 'like');
             return false;
         });
         </script>

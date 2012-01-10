@@ -127,3 +127,8 @@ ul.flat li:first-child {
 .user-preview span.city {
     color: #ccc;
 }
+
+blockquote .likes {
+    font-size: 12px;
+    color: #ccc;
+}
