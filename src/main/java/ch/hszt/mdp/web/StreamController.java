@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ch.hszt.mdp.domain.Activity;
-import ch.hszt.mdp.domain.Activity.ActivityType;
 import ch.hszt.mdp.service.ActivityService;
 import ch.hszt.mdp.service.UserService;
 
@@ -73,8 +72,6 @@ public class StreamController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String updateStatus(@Valid Activity activity, Principal principal) {
 
-		activity.setType(ActivityType.STATUS);
-		activity.setTime(new DateTime());
 		activity.setUser(userService.getUserByEmail(principal.getName()));
 
 		activityService.updateStatus(activity);
