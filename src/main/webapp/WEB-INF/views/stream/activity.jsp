@@ -9,12 +9,22 @@
         <script>
         $('.like').live('click', function () {
             $(this).text('Unlike').attr('class', 'unlike');
-            $.post('/v1/activity/' + $(this).parent().data('id') + '/like');
+            var activity = $(this).parent();
+            $.post('/v1/activity/' + activity.data('id') + '/like', function (data) {
+                var fresh = $('blockquote', data);
+                $('.easydate', fresh).easydate();
+                activity.parent().replaceWith(fresh);
+            });
             return false;
         });
         $('.unlike').live('click', function () {
             $(this).text('Like').attr('class', 'like');
-            $.post('/v1/activity/' + $(this).parent().data('id') + '/unlike');
+            var activity = $(this).parent();
+            $.post('/v1/activity/' + activity.data('id') + '/unlike', function (data) {
+                var fresh = $('blockquote', data);
+                $('.easydate', fresh).easydate();
+                activity.parent().replaceWith(fresh);
+            });
             return false;
         });
         </script>

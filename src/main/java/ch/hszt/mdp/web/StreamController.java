@@ -82,7 +82,7 @@ public class StreamController {
 	}
 
 	@RequestMapping(value = "activity/{id}", method = RequestMethod.GET)
-	public String like(@PathVariable("id") int id, Model model, Principal principal) {
+	public String getActivity(@PathVariable("id") int id, Model model, Principal principal) {
 
 		Activity activity = activityService.getActivity(id);
 
@@ -92,20 +92,26 @@ public class StreamController {
 	}
 
 	@RequestMapping(value = "activity/{id}/like", method = RequestMethod.POST)
-	@ResponseBody
-	public void like(@PathVariable("id") int id, Principal principal) {
+	public String like(@PathVariable("id") int id, Model model, Principal principal) {
 
 		Activity activity = activityService.getActivity(id);
 
 		activityService.like(userService.getUserByEmail(principal.getName()), activity);
+
+		model.addAttribute(activity);
+
+		return "stream/activity";
 	}
 
 	@RequestMapping(value = "activity/{id}/unlike", method = RequestMethod.POST)
-	@ResponseBody
-	public void unlike(@PathVariable("id") int id, Principal principal) {
+	public String unlike(@PathVariable("id") int id, Model model, Principal principal) {
 
 		Activity activity = activityService.getActivity(id);
 
 		activityService.unlike(userService.getUserByEmail(principal.getName()), activity);
+
+		model.addAttribute(activity);
+
+		return "stream/activity";
 	}
 }
