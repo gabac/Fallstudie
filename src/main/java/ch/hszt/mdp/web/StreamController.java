@@ -81,6 +81,16 @@ public class StreamController {
 		return "redirect:/v1/";
 	}
 
+	@RequestMapping(value = "activity/{id}", method = RequestMethod.GET)
+	public String like(@PathVariable("id") int id, Model model, Principal principal) {
+
+		Activity activity = activityService.getActivity(id);
+
+		model.addAttribute(activity);
+
+		return "stream/activity";
+	}
+
 	@RequestMapping(value = "activity/{id}/like", method = RequestMethod.POST)
 	@ResponseBody
 	public void like(@PathVariable("id") int id, Principal principal) {

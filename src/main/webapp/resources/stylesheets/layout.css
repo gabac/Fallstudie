@@ -132,3 +132,12 @@ blockquote .likes {
     font-size: 12px;
     color: #ccc;
 }
+
+blockquote small .easydate {
+    color: #ccc;
+    text-decoration: none;
+}
+
+blockquote small .easydate:hover {
+    text-decoration: underline;
+}

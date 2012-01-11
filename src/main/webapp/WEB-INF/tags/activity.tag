@@ -51,9 +51,9 @@
             </c:otherwise>
         </c:choose>
     </c:if> 
-    <span class="easydate" title="<joda:format value="${activity.time}" style="FS" />">
+    <a href="/v1/activity/${activity.id}" class="easydate" title="<joda:format value="${activity.time}" style="FS" />">
         <joda:format value="${activity.time}" style="FS" />
-    </span> -
+    </a> -
     ${activity.user.prename} ${activity.user.surname}
 </small>
 
