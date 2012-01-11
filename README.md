@@ -22,6 +22,11 @@
 
 6. Ready to start hacking
 
+## Development Guidelines
+
+* Always run `mvn test` before committing
+* Development in branch `master`
+* Create a Git tag after each iteration
 
 ## Project Documentation
 
