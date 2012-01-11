@@ -1,8 +1,7 @@
 package ch.hszt.mdp.api;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,29 +32,15 @@ public class UsersResource {
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public ArrayList<HashMap<String, String>> list(HttpServletRequest request, Principal principal) {
+	public List<User> list(HttpServletRequest request, Principal principal) {
 
-		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-
-		for (User user : userService.getUsers()) {
-
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("prename", user.getPrename());
-			map.put("surname", user.getSurname());
-			map.put("id", user.getId() + "");
-
-			list.add(map);
-		}
-
-		return list;
+		return userService.getUsers();
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public User get(@PathVariable("id") int id, Principal principal) {
 
-		User user = userService.getUser(id);
-
-		return user;
+		return userService.getUser(id);
 	}
 }
