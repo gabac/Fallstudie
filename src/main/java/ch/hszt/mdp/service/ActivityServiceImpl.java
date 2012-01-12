@@ -12,6 +12,11 @@ import ch.hszt.mdp.domain.Activity.ActivityType;
 import ch.hszt.mdp.domain.User;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+/**
+ * This Service provides funtions to get Activities, Friendships and Likes/Unlikes
+ * @author Raphael Marques, Roger Bollmann, Cyril Gabathuler
+ * @param activityDao Data Access Object for Activities
+ */
 public class ActivityServiceImpl implements ActivityService {
 
 	private ActivityDao activityDao;
@@ -23,7 +28,9 @@ public class ActivityServiceImpl implements ActivityService {
 	public List<Activity> getActivities() {
 		return activityDao.getActivities();
 	}
-
+	/**
+	 * This method creates an activity and saves it to the database. 
+	 */
 	public void create(Activity activity) {
 		activityDao.save(activity);
 	}
@@ -56,7 +63,10 @@ public class ActivityServiceImpl implements ActivityService {
 		activityDao.save(activity2);
 
 	}
-
+	/**
+	 * This method saves and updates the activity (subtype status). 
+	 * @param activity
+	 */
 	public void updateStatus(Activity activity) {
 
 		activity.setType(ActivityType.STATUS);
@@ -68,7 +78,11 @@ public class ActivityServiceImpl implements ActivityService {
 	public Activity getActivity(int id) {
 		return activityDao.getActivity(id);
 	}
-
+	/**
+	 * This method saves and updates the activity (subtype "dislike")
+	 * @param user the user that iniciated a like/dislike
+	 * @param parent the activity, which is "rated"
+	 */
 	public void like(User user, Activity parent) {
 
 		Activity activity = activityDao.getActivityByParent(parent, user);
@@ -86,7 +100,11 @@ public class ActivityServiceImpl implements ActivityService {
 
 		activityDao.save(activity);
 	}
-
+	/**
+	 * This method removes the activity (subtype "like")
+	 * @param user the user that iniciated a like/dislike
+	 * @param parent the activity, which is "rated"
+	 */
 	public void unlike(User user, Activity parent) {
 
 		Activity activity = activityDao.getActivityByParent(parent, user);
@@ -95,7 +113,12 @@ public class ActivityServiceImpl implements ActivityService {
 			activityDao.delete(activity);
 		}
 	}
-
+	/**
+	 * This Method get the String "<user1> is now friends with <user2>
+	 * @param user1
+	 * @param user2
+	 * @return gives the string "<user1> is now friends with <user2> back
+	 */
 	private String getFriendshipContent(User user1, User user2) {
 		return user1.getPrename() + " " + user1.getSurname() + " is now friends with " + user2.getPrename() + " " + user2.getSurname();
 	}
