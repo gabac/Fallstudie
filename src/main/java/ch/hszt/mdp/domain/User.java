@@ -131,7 +131,7 @@ public class User {
 	@NotNull(groups = { Privacy.class })
 	private String privacyEmail;
 
-	@Column(name = "deviceToken")
+	@Column(name = "device_token")
 	@NotNull
 	private String deviceToken = "";
 
