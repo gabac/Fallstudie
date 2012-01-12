@@ -8,6 +8,7 @@ import ch.hszt.mdp.domain.User;
  * This class provides functions for handling friendships 
  * @author Roger Bollmann, Raphael Marques
  * @param friendshipDao Data Access Object for FriendShip Object.
+ * @param pushNotificationiOSService push notification for iPhone/iPad App
  */
 public class FriendshipServiceImpl implements FriendshipService {
 
@@ -23,6 +24,9 @@ public class FriendshipServiceImpl implements FriendshipService {
 	public void setPushNotifictioniOSService(PushNotificationService pushNotifictioniOSService) {
 		this.pushNotifictioniOSService = pushNotifictioniOSService;
 	}
+	/**
+	 * @author Gaba
+	 */
 	
 	public boolean askForFriendship(User friend, User user) throws NullPointerException {
 
@@ -44,7 +48,12 @@ public class FriendshipServiceImpl implements FriendshipService {
 			return true;
 		}
 	}
-
+	/**
+	 * A sipmple boolean method to find out, if 2 users are friends or not.
+	 * @param friend User1
+	 * @param user User 2
+	 * @return boolean if User1 and User2 are friends, true.
+	 */
 	public boolean checkForFriendship(User friend, User user) {
 		return friendshipDao.checkFriendship(friend, user);
 	}
