@@ -10,13 +10,12 @@ import ch.hszt.mdp.dao.ActivityDao;
 import ch.hszt.mdp.domain.Activity;
 import ch.hszt.mdp.domain.Activity.ActivityType;
 import ch.hszt.mdp.domain.User;
-
-@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 /**
  * This Service provides funtions to get Activities, Friendships and Likes/Unlikes
  * @author Raphael Marques, Roger Bollmann, Cyril Gabathuler
  * @param activityDao Data Access Object for Activities
  */
+@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class ActivityServiceImpl implements ActivityService {
 
 	private ActivityDao activityDao;

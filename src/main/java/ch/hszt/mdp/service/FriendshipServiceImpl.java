@@ -5,9 +5,9 @@ import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
 
 /**
- * This class provides functions for handling friendships
+ * This class provides functions for handling friendships 
  * @author Roger Bollmann, Raphael Marques
- *
+ * @param friendshipDao Data Access Object for FriendShip Object.
  */
 public class FriendshipServiceImpl implements FriendshipService {
 
