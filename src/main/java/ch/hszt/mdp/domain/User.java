@@ -131,9 +131,9 @@ public class User {
 	@NotNull(groups = { Privacy.class })
 	private String privacyEmail;
 
-	@Column(name = "api_key")
+	@Column(name = "deviceToken")
 	@NotNull
-	private String apiKey = "";
+	private String deviceToken = "";
 
 	public User() {
 
@@ -246,12 +246,12 @@ public class User {
 	}
 
 	@JsonIgnore
-	public String getApiKey() {
-		return apiKey;
+	public String getDeviceToken() {
+		return deviceToken;
 	}
 
-	public void setApiKey(String apiKey) {
-		this.apiKey = apiKey;
+	public void setDeviceToken(String deviceToken) {
+		this.deviceToken = deviceToken;
 	}
 
 	@JsonIgnore
