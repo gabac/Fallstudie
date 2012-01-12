@@ -4,6 +4,11 @@ import ch.hszt.mdp.dao.FriendshipDao;
 import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
 
+/**
+ * This class provides functions for handling friendships
+ * @author Roger Bollmann, Raphael Marques
+ *
+ */
 public class FriendshipServiceImpl implements FriendshipService {
 
 	private FriendshipDao friendshipDao;
