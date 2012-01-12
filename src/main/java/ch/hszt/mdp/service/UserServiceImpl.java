@@ -73,9 +73,6 @@ public class UserServiceImpl implements UserService {
 			user.setPassword(password);
 			user.setRepeat(password);
 
-			// set random API key
-			user.setApiKey(sha1(Math.random() + ""));
-
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
