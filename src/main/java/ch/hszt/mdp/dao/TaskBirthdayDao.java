@@ -23,7 +23,7 @@ public class TaskBirthdayDao {
 		
 		for (User friend : friends) {
 			activity.setContent("HAPPY BIRTHDAY");
-			activity.setTyp(ActivityType.STATUS);
+			activity.setType(ActivityType.STATUS);
 			activity.setUser(friend);
 			
 			activityService.create(activity);
