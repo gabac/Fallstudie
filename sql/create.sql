@@ -11,6 +11,7 @@ CREATE TABLE activities  (
 	parent     	int(11) NULL,
 	time       	datetime NOT NULL,
 	content    	text NULL,
+    privacy     enum('everyone','friends') NOT NULL DEFAULT 'friends',
 	PRIMARY KEY(activity_id)
 )
 ENGINE = InnoDB
@@ -51,6 +52,7 @@ CREATE TABLE users  (
 	photo    	longblob NULL,
     privacy_profile  enum('everyone','friends') NOT NULL DEFAULT 'friends',
     privacy_email    enum('everyone','friends') NOT NULL DEFAULT 'friends',
+    device_token     varchar(255) NOT NULL,
 	PRIMARY KEY(id)
 )
 ENGINE = InnoDB
@@ -99,7 +101,7 @@ INSERT INTO users(id, email, password, prename, surname, birthdate, city, photo)
 INSERT INTO users(id, email, password, prename, surname, birthdate, city, photo)
   VALUES(2, 'roger.bollmann@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Roger', 'Bollmann', '1922-12-31', 'Uster', '');
 INSERT INTO users(id, email, password, prename, surname, birthdate, city, photo)
-  VALUES(3, 'gabathuler@bluewineriani.do', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Cyril', 'Gaba', '1711-09-30', 'Baden', '');
+  VALUES(3, 'gabathuler@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Cyril', 'Gaba', '1711-09-30', 'Baden', '');
 INSERT INTO users(id, email, password, prename, surname, birthdate, city, photo)
   VALUES(4, 'fabian.vogler@bluewin.ch', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Fabian', 'Vogler', '1989-01-01', 'Baden', '');
 

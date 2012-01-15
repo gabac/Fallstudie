@@ -106,10 +106,12 @@ public class UsersController {
 		// }
 		//
 
+		User user = service.getUserByEmail(principal.getName());
+
 		boolean alreadyfriends = friendshipService.checkForFriendship(friend, myself);
 		model.addAttribute("profile", friend);
 		model.addAttribute("alreadyFriends", alreadyfriends);
-		model.addAttribute("accepedFriends", service.getAccepteFriendships(principal.getName()));
+		model.addAttribute("accepedFriends", service.getAccepteFriendships(user));
 
 		return "users/profile";
 	}
@@ -310,7 +312,7 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "{id}/privacy", method = RequestMethod.POST)
-	public String savePrivacy(@Validated({ User.Privacy.class }) @ModelAttribute("profile") User user, Model model, BindingResult result,
+	public String savePrivacy(@Validated(User.Privacy.class) @ModelAttribute("profile") User user, Model model, BindingResult result,
 			RedirectAttributes redirectAttributes) {
 
 		if (result.hasErrors()) {

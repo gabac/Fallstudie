@@ -58,6 +58,13 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    <jsp-config>
+        <taglib>
+            <taglib-uri>http://social.farnsworth.ch/tags/likes</taglib-uri>
+            <taglib-location>/WEB-INF/likes.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Resources</web-resource-name>

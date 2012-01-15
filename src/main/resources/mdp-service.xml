@@ -7,6 +7,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-3.0.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+<<<<<<< HEAD
 http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
@@ -137,5 +138,87 @@ http://www.springframework.org/schema/task http://www.springframework.org/schema
 			<aop:around pointcut-ref="callTreePointcutHDHData" method="loggingOperation" />
 		</aop:aspect>
 	</aop:config>
+=======
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <context:annotation-config />
+    <context:component-scan base-package="ch.hszt.mdp.domain" />
+
+    <bean class="ch.hszt.mdp.web.UserListener" id="userListener"></bean>
+
+    <bean id="userService" class="ch.hszt.mdp.service.UserServiceImpl">
+        <property name="userDao" ref="userDao" />
+        <property name="activityService" ref="activityService" />
+    </bean>
+
+    <bean id="activityService" class="ch.hszt.mdp.service.ActivityServiceImpl">
+        <property name="activityDao" ref="activityDao" />
+    </bean>
+    
+    <bean id="friendshipService" class="ch.hszt.mdp.service.FriendshipServiceImpl">
+        <property name="friendshipDao" ref="friendshipDao" />
+        <property name="pushNotifictioniOSService" ref="pushNotifictioniOSService" />
+    </bean>
+    
+    <bean id="pushNotifictioniOSService" class="ch.hszt.mdp.service.PushNotificationiOSServiceImpl">
+    </bean>
+
+    <bean id="userDao" class="ch.hszt.mdp.dao.UserDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="friendshipDao" class="ch.hszt.mdp.dao.FriendshipDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="activityDao" class="ch.hszt.mdp.dao.ActivityDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="hibernateTxManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <tx:annotation-driven transaction-manager="hibernateTxManager" />
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="annotatedClasses">
+            <list>
+                <value>ch.hszt.mdp.domain.User</value>
+                <value>ch.hszt.mdp.domain.Activity</value>
+                <value>ch.hszt.mdp.domain.Friendship</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.use_sql_comments">true</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
+                <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <prop key="hibernate.generate_statistics">false</prop>
+                <prop key="hibernate.cache.use_structured_entries">false</prop>
+                <prop key="hibernate.connection.isolation">2</prop>
+            </props>
+        </property>
+        <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="jdbc/JDBCDataSource"></property>
+        <property name="resourceRef" value="true"></property>
+    </bean>
+
+    <!-- aspect to display a call-tree on the console -->
+    <bean id="callTreeCollector" class="ch.hszt.mdp.util.IndentedLogging" />
+
+    <aop:config>
+        <aop:aspect id="callTreeHDHDataAop" ref="callTreeCollector">
+            <aop:pointcut id="callTreePointcutHDHData" expression="execution(* ch.hszt.mdp.service.*.*(..))" />
+            <aop:around pointcut-ref="callTreePointcutHDHData" method="loggingOperation" />
+        </aop:aspect>
+    </aop:config>
+>>>>>>> e10d9606cb2e9c5afe5b1fd788941ba394c6f79d
 
 </beans>

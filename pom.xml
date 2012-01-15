@@ -63,6 +63,7 @@
 		<netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
 	</properties>
 
+<<<<<<< HEAD
 	<build>
 		<plugins>
 			<plugin>
@@ -131,6 +132,79 @@
 			</plugin>
 		</plugins>
 	</build>
+=======
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven.eclipse.war.plugin.version}</version>
+                <configuration>
+                    <packagingExcludes>META-INF/context.xml</packagingExcludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>${maven.eclipse.plugin.version}</version>
+                <configuration>
+                    <wtpmanifest>true</wtpmanifest>
+                    <wtpapplicationxml>true</wtpapplicationxml>
+                    <wtpversion>2.0</wtpversion>
+                    <wtpContextName>/</wtpContextName>
+                    <additionalBuildcommands>
+                        <buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
+                        <buildcommand>org.eclipse.wst.common.project.facet.core.builder</buildcommand>
+                        <buildcommand>com.ibm.etools.links.management.linksbuilder</buildcommand>
+                        <buildcommand>org.eclipse.wst.validation.validationbuilder</buildcommand>
+                        <buildcommand>com.ibm.etools.webtools.validation.jsp.jspcompilationbuilder</buildcommand>
+                    </additionalBuildcommands>
+                    <additionalProjectnatures>
+                        <projectnature>org.eclipse.wst.common.project.facet.core.nature</projectnature>
+                        <projectnature>org.eclipse.jdt.core.javanature</projectnature>
+                        <projectnature>org.eclipse.wst.common.modulecore.ModuleCoreNature</projectnature>
+                        <projctnature>org.eclipse.jem.workbench.JavaEMFNature</projctnature>
+                    </additionalProjectnatures>
+                    <additionalProjectFacets>
+                        <jst.web>2.5</jst.web>
+                    </additionalProjectFacets>
+                    <classpathContainers>
+                        <classpathContainer>org.eclipse.jst.j2ee.internal.web.container</classpathContainer>
+                        <classpathContainer>org.eclipse.jst.j2ee.internal.module.container</classpathContainer>
+                    </classpathContainers>
+                    <ajdtVersion>none</ajdtVersion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <formats>
+                        <format>xml</format>
+                    </formats>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>cobertura</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+>>>>>>> e10d9606cb2e9c5afe5b1fd788941ba394c6f79d
 
 	<reporting>
 		<plugins>
@@ -150,6 +224,7 @@
 		</plugins>
 	</reporting>
 
+<<<<<<< HEAD
 	<repositories>
 		<repository>
 			<id>repository.springframework.maven.snapshot</id>
@@ -157,6 +232,20 @@
 			<url>http://maven.springframework.org/snapshot</url>
 		</repository>
 	</repositories>
+=======
+    <repositories>
+        <repository>
+            <id>repository.springframework.maven.snapshot</id>
+            <name>Spring Framework Maven Snapshot Repository</name>
+            <url>http://maven.springframework.org/snapshot</url>
+        </repository>
+        <repository>
+            <id>maven.farnsworth.ch</id>
+            <name>Farnsworth</name>
+            <url>http://maven.farnsworth.ch/</url>
+        </repository>
+    </repositories>
+>>>>>>> e10d9606cb2e9c5afe5b1fd788941ba394c6f79d
 
 	<dependencies>
 		<!-- Spring framework -->
@@ -280,6 +369,7 @@
 			<version>4.2.0.Final</version>
 		</dependency>
 
+<<<<<<< HEAD
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -363,5 +453,106 @@
 			<version>1.6.1</version>
 		</dependency>
 	</dependencies>
+=======
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.18</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jmock</groupId>
+            <artifactId>jmock-junit4</artifactId>
+            <version>${org.jmock.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit-dep</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+        </dependency>
+        <dependency>
+            <groupId>javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.12.1.GA</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time-hibernate</artifactId>
+            <version>1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time-jsptags</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.imgscalr</groupId>
+            <artifactId>imgscalr-lib</artifactId>
+            <version>4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test-mvc</artifactId>
+            <version>1.0.0.BUILD-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>1.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.farnsworth.urbanairship</groupId>
+            <artifactId>urbanairship-java</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+>>>>>>> e10d9606cb2e9c5afe5b1fd788941ba394c6f79d
 
 </project>

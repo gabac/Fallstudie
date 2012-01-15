@@ -27,7 +27,7 @@ public interface UserService {
 
 	User getUser(int id);
 
-	List<Friendship> getAccepteFriendships(String email);
+	List<Friendship> getAccepteFriendships(User user);
 
 	List<Friendship> getUnaccepteFriendships(String email);
 
@@ -46,4 +46,6 @@ public interface UserService {
 	public byte[] getPhoto(int id, int size, boolean crop) throws IOException;
 
 	public void updatePrivacy(User user);
+
+	public List<User> getUsers();
 }

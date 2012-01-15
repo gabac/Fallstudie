@@ -8,13 +8,18 @@ import ch.hszt.mdp.domain.User;
 
 public interface ActivityService {
 	List<Activity> getActivities();
-	
+
 	void create(Activity activity);
-	
+
 	void setActivityDao(ActivityDao activityDao);
-	
+
 	void acceptFriendship(User friend, User user);
-	
-	void updateStatus(User user, String status);
-	
+
+	void updateStatus(Activity activity);
+
+	Activity getActivity(int id);
+
+	void like(User user, Activity parent);
+
+	void unlike(User user, Activity parent);
 }

@@ -141,20 +141,10 @@ public class UserServiceTest {
 
 	@Test
 	public void testAcceptedFriends() {
-		final UserDao dao = context.mock(UserDao.class);
-		final User user = TestObjects.getUser();
 
-		// define expectations
-		context.checking(new Expectations() {
-			{
-				one(dao).getUserByEmail("gabathuler@gmail.com");
-				will(returnValue(user));
-			}
-		});
+		User user = TestObjects.getUser();
 
-		service.setUserDao(dao);
-
-		assertTrue(service.getAccepteFriendships(TestObjects.getUser().getEmail()).size() > 0);
+		assertTrue(service.getAccepteFriendships(user).size() > 0);
 
 	}
 

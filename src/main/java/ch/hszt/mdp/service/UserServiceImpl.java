@@ -14,14 +14,12 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import org.imgscalr.Scalr;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ch.hszt.mdp.dao.FriendshipDao;
 import ch.hszt.mdp.dao.UserDao;
-import ch.hszt.mdp.domain.Activity;
 import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.Stream;
 import ch.hszt.mdp.domain.User;
@@ -107,6 +105,10 @@ public class UserServiceImpl implements UserService {
 		return userDao.getUserByEmail(email);
 	}
 
+	public List<User> getUsers() {
+		return userDao.getUsers();
+	}
+
 	@Override
 	public void acceptFriend(int friendId, int id) {
 		userDao.acceptFriend(friendId, id);
@@ -130,9 +132,8 @@ public class UserServiceImpl implements UserService {
 		userDao.ignoreFriend(friendId, id);
 	}
 
-	public List<Friendship> getAccepteFriendships(String email) {
+	public List<Friendship> getAccepteFriendships(User user) {
 
-		User user = getUserByEmail(email);
 		List<Friendship> acceptedFriends = new ArrayList<Friendship>();
 
 		for (Friendship friend : user.getFriendships()) {
@@ -163,34 +164,24 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public Stream getActivitiesFromFriends(String email) {
-		List<Friendship> friends = getAccepteFriendships(email);
 
-		DateTime now = new DateTime();
-
-		DateTime startOfToday = now.toDateMidnight().toInterval().getStart();
-		DateTime endOfToday = now.toDateMidnight().toInterval().getEnd();
-		DateTime startOfYesterDay = now.minusDays(1).toDateMidnight().toInterval().getStart();
+		User user = getUserByEmail(email);
+		List<Friendship> friends = getAccepteFriendships(user);
 
 		Stream stream = new Stream();
 
+		stream.addActivites(user.getActivities());
+
 		for (Friendship friend : friends) {
 
-			for (Activity activity : friend.getSecondaryUser().getActivities()) {
-				if (activity.getTime().isAfter(startOfToday) && activity.getTime().isBefore(endOfToday)) {
-					stream.addTodaysActivity(activity);
-				} else if (activity.getTime().isBefore(startOfToday) && activity.getTime().isAfter(startOfYesterDay)) {
-					stream.addYesterdaysActivities(activity);
-				} else {
-					stream.addPastActivities(activity);
-				}
-
-			}
-
-			// sort the activities descending
-			Collections.sort(stream.getTodaysActivities(), new ActivityComparator());
-			Collections.sort(stream.getYesterdaysActivities(), new ActivityComparator());
-			Collections.sort(stream.getPastActivities(), new ActivityComparator());
+			stream.addActivites(friend.getSecondaryUser().getActivities());
 		}
+
+		// sort the activities descending
+		Collections.sort(stream.getTodaysActivities(), new ActivityComparator());
+		Collections.sort(stream.getYesterdaysActivities(), new ActivityComparator());
+		Collections.sort(stream.getPastActivities(), new ActivityComparator());
+		Collections.sort(stream.getActivities(), new ActivityComparator());
 
 		return stream;
 	}

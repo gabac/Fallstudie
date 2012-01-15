@@ -21,10 +21,13 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import ch.hszt.mdp.util.ISODateSerializer;
 import ch.hszt.mdp.validation.PasswordsEqual;
 
 /**
@@ -128,6 +131,10 @@ public class User {
 	@NotNull(groups = { Privacy.class })
 	private String privacyEmail;
 
+	@Column(name = "device_token")
+	@NotNull
+	private String deviceToken = "";
+
 	public User() {
 
 	}
@@ -156,6 +163,7 @@ public class User {
 		this.email = email;
 	}
 
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -164,6 +172,7 @@ public class User {
 		this.password = password;
 	}
 
+	@JsonIgnore
 	public String getRepeat() {
 		return repeat;
 	}
@@ -188,6 +197,7 @@ public class User {
 		this.surname = surname;
 	}
 
+	@JsonSerialize(using = ISODateSerializer.class)
 	public DateTime getBirthdate() {
 		return birthdate;
 	}
@@ -204,6 +214,7 @@ public class User {
 		this.city = city;
 	}
 
+	@JsonIgnore
 	public byte[] getPhoto() {
 		return photo;
 	}
@@ -216,6 +227,7 @@ public class User {
 		return this.photo != null;
 	}
 
+	@JsonIgnore
 	public String getPrivacyProfile() {
 		return privacyProfile;
 	}
@@ -224,6 +236,7 @@ public class User {
 		this.privacyProfile = privacyProfile;
 	}
 
+	@JsonIgnore
 	public String getPrivacyEmail() {
 		return privacyEmail;
 	}
@@ -232,14 +245,37 @@ public class User {
 		this.privacyEmail = privacyEmail;
 	}
 
+	@JsonIgnore
+	public String getDeviceToken() {
+		return deviceToken;
+	}
+
+	public void setDeviceToken(String deviceToken) {
+		this.deviceToken = deviceToken;
+	}
+
+	@JsonIgnore
 	public List<Friendship> getFriendships() {
 		return friendships;
+	}
+
+	@JsonIgnore
+	public List<User> getFriends() {
+
+		ArrayList<User> friends = new ArrayList<User>();
+
+		for (Friendship friendship : friendships) {
+			friends.add(friendship.getSecondaryUser());
+		}
+
+		return friends;
 	}
 
 	public void setFriendships(List<Friendship> friendships) {
 		this.friendships = friendships;
 	}
 
+	@JsonIgnore
 	public List<Activity> getActivities() {
 		return activities;
 	}

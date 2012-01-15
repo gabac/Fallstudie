@@ -42,7 +42,7 @@ public class ActivityServiceTest {
 		service.setActivityDao(dao);
 		service.create(activity);
 
-		assertEquals(ActivityType.PROFILE.toString(), activity.getActivityType().toString());
+		assertEquals(ActivityType.PROFILE.toString(), activity.getType().toString());
 	}
 
 	@Test
@@ -60,21 +60,21 @@ public class ActivityServiceTest {
 		service.setActivityDao(dao);
 		service.create(activity);
 
-		assertEquals(ActivityType.STATUS.toString(), activity.getActivityType().toString());
+		assertEquals(ActivityType.STATUS.toString(), activity.getType().toString());
 		assertEquals("Das ist ein Test", activity.getContent());
 	}
 
 	private Activity getActivity() {
 
 		Activity activity = new Activity();
-		activity.setTyp(ActivityType.PROFILE);
+		activity.setType(ActivityType.PROFILE);
 
 		return activity;
 	}
 
 	private Activity getStatusActivity() {
 		Activity activity = new Activity();
-		activity.setTyp(ActivityType.STATUS);
+		activity.setType(ActivityType.STATUS);
 		activity.setContent("Das ist ein Test");
 
 		return activity;
