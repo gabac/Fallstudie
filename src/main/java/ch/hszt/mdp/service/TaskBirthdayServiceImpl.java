@@ -28,9 +28,9 @@ public class TaskBirthdayServiceImpl extends QuartzJobBean{
 
 	protected void executeInternal(JobExecutionContext arg0)
 			throws JobExecutionException {
+		User emailUser = service.getUserByEmail(email);
 		
-		
-		List<Friendship> friends= service.getAccepteFriendships(email);
+		List<Friendship> friends= service.getAccepteFriendships(emailUser);
 		List<User> users = new ArrayList<User>();
 		
 		for (Friendship friend:friends){
