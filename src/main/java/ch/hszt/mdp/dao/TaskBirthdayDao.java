@@ -11,9 +11,13 @@ public class TaskBirthdayDao {
 	
 	private Activity activity;
 	private ActivityService activityService;
+	/**
+	 * Post a Happy Birthday to a friend
+	 */
 	
 	public TaskBirthdayDao(){
 	}
+	
 	
 	public TaskBirthdayDao(Activity activity){
 		this.activity=activity;

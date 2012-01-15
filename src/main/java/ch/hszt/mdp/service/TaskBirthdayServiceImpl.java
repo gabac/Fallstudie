@@ -25,7 +25,11 @@ public class TaskBirthdayServiceImpl extends QuartzJobBean{
 		this.email=email;
 	}
 
-
+	/**
+	 * Compare Users Birthday with today
+	 * and post a "Happy Birthday" for all User who has his Birthday today
+	 */
+	
 	protected void executeInternal(JobExecutionContext arg0)
 			throws JobExecutionException {
 		User emailUser = service.getUserByEmail(email);
@@ -33,6 +37,7 @@ public class TaskBirthdayServiceImpl extends QuartzJobBean{
 		List<Friendship> friends= service.getAccepteFriendships(emailUser);
 		List<User> users = new ArrayList<User>();
 		
+		//Compare the Users Birthday with today
 		for (Friendship friend:friends){
 			if (friend.getSecondaryUser().getBirthdate().isEqualNow()){
 				User user = service.getUser(friend.getSecondaryUser().getId());
