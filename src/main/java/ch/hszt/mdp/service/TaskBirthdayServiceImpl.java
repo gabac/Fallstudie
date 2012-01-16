@@ -3,9 +3,7 @@ package ch.hszt.mdp.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.springframework.scheduling.quartz.QuartzJobBean;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import ch.hszt.mdp.dao.TaskBirthdayDao;
@@ -13,12 +11,15 @@ import ch.hszt.mdp.domain.Friendship;
 import ch.hszt.mdp.domain.User;
 
 @Service
-public class TaskBirthdayServiceImpl extends QuartzJobBean{
+public class TaskBirthdayServiceImpl{
 	
 	private TaskBirthdayDao taskBirthdayDao;
 	private String email;
 	private UserService service;
 	
+	
+	public TaskBirthdayServiceImpl(){
+	}
 	
 	public TaskBirthdayServiceImpl(TaskBirthdayDao taskBirthdayDao, String email){
 		this.taskBirthdayDao = taskBirthdayDao;
@@ -29,23 +30,23 @@ public class TaskBirthdayServiceImpl extends QuartzJobBean{
 	 * Compare Users Birthday with today
 	 * and post a "Happy Birthday" for all User who has his Birthday today
 	 */
-	
-	protected void executeInternal(JobExecutionContext arg0)
-			throws JobExecutionException {
-		User emailUser = service.getUserByEmail(email);
+	public void sayHappyBirthday() {
+//		User emailUser = service.getUserByEmail(email);
+//		
+//		List<Friendship> friends= service.getAccepteFriendships(emailUser);
+//		List<User> users = new ArrayList<User>();
+//		
+//		//Compare the Users Birthday with today
+//		for (Friendship friend:friends){
+//			if (friend.getSecondaryUser().getBirthdate().isEqualNow()){
+//				User user = service.getUser(friend.getSecondaryUser().getId());
+//				users.add(user);
+//			}
+//		}
+//		
+//		taskBirthdayDao.postHappyBirthday(users);
 		
-		List<Friendship> friends= service.getAccepteFriendships(emailUser);
-		List<User> users = new ArrayList<User>();
-		
-		//Compare the Users Birthday with today
-		for (Friendship friend:friends){
-			if (friend.getSecondaryUser().getBirthdate().isEqualNow()){
-				User user = service.getUser(friend.getSecondaryUser().getId());
-				users.add(user);
-			}
-		}
-		
-		taskBirthdayDao.postHappyBirthday(users);
+		System.out.println("here we go");
 		
 	}
 }
