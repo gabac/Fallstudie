@@ -30,11 +30,18 @@ http://www.springframework.org/schema/task http://www.springframework.org/schema
 		<property name="friendshipDao" ref="friendshipDao" />
 	</bean>
     
-    <bean id="taskBirthdayService" class="ch.hszt.mdp.service.TaskBirthdayServiceImpl" />
+    <bean id="taskBirthdayService" class="ch.hszt.mdp.service.TaskBirthdayServiceImpl">
+	 <property name="taskBirthdayDao" ref="taskBirthdayDao" />
+	 <property name="userService" ref="userService" />
+	</bean>
 
 	<bean id="userDao" class="ch.hszt.mdp.dao.UserDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	<bean id="taskBirthdayDao" class="ch.hszt.mdp.dao.TaskBirthdayDaoImpl" />
+	<!--  	<property name="sessionFactory" ref="sessionFactory" />
+	</bean>-->
 
 	<bean id="friendshipDao" class="ch.hszt.mdp.dao.FriendshipDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
