@@ -70,17 +70,17 @@ select `socialnetwork`.`users`.`email` AS `email`,'user' AS `role` from `socialn
 
 
 INSERT INTO activities(activity_id, user_id, typ, parent, time, content)
-  VALUES(1, 1, 'status', NULL, '2011-12-01 12:22:33.0', 'Ich bin mÃ¼de!*:â€¦?');
+  VALUES(1, 1, 'status', NULL, '2011-12-01 12:22:33.0', 'Ich bin müde!*:â€¦?');
 INSERT INTO activities(activity_id, user_id, typ, parent, time, content)
   VALUES(2, 3, 'status', 1, '2011-12-01 12:22:44.0', 'Du bist aber ein Waschlappen oder etwa nicht? wie viel Zeichen kann ich hier wohl fÃ¼llen????? wer weiss!!!!!!');
 INSERT INTO activities(activity_id, user_id, typ, parent, time, content)
-  VALUES(3, 1, 'friend', NULL, '2011-12-01 12:22:33.0', 'Raphael Marques hat Roger Bollmann als Freund hinzugefÃ¼gt.');
+  VALUES(3, 1, 'friend', NULL, '2011-12-01 12:22:33.0', 'Raphael Marques hat Roger Bollmann als Freund hinzugefügt.');
 INSERT INTO activities(activity_id, user_id, typ, parent, time, content)
   VALUES(4, 2, 'status', NULL, '2011-11-20 12:22:33.0', 'Ich heisse Cyril und bin super(denke ich zumindest)!');
 INSERT INTO activities(activity_id, user_id, typ, parent, time, content)
-  VALUES(5, 4, 'profile', NULL, '2011-10-20 12:22:33.0', 'Ich habe mein Name zu FÃ¤be geÃ¤dertÃ¶Ã¼');
+  VALUES(5, 4, 'profile', NULL, '2011-10-20 12:22:33.0', 'Ich habe mein Name zu Fäbe geändert');
 INSERT INTO activities(activity_id, user_id, typ, parent, time, content)
-  VALUES(6, 2, 'status', NULL, '2011-11-20 12:21:33.0', 'Ich bin so doof, ich kÃ¶nnte eine Kuh essen');
+  VALUES(6, 2, 'status', NULL, '2011-11-20 12:21:33.0', 'Ich bin so doof, ich könnte eine Kuh essen');
 INSERT INTO activities(activity_id, user_id, typ, parent, time, content)
   VALUES(7, 2, 'status', 2, '2011-11-23 13:22:22.0', 'Ich kommentiere gerne Kommentare');
 INSERT INTO friendship(primary_user, secondary_user, accepted)
@@ -97,7 +97,7 @@ INSERT INTO friendship(primary_user, secondary_user, accepted)
   VALUES(3, 4, 1);
   
 INSERT INTO users(id, email, password, prename, surname, birthdate, city, photo)
-  VALUES(1, 'raphi.rm@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Raphael', 'Marques', '1988-09-16', 'Zï¿½rich', '');
+  VALUES(1, 'raphi.rm@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Raphael', 'Marques', '1988-09-16', 'Zürich', '');
 INSERT INTO users(id, email, password, prename, surname, birthdate, city, photo)
   VALUES(2, 'roger.bollmann@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Roger', 'Bollmann', '1922-12-31', 'Uster', '');
 INSERT INTO users(id, email, password, prename, surname, birthdate, city, photo)
