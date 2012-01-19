@@ -277,7 +277,7 @@ public class UsersController {
 
 		redirectAttributes.addFlashAttribute("message", friend.getPrename() + " has been asked for a friendship.");
 
-		return "redirect:/v1/users/" + id;
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "search", method = RequestMethod.GET)
